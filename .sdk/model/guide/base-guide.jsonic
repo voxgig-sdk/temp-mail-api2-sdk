@@ -1,0 +1,27 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 5
+  metrics: count: method: 5
+
+  entity: temporary_email: {
+    path: "/temp-mail/domains": {
+      op: load: method: *GET
+    }
+    path: "/temp-mail/generate": {
+      op: create: method: *POST
+    }
+    path: "/temp-mail/{email}/delete": {
+      op: remove: method: *DELETE
+    }
+    path: "/temp-mail/{email}/inbox": {
+      op: load: method: *GET
+    }
+    path: "/temp-mail/{email}/messages/{messageId}": {
+      rename: param: "messageId": *"message_id"
+      op: load: method: *GET
+    }
+  }
+
+}

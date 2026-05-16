@@ -1,0 +1,53 @@
+# BasicTemporaryEmailFlow
+
+main: kit: flow: BasicTemporaryEmailFlow:
+{
+  entity: "temporary_email",
+  kind: "basic",
+  name: "BasicTemporaryEmailFlow",
+  step: [
+    {
+      input: {
+        ref: "temporary_email_ref01"
+      }
+
+      match: {
+        email: "email01"
+      }
+
+      op: "create"
+    }
+
+    {
+      input: {
+        ref: "temporary_email_ref01",
+        srcdatavar: "temporary_email_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-temporary_email_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "temporary_email_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        id: "temporary_email01"
+      }
+
+      op: "remove"
+    }
+  ],
+  "key$": "BasicTemporaryEmailFlow"
+}

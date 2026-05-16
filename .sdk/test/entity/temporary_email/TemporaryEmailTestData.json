@@ -1,0 +1,47 @@
+{
+  "existing": {
+    "temporary_email": {
+      "TEMPORARY_EMAIL00": {
+        "custom_domain": "s32",
+        "data": {},
+        "prefix": "s34",
+        "success": false,
+        "validity_period": "s36",
+        "email": "EMAIL01",
+        "message_id": "MESSAGE01",
+        "id": "TEMPORARY_EMAIL00"
+      },
+      "TEMPORARY_EMAIL01": {
+        "custom_domain": "s64",
+        "data": {},
+        "prefix": "s66",
+        "success": false,
+        "validity_period": "s68",
+        "email": "EMAIL01",
+        "message_id": "MESSAGE01",
+        "id": "TEMPORARY_EMAIL01"
+      },
+      "TEMPORARY_EMAIL02": {
+        "custom_domain": "s96",
+        "data": {},
+        "prefix": "s98",
+        "success": false,
+        "validity_period": "s9a",
+        "email": "EMAIL01",
+        "message_id": "MESSAGE01",
+        "id": "TEMPORARY_EMAIL02"
+      }
+    }
+  },
+  "new": {
+    "temporary_email": {
+      "temporary_email_ref01": {
+        "custom_domain": "sc8",
+        "data": {},
+        "prefix": "sca",
+        "success": false,
+        "validity_period": "scc"
+      }
+    }
+  }
+}

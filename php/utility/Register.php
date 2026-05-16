@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+// TempMailApi2 SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+TempMailApi2Utility::setRegistrar(function (TempMailApi2Utility $u): void {
+    $u->clean = [TempMailApi2Clean::class, 'call'];
+    $u->done = [TempMailApi2Done::class, 'call'];
+    $u->make_error = [TempMailApi2MakeError::class, 'call'];
+    $u->feature_add = [TempMailApi2FeatureAdd::class, 'call'];
+    $u->feature_hook = [TempMailApi2FeatureHook::class, 'call'];
+    $u->feature_init = [TempMailApi2FeatureInit::class, 'call'];
+    $u->fetcher = [TempMailApi2Fetcher::class, 'call'];
+    $u->make_fetch_def = [TempMailApi2MakeFetchDef::class, 'call'];
+    $u->make_context = [TempMailApi2MakeContext::class, 'call'];
+    $u->make_options = [TempMailApi2MakeOptions::class, 'call'];
+    $u->make_request = [TempMailApi2MakeRequest::class, 'call'];
+    $u->make_response = [TempMailApi2MakeResponse::class, 'call'];
+    $u->make_result = [TempMailApi2MakeResult::class, 'call'];
+    $u->make_point = [TempMailApi2MakePoint::class, 'call'];
+    $u->make_spec = [TempMailApi2MakeSpec::class, 'call'];
+    $u->make_url = [TempMailApi2MakeUrl::class, 'call'];
+    $u->param = [TempMailApi2Param::class, 'call'];
+    $u->prepare_auth = [TempMailApi2PrepareAuth::class, 'call'];
+    $u->prepare_body = [TempMailApi2PrepareBody::class, 'call'];
+    $u->prepare_headers = [TempMailApi2PrepareHeaders::class, 'call'];
+    $u->prepare_method = [TempMailApi2PrepareMethod::class, 'call'];
+    $u->prepare_params = [TempMailApi2PrepareParams::class, 'call'];
+    $u->prepare_path = [TempMailApi2PreparePath::class, 'call'];
+    $u->prepare_query = [TempMailApi2PrepareQuery::class, 'call'];
+    $u->result_basic = [TempMailApi2ResultBasic::class, 'call'];
+    $u->result_body = [TempMailApi2ResultBody::class, 'call'];
+    $u->result_headers = [TempMailApi2ResultHeaders::class, 'call'];
+    $u->transform_request = [TempMailApi2TransformRequest::class, 'call'];
+    $u->transform_response = [TempMailApi2TransformResponse::class, 'call'];
+});

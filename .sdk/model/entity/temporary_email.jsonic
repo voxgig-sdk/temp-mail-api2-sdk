@@ -1,0 +1,214 @@
+# Entity: temporary_email
+
+main: kit: entity: temporary_email: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "custom_domain"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "data"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "prefix"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "success"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "validity_period"
+      req: false
+      type: "`$INTEGER`"
+    }
+  ]
+
+  name: "temporary_email"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/temp-mail/generate"
+          parts: [
+            "temp-mail"
+            "generate"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                example: "user123@tempmail.boomlify.com"
+                kind: "param"
+                name: "email"
+                orig: "email"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: 20
+                kind: "query"
+                name: "limit"
+                orig: "limit"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+              {
+                example: 0
+                kind: "query"
+                name: "offset"
+                orig: "offset"
+                reqd: false
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/temp-mail/{email}/inbox"
+          parts: [
+            "temp-mail"
+            "{email}"
+            "inbox"
+          ]
+          select: {
+            exist: [
+              "email"
+              "limit"
+              "offset"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "email"
+                orig: "email"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "message_id"
+                orig: "message_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/temp-mail/{email}/messages/{messageId}"
+          parts: [
+            "temp-mail"
+            "{email}"
+            "messages"
+            "{message_id}"
+          ]
+          rename: {
+            param: {
+              messageId: "message_id"
+            }
+          }
+          select: {
+            exist: [
+              "email"
+              "message_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "GET"
+          orig: "/temp-mail/domains"
+          parts: [
+            "temp-mail"
+            "domains"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "email"
+                orig: "email"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/temp-mail/{email}/delete"
+          parts: [
+            "temp-mail"
+            "{email}"
+            "delete"
+          ]
+          select: {
+            exist: [
+              "email"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "temp_mail"
+      ]
+      [
+        "temp_mail"
+        "message"
+      ]
+    ]
+  }
+
+
+
+}

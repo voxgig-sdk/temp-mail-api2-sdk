@@ -1,0 +1,553 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Temp Mail API",
+    "description": "Generate millions of temp mail from boomlify. A free temporary email service that allows you to create disposable email addresses instantly with custom domain support, extended validity (2+ months), and professional business email solutions.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Boomlify",
+      "url": "https://boomlify.com"
+    },
+    "termsOfService": "https://boomlify.com/terms"
+  },
+  "servers": [
+    {
+      "url": "https://api.boomlify.com/v1",
+      "description": "Production server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Temporary Email",
+      "description": "Operations for creating and managing temporary email addresses"
+    }
+  ],
+  "paths": {
+    "/temp-mail/generate": {
+      "post": {
+        "tags": [
+          "Temporary Email"
+        ],
+        "summary": "Generate a temporary email address",
+        "description": "Creates a new disposable temporary email address instantly with optional custom domain support",
+        "operationId": "generateTempEmail",
+        "requestBody": {
+          "description": "Optional parameters for generating a temporary email",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "customDomain": {
+                    "type": "string",
+                    "description": "Custom domain for professional temporary email",
+                    "example": "yourbusiness.com"
+                  },
+                  "prefix": {
+                    "type": "string",
+                    "description": "Desired prefix for the email address",
+                    "example": "user123"
+                  },
+                  "validityPeriod": {
+                    "type": "integer",
+                    "description": "Validity period in days (default: 60+ days)",
+                    "minimum": 1,
+                    "maximum": 90,
+                    "example": 60
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Temporary email address generated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "description": "Generated temporary email address",
+                          "example": "user123@tempmail.boomlify.com"
+                        },
+                        "token": {
+                          "type": "string",
+                          "description": "Access token for managing this email address",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        },
+                        "expiresAt": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "Expiration date of the temporary email",
+                          "example": "2024-03-15T12:00:00Z"
+                        },
+                        "inboxUrl": {
+                          "type": "string",
+                          "format": "uri",
+                          "description": "URL to access the inbox",
+                          "example": "https://boomlify.com/inbox/user123"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request - Invalid parameters",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests - Rate limit exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {}
+        ]
+      }
+    },
+    "/temp-mail/{email}/inbox": {
+      "get": {
+        "tags": [
+          "Temporary Email"
+        ],
+        "summary": "Get inbox messages",
+        "description": "Retrieve all emails received in the temporary inbox with smart preview support",
+        "operationId": "getInboxMessages",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "description": "The temporary email address",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "user123@tempmail.boomlify.com"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum number of messages to return",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Number of messages to skip",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inbox messages retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "example": "user123@tempmail.boomlify.com"
+                        },
+                        "messages": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/EmailMessage"
+                          }
+                        },
+                        "total": {
+                          "type": "integer",
+                          "description": "Total number of messages",
+                          "example": 5
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/temp-mail/{email}/messages/{messageId}": {
+      "get": {
+        "tags": [
+          "Temporary Email"
+        ],
+        "summary": "Get specific message",
+        "description": "Retrieve a specific email message by ID",
+        "operationId": "getMessage",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "description": "The temporary email address",
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          {
+            "name": "messageId",
+            "in": "path",
+            "required": true,
+            "description": "The message ID",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Message retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/EmailMessage"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Message not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/temp-mail/{email}/delete": {
+      "delete": {
+        "tags": [
+          "Temporary Email"
+        ],
+        "summary": "Delete temporary email",
+        "description": "Permanently delete a temporary email address and all its messages",
+        "operationId": "deleteTempEmail",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "required": true,
+            "description": "The temporary email address to delete",
+            "schema": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Temporary email address deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Email address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/temp-mail/domains": {
+      "get": {
+        "tags": [
+          "Temporary Email"
+        ],
+        "summary": "Get available domains",
+        "description": "Retrieve list of available domains for temporary email addresses including custom domain options",
+        "operationId": "getAvailableDomains",
+        "responses": {
+          "200": {
+            "description": "Available domains retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "domains": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "example": [
+                            "tempmail.boomlify.com",
+                            "disposable.boomlify.com",
+                            "temp.boomlify.com"
+                          ]
+                        },
+                        "customDomainAvailable": {
+                          "type": "boolean",
+                          "description": "Whether custom domains are supported",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {}
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "EmailMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique message identifier",
+            "example": "msg_123456789"
+          },
+          "from": {
+            "type": "string",
+            "format": "email",
+            "description": "Sender email address",
+            "example": "sender@example.com"
+          },
+          "to": {
+            "type": "string",
+            "format": "email",
+            "description": "Recipient email address",
+            "example": "user123@tempmail.boomlify.com"
+          },
+          "subject": {
+            "type": "string",
+            "description": "Email subject",
+            "example": "Welcome to our service"
+          },
+          "body": {
+            "type": "string",
+            "description": "Email body content",
+            "example": "Thank you for signing up..."
+          },
+          "htmlBody": {
+            "type": "string",
+            "description": "HTML version of email body",
+            "example": "<html><body>Thank you for signing up...</body></html>"
+          },
+          "receivedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the email was received",
+            "example": "2024-01-15T10:30:00Z"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "type": "string",
+                  "example": "document.pdf"
+                },
+                "contentType": {
+                  "type": "string",
+                  "example": "application/pdf"
+                },
+                "size": {
+                  "type": "integer",
+                  "description": "Size in bytes",
+                  "example": 102400
+                },
+                "downloadUrl": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://api.boomlify.com/v1/attachments/abc123"
+                }
+              }
+            }
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "Whether the message has been read",
+            "example": false
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "INVALID_REQUEST"
+              },
+              "message": {
+                "type": "string",
+                "example": "The request parameters are invalid"
+              }
+            }
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "API key for authentication"
+      },
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT token obtained when generating a temporary email"
+      }
+    }
+  }
+}
