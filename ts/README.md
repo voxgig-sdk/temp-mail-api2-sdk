@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { TempMailApi2SDK } from 'temp-mail-api2'
 
-const client = new TempMailApi2SDK({
-  apikey: process.env.TEMP-MAIL-API2_APIKEY,
-})
+const client = new TempMailApi2SDK({})
 ```
 
 ### 3. Load a temporaryemail
@@ -96,7 +94,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new TempMailApi2SDK({ apikey: '...' })
+const client = new TempMailApi2SDK()
 const testClient = client.tester()
 ```
 
@@ -132,7 +130,6 @@ const logger = {
 }
 
 const client = new TempMailApi2SDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -143,7 +140,6 @@ Create a `.env.local` file at the project root:
 
 ```
 TEMP-MAIL-API2_TEST_LIVE=TRUE
-TEMP-MAIL-API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -161,7 +157,6 @@ cd ts && npm test
 
 ```ts
 new TempMailApi2SDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -172,7 +167,6 @@ new TempMailApi2SDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
