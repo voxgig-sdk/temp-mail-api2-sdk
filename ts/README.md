@@ -10,7 +10,7 @@ The TypeScript SDK for the TempMailApi2 API — a type-safe, entity-oriented cli
 
 ## Install
 ```bash
-npm install temp-mail-api2
+npm install @voxgig-sdk/temp-mail-api2
 ```
 ## Tutorial: your first API call
 
