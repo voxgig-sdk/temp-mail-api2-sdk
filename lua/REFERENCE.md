@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -104,8 +104,8 @@ local temporary_email = client:TemporaryEmail(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:TemporaryEmail(nil):create({
-}, nil)
+local result, err = client:TemporaryEmail():create({
+})
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -113,7 +113,7 @@ local result, err = client:TemporaryEmail(nil):create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail(nil):load({ id = "temporary_email_id" }, nil)
+local result, err = client:TemporaryEmail():load({ id = "temporary_email_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -121,7 +121,7 @@ local result, err = client:TemporaryEmail(nil):load({ id = "temporary_email_id" 
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail(nil):remove({ id = "temporary_email_id" }, nil)
+local result, err = client:TemporaryEmail():remove({ id = "temporary_email_id" })
 ```
 
 ### Common Methods

@@ -1,6 +1,11 @@
 # TempMailApi2 PHP SDK
 
-The PHP SDK for the TempMailApi2 API. Provides an entity-oriented interface using PHP conventions.
+
+
+The PHP SDK for the TempMailApi2 API — an entity-oriented client using PHP conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -20,13 +25,15 @@ loading a specific record.
 <?php
 require_once 'tempmailapi2_sdk.php';
 
-$client = new TempMailApi2SDK([]);
+$client = new TempMailApi2SDK([
+    "apikey" => getenv("TEMP-MAIL-API2_APIKEY"),
+]);
 ```
 
 ### 3. Load a temporaryemail
 
 ```php
-[$result, $err] = $client->TemporaryEmail(null)->load(["id" => "example_id"], null);
+[$result, $err] = $client->TemporaryEmail()->load(["id" => "example_id"]);
 if ($err) { throw new \Exception($err); }
 print_r($result);
 ```
@@ -35,10 +42,10 @@ print_r($result);
 
 ```php
 // Create
-[$created, $_] = $client->TemporaryEmail(null)->create(["name" => "Example"], null);
+[$created, $_] = $client->TemporaryEmail()->create(["name" => "Example"]);
 
 // Remove
-$client->TemporaryEmail(null)->remove(["id" => $created["id"]], null);
+$client->TemporaryEmail()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -82,11 +89,9 @@ print_r($fetchdef["headers"]);
 Create a mock client for unit testing — no server required:
 
 ```php
-$client = TempMailApi2SDK::test(null, null);
+$client = TempMailApi2SDK::test();
 
-[$result, $err] = $client->TempMailApi2(null)->load(
-    ["id" => "test01"], null
-);
+[$result, $err] = $client->TempMailApi2()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -121,6 +126,7 @@ Create a `.env.local` file at the project root:
 
 ```
 TEMP-MAIL-API2_TEST_LIVE=TRUE
+TEMP-MAIL-API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -143,6 +149,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

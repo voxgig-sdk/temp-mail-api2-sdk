@@ -1,6 +1,11 @@
 # TempMailApi2 Ruby SDK
 
-The Ruby SDK for the TempMailApi2 API. Provides an entity-oriented interface using idiomatic Ruby conventions.
+
+
+The Ruby SDK for the TempMailApi2 API — an entity-oriented client using idiomatic Ruby conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -31,13 +36,15 @@ loading a specific record.
 ```ruby
 require_relative "TempMailApi2_sdk"
 
-client = TempMailApi2SDK.new({})
+client = TempMailApi2SDK.new({
+  "apikey" => ENV["TEMP-MAIL-API2_APIKEY"],
+})
 ```
 
 ### 3. Load a temporaryemail
 
 ```ruby
-result, err = client.TemporaryEmail(nil).load({ "id" => "example_id" }, nil)
+result, err = client.TemporaryEmail().load({ "id" => "example_id" })
 raise err if err
 puts result
 ```
@@ -46,10 +53,10 @@ puts result
 
 ```ruby
 # Create
-created, _ = client.TemporaryEmail(nil).create({ "name" => "Example" }, nil)
+created, _ = client.TemporaryEmail().create({ "name" => "Example" })
 
 # Remove
-client.TemporaryEmail(nil).remove({ "id" => created["id"] }, nil)
+client.TemporaryEmail().remove({ "id" => created["id"] })
 ```
 
 
@@ -93,11 +100,9 @@ puts fetchdef["headers"]
 Create a mock client for unit testing — no server required:
 
 ```ruby
-client = TempMailApi2SDK.test(nil, nil)
+client = TempMailApi2SDK.test
 
-result, err = client.TempMailApi2(nil).load(
-  { "id" => "test01" }, nil
-)
+result, err = client.TempMailApi2().load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -129,6 +134,7 @@ Create a `.env.local` file at the project root:
 
 ```
 TEMP-MAIL-API2_TEST_LIVE=TRUE
+TEMP-MAIL-API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -151,6 +157,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |

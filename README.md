@@ -1,16 +1,8 @@
 # TempMailApi2 SDK
 
-Generate disposable email addresses and read incoming messages via Boomlify's temp mail API
+Temp Mail API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Temp Mail API
-
-[Boomlify](https://boomlify.com) is a temporary email service that lets you create disposable inbox addresses on demand. This SDK wraps its public API, served from `https://api.boomlify.com/v1`, so you can integrate ephemeral mail flows into automated signups, testing pipelines, or privacy-sensitive workflows.
-
-The service is aimed at avoiding spam, protecting your real address when trying out services, and giving developers a way to verify email-based flows without burning real inboxes. Boomlify also advertises support for custom domains and a multi-inbox dashboard on its consumer site.
-
-Use the API to mint a new temporary email address and poll its inbox for messages. Refer to Boomlify's own site for the canonical authentication, rate-limit, and retention details.
 
 ## Try it
 
@@ -44,27 +36,31 @@ gem install temp-mail-api2-sdk
 luarocks install temp-mail-api2-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { TempMailApi2SDK } from 'temp-mail-api2'
 
-const client = new TempMailApi2SDK({})
+const client = new TempMailApi2SDK({
+  apikey: process.env.TEMP-MAIL-API2_APIKEY,
+})
 
+// Load temporaryemail data
+const temporaryemail = await client.TemporaryEmail().load({})
+console.log(temporaryemail.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -94,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **TemporaryEmail** | A disposable email address minted by Boomlify, along with the messages delivered to it; covered by the SDK operations grouped under the `temporary_email` entity. | `/temp-mail/generate` |
+| **TemporaryEmail** |  | `/temp-mail/generate` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -104,15 +100,17 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from tempmailapi2_sdk import TempMailApi2SDK
 
-client = TempMailApi2SDK({})
+client = TempMailApi2SDK({
+    "apikey": os.environ.get("TEMP-MAIL-API2_APIKEY"),
+})
 
 
 # Load a specific temporaryemail
-temporaryemail, err = client.TemporaryEmail(None).load(
-    {"id": "example_id"}, None
-)
+temporaryemail, err = client.TemporaryEmail().load({"id": "example_id"})
+print(temporaryemail)
 ```
 
 ### PHP
@@ -121,13 +119,14 @@ temporaryemail, err = client.TemporaryEmail(None).load(
 <?php
 require_once 'tempmailapi2_sdk.php';
 
-$client = new TempMailApi2SDK([]);
+$client = new TempMailApi2SDK([
+    "apikey" => getenv("TEMP-MAIL-API2_APIKEY"),
+]);
 
 
 // Load a specific temporaryemail
-[$temporaryemail, $err] = $client->TemporaryEmail(null)->load(
-    ["id" => "example_id"], null
-);
+[$temporaryemail, $err] = $client->TemporaryEmail()->load(["id" => "example_id"]);
+print_r($temporaryemail);
 ```
 
 ### Golang
@@ -135,8 +134,13 @@ $client = new TempMailApi2SDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/temp-mail-api2-sdk/go"
 
-client := sdk.NewTempMailApi2SDK(map[string]any{})
+client := sdk.NewTempMailApi2SDK(map[string]any{
+    "apikey": os.Getenv("TEMP-MAIL-API2_APIKEY"),
+})
 
+// Load temporaryemail data
+temporaryemail, err := client.TemporaryEmail(nil).Load(map[string]any{}, nil)
+fmt.Println(temporaryemail)
 ```
 
 ### Ruby
@@ -144,13 +148,14 @@ client := sdk.NewTempMailApi2SDK(map[string]any{})
 ```ruby
 require_relative "TempMailApi2_sdk"
 
-client = TempMailApi2SDK.new({})
+client = TempMailApi2SDK.new({
+  "apikey" => ENV["TEMP-MAIL-API2_APIKEY"],
+})
 
 
 # Load a specific temporaryemail
-temporaryemail, err = client.TemporaryEmail(nil).load(
-  { "id" => "example_id" }, nil
-)
+temporaryemail, err = client.TemporaryEmail().load({ "id" => "example_id" })
+puts temporaryemail
 ```
 
 ### Lua
@@ -158,13 +163,14 @@ temporaryemail, err = client.TemporaryEmail(nil).load(
 ```lua
 local sdk = require("temp-mail-api2_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("TEMP-MAIL-API2_APIKEY"),
+})
 
 
 -- Load a specific temporaryemail
-local temporaryemail, err = client:TemporaryEmail(nil):load(
-  { id = "example_id" }, nil
-)
+local temporaryemail, err = client:TemporaryEmail():load({ id = "example_id" })
+print(temporaryemail)
 ```
 
 ## Unit testing in offline mode
@@ -183,25 +189,21 @@ const result = await client.TemporaryEmail().load({ id: 'test01' })
 ### Python
 
 ```python
-client = TempMailApi2SDK.test(None, None)
-result, err = client.TemporaryEmail(None).load(
-    {"id": "test01"}, None
-)
+client = TempMailApi2SDK.test()
+result, err = client.TemporaryEmail().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = TempMailApi2SDK::test(null, null);
-[$result, $err] = $client->TemporaryEmail(null)->load(
-    ["id" => "test01"], null
-);
+$client = TempMailApi2SDK::test();
+[$result, $err] = $client->TemporaryEmail()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.TemporaryEmail(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -210,19 +212,15 @@ result, err := client.TemporaryEmail(nil).Load(
 ### Ruby
 
 ```ruby
-client = TempMailApi2SDK.test(nil, nil)
-result, err = client.TemporaryEmail(nil).load(
-  { "id" => "test01" }, nil
-)
+client = TempMailApi2SDK.test
+result, err = client.TemporaryEmail().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:TemporaryEmail(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:TemporaryEmail():load({ id = "test01" })
 ```
 
 ## How it works
@@ -326,10 +324,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Temp Mail API
-
-- Upstream: [https://boomlify.com](https://boomlify.com)
 
 ---
 
