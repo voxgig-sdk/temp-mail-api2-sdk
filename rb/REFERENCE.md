@@ -87,7 +87,7 @@ same parameters as `direct()`. Raises on error.
 ## TemporaryEmailEntity
 
 ```ruby
-temporary_email = client.temporary_email
+temporary_email = client.TemporaryEmail
 ```
 
 ### Fields
@@ -107,7 +107,7 @@ temporary_email = client.temporary_email
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.temporary_email.create({
+result = client.TemporaryEmail.create({
 })
 ```
 
@@ -116,7 +116,7 @@ result = client.temporary_email.create({
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.temporary_email.load({ "id" => "temporary_email_id" })
+result = client.TemporaryEmail.load({ "id" => "temporary_email_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -124,7 +124,7 @@ result = client.temporary_email.load({ "id" => "temporary_email_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.temporary_email.remove({ "id" => "temporary_email_id" })
+result = client.TemporaryEmail.remove({ "id" => "temporary_email_id" })
 ```
 
 ### Common Methods

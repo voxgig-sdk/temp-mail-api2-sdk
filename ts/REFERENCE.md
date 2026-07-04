@@ -110,7 +110,7 @@ Alias for `TempMailApi2SDK.test()`.
 ## TemporaryEmailEntity
 
 ```ts
-const temporary_email = client.temporary_email
+const temporary_email = client.TemporaryEmail()
 ```
 
 ### Fields
@@ -130,7 +130,7 @@ const temporary_email = client.temporary_email
 Create a new entity with the given data.
 
 ```ts
-const result = await client.temporary_email.create({
+const result = await client.TemporaryEmail().create({
 })
 ```
 
@@ -139,7 +139,7 @@ const result = await client.temporary_email.create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.temporary_email.load({ id: 'temporary_email_id' })
+const result = await client.TemporaryEmail().load({ id: 'temporary_email_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -147,7 +147,7 @@ const result = await client.temporary_email.load({ id: 'temporary_email_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.temporary_email.remove({ id: 'temporary_email_id' })
+const result = await client.TemporaryEmail().remove({ id: 'temporary_email_id' })
 ```
 
 ### Common Methods

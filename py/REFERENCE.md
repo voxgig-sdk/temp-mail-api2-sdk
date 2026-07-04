@@ -81,7 +81,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## TemporaryEmailEntity
 
 ```python
-temporary_email = client.temporary_email
+temporary_email = client.TemporaryEmail()
 ```
 
 ### Fields
@@ -101,7 +101,7 @@ temporary_email = client.temporary_email
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.temporary_email.create({
+result = client.TemporaryEmail().create({
 })
 ```
 
@@ -110,7 +110,7 @@ result = client.temporary_email.create({
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.temporary_email.load({"id": "temporary_email_id"})
+result = client.TemporaryEmail().load({"id": "temporary_email_id"})
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -118,7 +118,7 @@ result = client.temporary_email.load({"id": "temporary_email_id"})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.temporary_email.remove({"id": "temporary_email_id"})
+result = client.TemporaryEmail().remove({"id": "temporary_email_id"})
 ```
 
 ### Common Methods

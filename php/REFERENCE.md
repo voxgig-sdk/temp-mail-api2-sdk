@@ -86,7 +86,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## TemporaryEmailEntity
 
 ```php
-$temporary_email = $client->temporary_email();
+$temporary_email = $client->TemporaryEmail();
 ```
 
 ### Fields
@@ -106,7 +106,7 @@ $temporary_email = $client->temporary_email();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->temporary_email()->create([
+$result = $client->TemporaryEmail()->create([
 ]);
 ```
 
@@ -115,7 +115,7 @@ $result = $client->temporary_email()->create([
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->temporary_email()->load(["id" => "temporary_email_id"]);
+$result = $client->TemporaryEmail()->load(["id" => "temporary_email_id"]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -123,7 +123,7 @@ $result = $client->temporary_email()->load(["id" => "temporary_email_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->temporary_email()->remove(["id" => "temporary_email_id"]);
+$result = $client->TemporaryEmail()->remove(["id" => "temporary_email_id"]);
 ```
 
 ### Common Methods

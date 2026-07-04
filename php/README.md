@@ -35,9 +35,10 @@ $client = new TempMailApi2SDK([
 
 ```php
 try {
-    $result = $client->temporaryemail()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare TemporaryEmail record (throws on error).
+    $temporaryemail = $client->TemporaryEmail()->load(["id" => "example_id"]);
+    print_r($temporaryemail);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -45,11 +46,11 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->temporaryemail()->create(["name" => "Example"]);
+// create() returns the bare created TemporaryEmail record.
+$created = $client->TemporaryEmail()->create(["name" => "Example"]);
 
 // Remove
-$client->temporaryemail()->remove(["id" => $created["id"]]);
+$client->TemporaryEmail()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -93,13 +94,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = TempMailApi2SDK::test();
+$client = TempMailApi2SDK::test([
+    "entity" => ["temporaryemail" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->temporaryemail()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$temporaryemail = $client->TemporaryEmail()->load(["id" => "test01"]);
+print_r($temporaryemail);
 ```
 
 ### Use a custom fetch function
@@ -241,7 +246,7 @@ API path: `/temp-mail/generate`
 
 ### TemporaryEmail
 
-Create an instance: `const temporary_email = client.temporary_email`
+Create an instance: `$temporary_email = $client->TemporaryEmail();`
 
 #### Operations
 
@@ -263,15 +268,16 @@ Create an instance: `const temporary_email = client.temporary_email`
 
 #### Example: Load
 
-```ts
-const temporary_email = await client.temporary_email.load({ id: 'temporary_email_id' })
+```php
+// load() returns the bare TemporaryEmail record (throws on error).
+$temporary_email = $client->TemporaryEmail()->load(["id" => "temporary_email_id"]);
 ```
 
 #### Example: Create
 
-```ts
-const temporary_email = await client.temporary_email.create({
-})
+```php
+$temporary_email = $client->TemporaryEmail()->create([
+]);
 ```
 
 
@@ -346,7 +352,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$temporaryemail = $client->temporaryemail();
+$temporaryemail = $client->TemporaryEmail();
 $temporaryemail->load(["id" => "example_id"]);
 
 // $temporaryemail->dataGet() now returns the loaded temporaryemail data
