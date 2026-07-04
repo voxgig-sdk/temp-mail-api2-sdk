@@ -10,14 +10,18 @@ The Golang SDK for the TempMailApi2 API — an entity-oriented client using stan
 
 ## Install
 ```bash
-go get github.com/voxgig-sdk/temp-mail-api2-sdk/go
+go get github.com/voxgig-sdk/temp-mail-api2-sdk/go@latest
 ```
 
-If the module is not yet published to a registry, use a `replace` directive
-in your `go.mod` to point to a local checkout:
+The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
+release tag — see [Releases](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) for the available versions.
+
+To vendor from a local checkout instead, clone this repo alongside your
+project and add a `replace` directive pointing at the checked-out
+`go/` directory:
 
 ```bash
-go mod edit -replace github.com/voxgig-sdk/temp-mail-api2-sdk/go=../path/to/github.com/voxgig-sdk/temp-mail-api2-sdk/go
+go mod edit -replace github.com/voxgig-sdk/temp-mail-api2-sdk/go=../temp-mail-api2-sdk/go
 ```
 
 
@@ -41,7 +45,7 @@ import (
 
 func main() {
     client := sdk.NewTempMailApi2SDK(map[string]any{
-        "apikey": os.Getenv("TEMP-MAIL-API2_APIKEY"),
+        "apikey": os.Getenv("TEMP_MAIL_API2_APIKEY"),
     })
 ```
 
@@ -125,7 +129,7 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Planet(nil).Load(
+result, err := client.TemporaryEmail(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
 // result contains mock response data
@@ -160,8 +164,8 @@ client := sdk.NewTempMailApi2SDK(map[string]any{
 Create a `.env.local` file at the project root:
 
 ```
-TEMP-MAIL-API2_TEST_LIVE=TRUE
-TEMP-MAIL-API2_APIKEY=<your-key>
+TEMP_MAIL_API2_TEST_LIVE=TRUE
+TEMP_MAIL_API2_APIKEY=<your-key>
 ```
 
 Then run:
@@ -365,11 +369,11 @@ Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-moon := client.Moon(nil)
-moon.Load(map[string]any{"planet_id": "earth", "id": "luna"}, nil)
+temporaryemail := client.TemporaryEmail(nil)
+temporaryemail.Load(map[string]any{"id": "example_id"}, nil)
 
-// moon.Data() now returns the loaded moon data
-// moon.Match() returns the last match criteria
+// temporaryemail.Data() now returns the loaded temporaryemail data
+// temporaryemail.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

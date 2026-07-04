@@ -85,6 +85,27 @@ func (e *TemporaryEmailEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an TemporaryEmail; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *TemporaryEmailEntity) DataTyped(data ...TemporaryEmail) TemporaryEmail {
+	if len(data) > 0 {
+		return typedFrom[TemporaryEmail](e.Data(asMap(data[0])))
+	}
+	return typedFrom[TemporaryEmail](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through TemporaryEmail (all fields
+// optional at the wire level).
+func (e *TemporaryEmailEntity) MatchTyped(match ...TemporaryEmail) TemporaryEmail {
+	if len(match) > 0 {
+		return typedFrom[TemporaryEmail](e.Match(asMap(match[0])))
+	}
+	return typedFrom[TemporaryEmail](e.Match())
+}
+
 
 func (e *TemporaryEmailEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -109,6 +130,17 @@ func (e *TemporaryEmailEntity) Load(reqmatch map[string]any, ctrl map[string]any
 			}
 		}
 	})
+}
+
+// LoadTyped is the statically-typed variant of Load: it takes an
+// TemporaryEmailLoadMatch and returns an TemporaryEmail. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *TemporaryEmailEntity) LoadTyped(reqmatch TemporaryEmailLoadMatch, ctrl map[string]any) (TemporaryEmail, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return TemporaryEmail{}, err
+	}
+	return typedFrom[TemporaryEmail](res), nil
 }
 
 
@@ -139,6 +171,17 @@ func (e *TemporaryEmailEntity) Create(reqdata map[string]any, ctrl map[string]an
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// TemporaryEmailCreateData and returns an TemporaryEmail. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *TemporaryEmailEntity) CreateTyped(reqdata TemporaryEmailCreateData, ctrl map[string]any) (TemporaryEmail, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return TemporaryEmail{}, err
+	}
+	return typedFrom[TemporaryEmail](res), nil
 }
 
 
@@ -172,6 +215,17 @@ func (e *TemporaryEmailEntity) Remove(reqmatch map[string]any, ctrl map[string]a
 			}
 		}
 	})
+}
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// TemporaryEmailRemoveMatch and returns an TemporaryEmail. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *TemporaryEmailEntity) RemoveTyped(reqmatch TemporaryEmailRemoveMatch, ctrl map[string]any) (TemporaryEmail, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return TemporaryEmail{}, err
+	}
+	return typedFrom[TemporaryEmail](res), nil
 }
 
 

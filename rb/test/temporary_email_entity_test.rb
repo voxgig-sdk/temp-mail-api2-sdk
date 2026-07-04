@@ -37,23 +37,20 @@ class TemporaryEmailEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.temporary_email"), "temporary_email_ref01"))
     temporary_email_ref01_data["email"] = setup[:idmap]["email01"]
 
-    temporary_email_ref01_data_result, err = temporary_email_ref01_ent.create(temporary_email_ref01_data, nil)
-    assert_nil err
+    temporary_email_ref01_data_result = temporary_email_ref01_ent.create(temporary_email_ref01_data, nil)
     temporary_email_ref01_data = Helpers.to_map(temporary_email_ref01_data_result)
     assert !temporary_email_ref01_data.nil?
 
     # LOAD
     temporary_email_ref01_match_dt0 = {}
-    temporary_email_ref01_data_dt0_loaded, err = temporary_email_ref01_ent.load(temporary_email_ref01_match_dt0, nil)
-    assert_nil err
+    temporary_email_ref01_data_dt0_loaded = temporary_email_ref01_ent.load(temporary_email_ref01_match_dt0, nil)
     assert !temporary_email_ref01_data_dt0_loaded.nil?
 
     # REMOVE
     temporary_email_ref01_match_rm0 = {
       "id" => temporary_email_ref01_data["id"],
     }
-    _, err = temporary_email_ref01_ent.remove(temporary_email_ref01_match_rm0, nil)
-    assert_nil err
+    temporary_email_ref01_ent.remove(temporary_email_ref01_match_rm0, nil)
 
   end
 end

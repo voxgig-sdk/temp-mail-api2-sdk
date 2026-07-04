@@ -104,6 +104,7 @@ local function make_config()
                       ["orig"] = "email",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                   ["query"] = {
@@ -158,6 +159,7 @@ local function make_config()
                       ["orig"] = "email",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                     {
                       ["active"] = true,
@@ -166,6 +168,7 @@ local function make_config()
                       ["orig"] = "message_id",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 1,
                     },
                   },
                 },
@@ -228,6 +231,7 @@ local function make_config()
                       ["orig"] = "email",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                 },

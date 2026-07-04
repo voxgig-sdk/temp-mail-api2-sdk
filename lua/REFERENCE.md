@@ -84,7 +84,7 @@ same parameters as `direct()`.
 ## TemporaryEmailEntity
 
 ```lua
-local temporary_email = client:TemporaryEmail(nil)
+local temporary_email = client:temporary_email(nil)
 ```
 
 ### Fields
@@ -104,7 +104,7 @@ local temporary_email = client:TemporaryEmail(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:TemporaryEmail():create({
+local result, err = client:temporary_email():create({
 })
 ```
 
@@ -113,7 +113,7 @@ local result, err = client:TemporaryEmail():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():load({ id = "temporary_email_id" })
+local result, err = client:temporary_email():load({ id = "temporary_email_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -121,7 +121,7 @@ local result, err = client:TemporaryEmail():load({ id = "temporary_email_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():remove({ id = "temporary_email_id" })
+local result, err = client:temporary_email():remove({ id = "temporary_email_id" })
 ```
 
 ### Common Methods

@@ -44,23 +44,20 @@ class TemporaryEmailEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.temporary_email"), "temporary_email_ref01"));
         $temporary_email_ref01_data["email"] = $setup["idmap"]["email01"];
 
-        [$temporary_email_ref01_data_result, $err] = $temporary_email_ref01_ent->create($temporary_email_ref01_data, null);
-        $this->assertNull($err);
+        $temporary_email_ref01_data_result = $temporary_email_ref01_ent->create($temporary_email_ref01_data, null);
         $temporary_email_ref01_data = Helpers::to_map($temporary_email_ref01_data_result);
         $this->assertNotNull($temporary_email_ref01_data);
 
         // LOAD
         $temporary_email_ref01_match_dt0 = [];
-        [$temporary_email_ref01_data_dt0_loaded, $err] = $temporary_email_ref01_ent->load($temporary_email_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $temporary_email_ref01_data_dt0_loaded = $temporary_email_ref01_ent->load($temporary_email_ref01_match_dt0, null);
         $this->assertNotNull($temporary_email_ref01_data_dt0_loaded);
 
         // REMOVE
         $temporary_email_ref01_match_rm0 = [
             "id" => $temporary_email_ref01_data["id"],
         ];
-        [$_, $err] = $temporary_email_ref01_ent->remove($temporary_email_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $temporary_email_ref01_ent->remove($temporary_email_ref01_match_rm0, null);
 
     }
 }

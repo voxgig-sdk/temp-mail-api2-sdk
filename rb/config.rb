@@ -105,6 +105,7 @@ module TempMailApi2Config
                         "orig" => "email",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                     "query" => [
@@ -159,6 +160,7 @@ module TempMailApi2Config
                         "orig" => "email",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -167,6 +169,7 @@ module TempMailApi2Config
                         "orig" => "message_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },
@@ -229,6 +232,7 @@ module TempMailApi2Config
                         "orig" => "email",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

@@ -245,6 +245,9 @@ func (sdk *TempMailApi2SDK) Direct(fetchargs map[string]any) (map[string]any, er
 }
 
 
+// TemporaryEmail returns a TemporaryEmail entity bound to this client.
+// Idiomatic usage: client.TemporaryEmail(nil).List(nil, nil) or
+// client.TemporaryEmail(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *TempMailApi2SDK) TemporaryEmail(data map[string]any) TempMailApi2Entity {
 	return NewTemporaryEmailEntityFunc(sdk, data)
 }

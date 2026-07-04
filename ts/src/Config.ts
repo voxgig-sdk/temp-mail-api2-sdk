@@ -134,7 +134,8 @@ class Config {
                     "name": "email",
                     "orig": "email",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -188,7 +189,8 @@ class Config {
                     "name": "email",
                     "orig": "email",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -196,7 +198,8 @@ class Config {
                     "name": "message_id",
                     "orig": "message_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },
@@ -258,7 +261,8 @@ class Config {
                     "name": "email",
                     "orig": "email",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

@@ -104,6 +104,7 @@ func MakeConfig() map[string]any {
 											"orig": "email",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 									"query": []any{
@@ -158,6 +159,7 @@ func MakeConfig() map[string]any {
 											"orig": "email",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 										map[string]any{
 											"active": true,
@@ -166,6 +168,7 @@ func MakeConfig() map[string]any {
 											"orig": "message_id",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 1,
 										},
 									},
 								},
@@ -228,6 +231,7 @@ func MakeConfig() map[string]any {
 											"orig": "email",
 											"reqd": true,
 											"type": "`$STRING`",
+											"index$": 0,
 										},
 									},
 								},

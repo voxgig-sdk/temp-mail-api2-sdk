@@ -14,9 +14,15 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  TemporaryEmail,
+  TemporaryEmailLoadMatch,
+  TemporaryEmailCreateData,
+  TemporaryEmailRemoveMatch,
+} from '../TempMailApi2Types'
 
 // TODO: needs Entity superclass
-class TemporaryEmailEntity extends TempMailApi2EntityBase {
+class TemporaryEmailEntity extends TempMailApi2EntityBase<TemporaryEmail> {
 
   constructor(client: TempMailApi2SDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +38,7 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: TemporaryEmailLoadMatch, ctrl?: Control): Promise<TemporaryEmail> {
 
     const utility = this._utility
 
@@ -136,7 +142,9 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<TemporaryEmail> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
@@ -144,7 +152,7 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: TemporaryEmailCreateData, ctrl?: Control): Promise<TemporaryEmail> {
 
     const utility = this._utility
     const {
@@ -243,7 +251,9 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<TemporaryEmail> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
@@ -251,7 +261,7 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
 
 
 
-  async remove(this: any, reqmatch?: any, ctrl?: Control) {
+  async remove(this: any, reqmatch?: TemporaryEmailRemoveMatch, ctrl?: Control): Promise<TemporaryEmail> {
 
     const utility = this._utility
 
@@ -356,7 +366,9 @@ class TemporaryEmailEntity extends TempMailApi2EntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<TemporaryEmail> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

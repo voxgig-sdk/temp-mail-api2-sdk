@@ -105,6 +105,7 @@ def make_config():
                       "orig": "email",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                   "query": [
@@ -159,6 +160,7 @@ def make_config():
                       "orig": "email",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -167,6 +169,7 @@ def make_config():
                       "orig": "message_id",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },
@@ -229,6 +232,7 @@ def make_config():
                       "orig": "email",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },

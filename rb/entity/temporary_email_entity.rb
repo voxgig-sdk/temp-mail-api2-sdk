@@ -45,6 +45,7 @@ class TemporaryEmailEntity
     end
   end
 
+  # @return [TemporaryEmail, Hash] the current TemporaryEmail data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class TemporaryEmailEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of TemporaryEmail fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single TemporaryEmail.
+  #
+  # @param reqmatch [TemporaryEmailLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [TemporaryEmail, Hash] the loaded TemporaryEmail; raises TempMailApi2Error on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -88,6 +95,11 @@ class TemporaryEmailEntity
   
 
   
+  # Create a new TemporaryEmail.
+  #
+  # @param reqdata [TemporaryEmailCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [TemporaryEmail, Hash] the created TemporaryEmail; raises TempMailApi2Error on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -112,6 +124,11 @@ class TemporaryEmailEntity
   
 
   
+  # Remove an TemporaryEmail matching the given criteria.
+  #
+  # @param reqmatch [TemporaryEmailRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [TemporaryEmail, Hash] the removed TemporaryEmail; raises TempMailApi2Error on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
