@@ -91,11 +91,11 @@ local temporary_email = client:TemporaryEmail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `string` | No |  |
+| `data` | `table` | No |  |
+| `prefix` | `string` | No |  |
+| `success` | `boolean` | No |  |
+| `validity_period` | `number` | No |  |
 
 ### Operations
 
@@ -113,7 +113,7 @@ local result, err = client:TemporaryEmail():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():load({ id = "temporary_email_id" })
+local result, err = client:TemporaryEmail():load()
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -121,7 +121,7 @@ local result, err = client:TemporaryEmail():load({ id = "temporary_email_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():remove({ id = "temporary_email_id" })
+local result, err = client:TemporaryEmail():remove()
 ```
 
 ### Common Methods

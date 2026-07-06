@@ -46,7 +46,7 @@ TemporaryEmailLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for TemporaryEmail#create (any subset of TemporaryEmail fields).
+# Request payload for TemporaryEmail#create.
 #
 # @!attribute [rw] custom_domain
 #   @return [String, nil]

@@ -18,6 +18,11 @@
 ---@field message_id string
 
 ---@class TemporaryEmailCreateData
+---@field custom_domain? string
+---@field data? table
+---@field prefix? string
+---@field success? boolean
+---@field validity_period? number
 
 ---@class TemporaryEmailRemoveMatch
 ---@field email string

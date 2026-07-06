@@ -98,11 +98,11 @@ temporary_email := client.TemporaryEmail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `string` | No |  |
+| `data` | `map[string]any` | No |  |
+| `prefix` | `string` | No |  |
+| `success` | `bool` | No |  |
+| `validity_period` | `int` | No |  |
 
 ### Operations
 
@@ -120,7 +120,7 @@ result, err := client.TemporaryEmail(nil).Create(map[string]any{
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.TemporaryEmail(nil).Load(map[string]any{"id": "temporary_email_id"}, nil)
+result, err := client.TemporaryEmail(nil).Load(nil, nil)
 ```
 
 #### `Remove(reqmatch, ctrl map[string]any) (any, error)`
@@ -128,7 +128,7 @@ result, err := client.TemporaryEmail(nil).Load(map[string]any{"id": "temporary_e
 Remove the entity matching the given criteria.
 
 ```go
-result, err := client.TemporaryEmail(nil).Remove(map[string]any{"id": "temporary_email_id"}, nil)
+result, err := client.TemporaryEmail(nil).Remove(nil, nil)
 ```
 
 ### Common Methods

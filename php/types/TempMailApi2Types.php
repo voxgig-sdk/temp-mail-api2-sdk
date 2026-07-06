@@ -29,7 +29,7 @@ class TemporaryEmailLoadMatch
     public string $message_id;
 }
 
-/** Match filter for TemporaryEmail#create (any subset of TemporaryEmail fields). */
+/** Request payload for TemporaryEmail#create. */
 class TemporaryEmailCreateData
 {
     public ?string $custom_domain = null;

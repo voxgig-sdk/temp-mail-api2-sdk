@@ -8,7 +8,7 @@ Complete API reference for the TempMailApi2 Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'temp-mail-api2_sdk'
+require_relative 'TempMailApi2_sdk'
 
 client = TempMailApi2SDK.new(options)
 ```
@@ -94,11 +94,11 @@ temporary_email = client.TemporaryEmail
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `String` | No |  |
+| `data` | `Hash` | No |  |
+| `prefix` | `String` | No |  |
+| `success` | `Boolean` | No |  |
+| `validity_period` | `Integer` | No |  |
 
 ### Operations
 
@@ -116,7 +116,7 @@ result = client.TemporaryEmail.create({
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.TemporaryEmail.load({ "id" => "temporary_email_id" })
+result = client.TemporaryEmail.load()
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -124,7 +124,7 @@ result = client.TemporaryEmail.load({ "id" => "temporary_email_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.TemporaryEmail.remove({ "id" => "temporary_email_id" })
+result = client.TemporaryEmail.remove()
 ```
 
 ### Common Methods

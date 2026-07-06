@@ -23,8 +23,7 @@ type TemporaryEmailLoadMatch struct {
 	MessageId string `json:"message_id"`
 }
 
-// TemporaryEmailCreateData mirrors the temporary_email fields as an all-optional match
-// filter (Go analog of Partial<TemporaryEmail>).
+// TemporaryEmailCreateData is the typed request payload for TemporaryEmail.CreateTyped.
 type TemporaryEmailCreateData struct {
 	CustomDomain *string `json:"custom_domain,omitempty"`
 	Data *map[string]any `json:"data,omitempty"`

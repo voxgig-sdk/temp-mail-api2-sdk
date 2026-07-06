@@ -117,11 +117,11 @@ const temporary_email = client.TemporaryEmail()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `string` | No |  |
+| `data` | `Record<string, any>` | No |  |
+| `prefix` | `string` | No |  |
+| `success` | `boolean` | No |  |
+| `validity_period` | `number` | No |  |
 
 ### Operations
 
@@ -139,7 +139,7 @@ const result = await client.TemporaryEmail().create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.TemporaryEmail().load({ id: 'temporary_email_id' })
+const result = await client.TemporaryEmail().load()
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -147,7 +147,7 @@ const result = await client.TemporaryEmail().load({ id: 'temporary_email_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.TemporaryEmail().remove({ id: 'temporary_email_id' })
+const result = await client.TemporaryEmail().remove()
 ```
 
 ### Common Methods

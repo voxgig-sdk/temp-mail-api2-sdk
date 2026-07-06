@@ -8,7 +8,7 @@ Complete API reference for the TempMailApi2 Python SDK.
 ### Constructor
 
 ```python
-from temp-mail-api2_sdk import TempMailApi2SDK
+from tempmailapi2_sdk import TempMailApi2SDK
 
 client = TempMailApi2SDK(options)
 ```
@@ -88,11 +88,11 @@ temporary_email = client.TemporaryEmail()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `str` | No |  |
+| `data` | `dict` | No |  |
+| `prefix` | `str` | No |  |
+| `success` | `bool` | No |  |
+| `validity_period` | `int` | No |  |
 
 ### Operations
 
@@ -110,7 +110,7 @@ result = client.TemporaryEmail().create({
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.TemporaryEmail().load({"id": "temporary_email_id"})
+result = client.TemporaryEmail().load()
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -118,7 +118,7 @@ result = client.TemporaryEmail().load({"id": "temporary_email_id"})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.TemporaryEmail().remove({"id": "temporary_email_id"})
+result = client.TemporaryEmail().remove()
 ```
 
 ### Common Methods

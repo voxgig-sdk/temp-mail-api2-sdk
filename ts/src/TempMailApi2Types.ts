@@ -18,7 +18,13 @@ export interface TemporaryEmailLoadMatch {
   message_id: string
 }
 
-export type TemporaryEmailCreateData = Partial<TemporaryEmail>
+export interface TemporaryEmailCreateData {
+  custom_domain?: string
+  data?: Record<string, any>
+  prefix?: string
+  success?: boolean
+  validity_period?: number
+}
 
 export interface TemporaryEmailRemoveMatch {
   email: string

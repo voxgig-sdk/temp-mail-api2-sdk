@@ -66,8 +66,13 @@ class TemporaryEmailEntity:
         return vs.clone(self._match)
 
     
-    def load(self, reqmatch: TemporaryEmailLoadMatch, ctrl=None) -> TemporaryEmail:
+    def load(self, reqmatch=None, ctrl=None) -> TemporaryEmail:
         utility = self._utility
+        # reqmatch is optional: an entity with no id-like key loads with no
+        # match. Treat None as an empty match so client.TemporaryEmail().load()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "load",
             "ctrl": ctrl,
@@ -112,8 +117,13 @@ class TemporaryEmailEntity:
     
 
     
-    def remove(self, reqmatch: TemporaryEmailRemoveMatch, ctrl=None) -> TemporaryEmail:
+    def remove(self, reqmatch=None, ctrl=None) -> TemporaryEmail:
         utility = self._utility
+        # reqmatch is optional: an entity with no id-like key removes with no
+        # match. Treat None as an empty match so client.TemporaryEmail().remove()
+        # works with no args.
+        if reqmatch is None:
+            reqmatch = {}
         ctx = utility.make_context({
             "opname": "remove",
             "ctrl": ctrl,

@@ -8,7 +8,7 @@ Complete API reference for the TempMailApi2 PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/temp-mail-api2_sdk.php';
+require_once __DIR__ . '/tempmailapi2_sdk.php';
 
 $client = new TempMailApi2SDK($options);
 ```
@@ -46,11 +46,11 @@ $client = TempMailApi2SDK::test();
 
 Create a new `TemporaryEmailEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): TempMailApi2Utility`
 
 Return a copy of the SDK utility object.
 
@@ -93,11 +93,11 @@ $temporary_email = $client->TemporaryEmail();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | ``$STRING`` | No |  |
-| `data` | ``$OBJECT`` | No |  |
-| `prefix` | ``$STRING`` | No |  |
-| `success` | ``$BOOLEAN`` | No |  |
-| `validity_period` | ``$INTEGER`` | No |  |
+| `custom_domain` | `string` | No |  |
+| `data` | `array` | No |  |
+| `prefix` | `string` | No |  |
+| `success` | `bool` | No |  |
+| `validity_period` | `int` | No |  |
 
 ### Operations
 
@@ -115,7 +115,7 @@ $result = $client->TemporaryEmail()->create([
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TemporaryEmail()->load(["id" => "temporary_email_id"]);
+$result = $client->TemporaryEmail()->load();
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -123,24 +123,24 @@ $result = $client->TemporaryEmail()->load(["id" => "temporary_email_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TemporaryEmail()->remove(["id" => "temporary_email_id"]);
+$result = $client->TemporaryEmail()->remove();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -149,7 +149,7 @@ Set the entity match criteria.
 Create a new `TemporaryEmailEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
