@@ -123,7 +123,7 @@ $result = $client->TemporaryEmail()->load();
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TemporaryEmail()->remove();
+$result = $client->TemporaryEmail()->remove(["email" => "email"]);
 ```
 
 ### Common Methods

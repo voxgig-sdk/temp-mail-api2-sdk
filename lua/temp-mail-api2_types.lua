@@ -14,8 +14,8 @@
 ---@field validity_period? number
 
 ---@class TemporaryEmailLoadMatch
----@field email string
----@field message_id string
+---@field email? string
+---@field message_id? string
 
 ---@class TemporaryEmailCreateData
 ---@field custom_domain? string

@@ -25,8 +25,8 @@ class TemporaryEmail
 /** Request payload for TemporaryEmail#load. */
 class TemporaryEmailLoadMatch
 {
-    public string $email;
-    public string $message_id;
+    public ?string $email = null;
+    public ?string $message_id = null;
 }
 
 /** Request payload for TemporaryEmail#create. */

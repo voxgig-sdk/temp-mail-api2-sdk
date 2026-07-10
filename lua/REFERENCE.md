@@ -121,7 +121,7 @@ local result, err = client:TemporaryEmail():load()
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():remove()
+local result, err = client:TemporaryEmail():remove({ email = "email" })
 ```
 
 ### Common Methods

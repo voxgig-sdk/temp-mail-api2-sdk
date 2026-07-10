@@ -53,22 +53,22 @@ func main() {
         "apikey": os.Getenv("TEMP_MAIL_API2_APIKEY"),
     })
 
-    // Load a single temporaryemail — the value is the loaded record.
-    temporaryemail, err := client.TemporaryEmail(nil).Load(nil, nil)
+    // Load a single temporaryEmail — the value is the loaded record.
+    temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(temporaryemail)
+    fmt.Println(temporaryEmail)
 
-    // Create a temporaryemail.
-    created, err := client.TemporaryEmail(nil).Create(map[string]any{"custom_domain": "example", "data": map[string]any{}}, nil)
+    // Create a temporaryEmail.
+    created, err := client.TemporaryEmail(nil).Create(map[string]any{"custom_domain": "example_custom_domain", "data": map[string]any{}}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
-    // Remove a temporaryemail.
-    removed, err := client.TemporaryEmail(nil).Remove(nil, nil)
+    // Remove a temporaryEmail.
+    removed, err := client.TemporaryEmail(nil).Remove(map[string]any{"email": "example_email"}, nil)
     if err != nil {
         panic(err)
     }
@@ -152,13 +152,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-temporaryemail, err := client.TemporaryEmail(nil).Load(
+temporaryEmail, err := client.TemporaryEmail(nil).Load(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(temporaryemail) // the returned mock data
+fmt.Println(temporaryEmail) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -266,9 +266,9 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    temporaryemail, err := client.TemporaryEmail(nil).Load(nil, nil)
+    temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
     if err != nil { /* handle */ }
-    // temporaryemail is the returned record
+    // temporaryEmail is the returned record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -296,14 +296,14 @@ API path: `/temp-mail/generate`
 
 ### TemporaryEmail
 
-Create an instance: `temporary_email := client.TemporaryEmail(nil)`
+Create an instance: `temporaryEmail := client.TemporaryEmail(nil)`
 
 #### Operations
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
@@ -319,11 +319,11 @@ Create an instance: `temporary_email := client.TemporaryEmail(nil)`
 #### Example: Load
 
 ```go
-temporary_email, err := client.TemporaryEmail(nil).Load(nil, nil)
+temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(temporary_email) // the loaded record
+fmt.Println(temporaryEmail) // the loaded record
 ```
 
 #### Example: Create
@@ -331,6 +331,10 @@ fmt.Println(temporary_email) // the loaded record
 ```go
 result, err := client.TemporaryEmail(nil).Create(map[string]any{
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

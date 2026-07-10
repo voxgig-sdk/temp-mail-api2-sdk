@@ -55,10 +55,10 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.TemporaryEmail().create({"custom_domain": "example", "data": {}})
+created = client.TemporaryEmail().create({"custom_domain": "example_custom_domain", "data": {}})
 
 # Remove
-client.TemporaryEmail().remove()
+client.TemporaryEmail().remove({"email": "example_email"})
 ```
 
 

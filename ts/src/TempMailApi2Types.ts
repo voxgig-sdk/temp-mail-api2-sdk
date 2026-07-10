@@ -14,8 +14,8 @@ export interface TemporaryEmail {
 }
 
 export interface TemporaryEmailLoadMatch {
-  email: string
-  message_id: string
+  email?: string
+  message_id?: string
 }
 
 export interface TemporaryEmailCreateData {

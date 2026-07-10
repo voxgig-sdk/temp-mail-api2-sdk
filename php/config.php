@@ -21,7 +21,7 @@ class TempMailApi2Config
             "options" => [
                 "base" => "https://api.boomlify.com/v1",
                 "auth" => [
-                    "prefix" => "Bearer",
+                    "prefix" => "",
                 ],
                 "headers" => [
           'content-type' => 'application/json',

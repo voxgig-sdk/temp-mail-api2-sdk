@@ -47,11 +47,11 @@ print(temporaryemail)
 
 ```lua
 -- Create
-local created, err = client:TemporaryEmail():create({ custom_domain = "example", data = {} })
+local created, err = client:TemporaryEmail():create({ custom_domain = "example_custom_domain", data = {} })
 if err then error(err) end
 
 -- Remove
-client:TemporaryEmail():remove()
+client:TemporaryEmail():remove({ email = "example_email" })
 ```
 
 

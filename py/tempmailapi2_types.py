@@ -24,7 +24,7 @@ class TemporaryEmail(TypedDict, total=False):
     validity_period: int
 
 
-class TemporaryEmailLoadMatch(TypedDict):
+class TemporaryEmailLoadMatch(TypedDict, total=False):
     email: str
     message_id: str
 

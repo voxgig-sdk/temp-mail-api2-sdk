@@ -147,7 +147,7 @@ const result = await client.TemporaryEmail().load()
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.TemporaryEmail().remove()
+const result = await client.TemporaryEmail().remove({ email: 'email' })
 ```
 
 ### Common Methods

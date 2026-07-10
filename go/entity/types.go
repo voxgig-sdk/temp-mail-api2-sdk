@@ -19,8 +19,8 @@ type TemporaryEmail struct {
 
 // TemporaryEmailLoadMatch is the typed request payload for TemporaryEmail.LoadTyped.
 type TemporaryEmailLoadMatch struct {
-	Email string `json:"email"`
-	MessageId string `json:"message_id"`
+	Email *string `json:"email,omitempty"`
+	MessageId *string `json:"message_id,omitempty"`
 }
 
 // TemporaryEmailCreateData is the typed request payload for TemporaryEmail.CreateTyped.

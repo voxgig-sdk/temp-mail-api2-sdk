@@ -9,16 +9,23 @@ main: {
         url: "https://boomlify.com"
       }
       description: "Generate millions of temp mail from boomlify. A free temporary email service that allows you to create disposable email addresses instantly with custom domain support, extended validity (2+ months), and professional business email solutions."
+      security: {
+        in: "header"
+        name: "X-API-Key"
+        prefix: ""
+        scheme: "ApiKeyAuth"
+        type: "apiKey"
+      }
       servers: [
         {
           description: "Production server"
           url: "https://api.boomlify.com/v1"
         }
       ]
+      summary: "Generate millions of temp mail from boomlify."
       termsOfService: "https://boomlify.com/terms"
       title: "Temp Mail API"
       version: "1.0.0"
+      website: "https://boomlify.com"
     }
   }
-}
-

@@ -124,7 +124,7 @@ result = client.TemporaryEmail.load()
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.TemporaryEmail.remove()
+result = client.TemporaryEmail.remove({ "email" => "email" })
 ```
 
 ### Common Methods

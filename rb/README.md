@@ -48,10 +48,10 @@ end
 
 ```ruby
 # create returns the bare created TemporaryEmail record.
-created = client.TemporaryEmail.create({ "custom_domain" => "example", "data" => {} })
+created = client.TemporaryEmail.create({ "custom_domain" => "example_custom_domain", "data" => {} })
 
 # Remove
-client.TemporaryEmail.remove()
+client.TemporaryEmail.remove({ "email" => "example_email" })
 ```
 
 

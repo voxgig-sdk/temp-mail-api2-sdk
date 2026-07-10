@@ -58,7 +58,9 @@ const created = await client.TemporaryEmail().create({
 })
 
 // Remove
-await client.TemporaryEmail().remove()
+await client.TemporaryEmail().remove({
+  email: 'example_email',
+})
 ```
 
 
