@@ -1,4 +1,4 @@
--- ProjectName SDK configuration
+-- TempMailApi2 SDK configuration
 
 local function make_config()
   return {
