@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = TempMailApi2SDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = TempMailApi2SDK.test({
+  entity: {
+    temporary_email: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const temporaryemail = await client.TemporaryEmail().load()
-// temporaryemail is a bare TemporaryEmail populated with mock data
+// temporaryemail is the TemporaryEmail entity, populated with mock data
+// — call temporaryemail.data() for the record itself
 console.log(temporaryemail)
 ```
 
@@ -155,7 +164,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **TemporaryEmail** | The TemporaryEmail entity (create, load, remove). | `/temp-mail/generate` |
+| **TemporaryEmail** | The TemporaryEmail entity (create, load, remove). | `/temp-mail/{email}/inbox` |
 
 The operations available across these entities are **load**, **create**, **remove** — see each entity's
 own list above for exactly which it supports.
@@ -189,7 +198,7 @@ $client = new TempMailApi2SDK([
 ]);
 
 
-// Load a specific temporaryemail (returns the bare record; throws on error)
+// Load a specific temporaryemail (returns the ENTITY; call data_get() for the record; throws on error)
 $temporaryemail = $client->TemporaryEmail()->load();
 print_r($temporaryemail);
 ```
@@ -221,7 +230,7 @@ client = TempMailApi2SDK.new({
 })
 
 
-# Load a specific temporaryemail (returns the bare record; raises on error)
+# Load a specific temporaryemail (returns the ENTITY; call data_get for the record)
 temporaryemail = client.TemporaryEmail.load()
 puts temporaryemail
 ```
@@ -357,6 +366,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://boomlify.com](https://boomlify.com)
 

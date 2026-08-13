@@ -94,11 +94,26 @@ temporary_email = client.TemporaryEmail
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | `String` | No |  |
-| `data` | `Hash` | No |  |
+| `attachments` | `Array` | No |  |
+| `body` | `String` | No |  |
+| `customDomain` | `String` | No |  |
+| `customDomainAvailable` | `Boolean` | No |  |
+| `domains` | `Array` | No |  |
+| `email` | `String` | No |  |
+| `expiresAt` | `String` | No |  |
+| `from` | `String` | No |  |
+| `htmlBody` | `String` | No |  |
+| `id` | `String` | No |  |
+| `inboxUrl` | `String` | No |  |
+| `isRead` | `Boolean` | No |  |
+| `messages` | `Array` | No |  |
 | `prefix` | `String` | No |  |
-| `success` | `Boolean` | No |  |
-| `validity_period` | `Integer` | No |  |
+| `receivedAt` | `String` | No |  |
+| `subject` | `String` | No |  |
+| `to` | `String` | No |  |
+| `token` | `String` | No |  |
+| `total` | `Integer` | No |  |
+| `validityPeriod` | `Integer` | No |  |
 
 ### Operations
 

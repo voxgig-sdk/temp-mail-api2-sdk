@@ -73,16 +73,16 @@ function temporary_email_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID" => [],
-        "TEMPMAILAPI__TEST_LIVE" => "FALSE",
-        "TEMPMAILAPI__APIKEY" => "NONE",
+        "TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID" => [],
+        "TEMP_MAIL_API2_TEST_LIVE" => "FALSE",
+        "TEMP_MAIL_API2_APIKEY" => "NONE",
     ]);
 
-    $live = $env["TEMPMAILAPI__TEST_LIVE"] === "TRUE";
+    $live = $env["TEMP_MAIL_API2_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["TEMPMAILAPI__APIKEY"],
+            "apikey" => $env["TEMP_MAIL_API2_APIKEY"],
         ];
         $client = new TempMailApi2SDK($merged_opts);
         return [

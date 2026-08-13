@@ -88,11 +88,26 @@ temporary_email = client.TemporaryEmail()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | `str` | No |  |
-| `data` | `dict` | No |  |
+| `attachments` | `list` | No |  |
+| `body` | `str` | No |  |
+| `customDomain` | `str` | No |  |
+| `customDomainAvailable` | `bool` | No |  |
+| `domains` | `list` | No |  |
+| `email` | `str` | No |  |
+| `expiresAt` | `str` | No |  |
+| `from` | `str` | No |  |
+| `htmlBody` | `str` | No |  |
+| `id` | `str` | No |  |
+| `inboxUrl` | `str` | No |  |
+| `isRead` | `bool` | No |  |
+| `messages` | `list` | No |  |
 | `prefix` | `str` | No |  |
-| `success` | `bool` | No |  |
-| `validity_period` | `int` | No |  |
+| `receivedAt` | `str` | No |  |
+| `subject` | `str` | No |  |
+| `to` | `str` | No |  |
+| `token` | `str` | No |  |
+| `total` | `int` | No |  |
+| `validityPeriod` | `int` | No |  |
 
 ### Operations
 

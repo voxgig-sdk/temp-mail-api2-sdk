@@ -93,11 +93,26 @@ $temporary_email = $client->TemporaryEmail();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | `string` | No |  |
-| `data` | `array` | No |  |
+| `attachments` | `array` | No |  |
+| `body` | `string` | No |  |
+| `customDomain` | `string` | No |  |
+| `customDomainAvailable` | `bool` | No |  |
+| `domains` | `array` | No |  |
+| `email` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
+| `from` | `string` | No |  |
+| `htmlBody` | `string` | No |  |
+| `id` | `string` | No |  |
+| `inboxUrl` | `string` | No |  |
+| `isRead` | `bool` | No |  |
+| `messages` | `array` | No |  |
 | `prefix` | `string` | No |  |
-| `success` | `bool` | No |  |
-| `validity_period` | `int` | No |  |
+| `receivedAt` | `string` | No |  |
+| `subject` | `string` | No |  |
+| `to` | `string` | No |  |
+| `token` | `string` | No |  |
+| `total` | `int` | No |  |
+| `validityPeriod` | `int` | No |  |
 
 ### Operations
 

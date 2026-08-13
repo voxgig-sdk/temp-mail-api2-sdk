@@ -91,11 +91,26 @@ local temporary_email = client:TemporaryEmail(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `custom_domain` | `string` | No |  |
-| `data` | `table` | No |  |
+| `attachments` | `table` | No |  |
+| `body` | `string` | No |  |
+| `customDomain` | `string` | No |  |
+| `customDomainAvailable` | `boolean` | No |  |
+| `domains` | `table` | No |  |
+| `email` | `string` | No |  |
+| `expiresAt` | `string` | No |  |
+| `from` | `string` | No |  |
+| `htmlBody` | `string` | No |  |
+| `id` | `string` | No |  |
+| `inboxUrl` | `string` | No |  |
+| `isRead` | `boolean` | No |  |
+| `messages` | `table` | No |  |
 | `prefix` | `string` | No |  |
-| `success` | `boolean` | No |  |
-| `validity_period` | `number` | No |  |
+| `receivedAt` | `string` | No |  |
+| `subject` | `string` | No |  |
+| `to` | `string` | No |  |
+| `token` | `string` | No |  |
+| `total` | `number` | No |  |
+| `validityPeriod` | `number` | No |  |
 
 ### Operations
 

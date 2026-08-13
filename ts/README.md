@@ -51,10 +51,10 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created TemporaryEmail
+// Create — returns the created TemporaryEmail ENTITY (.data() for the record)
 const created = await client.TemporaryEmail().create({
-  custom_domain: 'example_custom_domain',
-  data: {},
+  attachments: [],
+  body: 'example_body',
 })
 
 // Remove
@@ -138,7 +138,8 @@ Create a mock client for unit testing — no server required:
 const client = TempMailApi2SDK.test()
 
 const temporaryemail = await client.TemporaryEmail().load()
-// temporaryemail is a bare entity populated with mock response data
+// temporaryemail is the entity, populated with mock response data
+// — call temporaryemail.data() for the record itself
 console.log(temporaryemail)
 ```
 
@@ -161,7 +162,7 @@ await entity.load()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -308,11 +309,26 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `custom_domain` |  |
-| `data` |  |
+| `attachments` |  |
+| `body` |  |
+| `customDomain` |  |
+| `customDomainAvailable` |  |
+| `domains` |  |
+| `email` |  |
+| `expiresAt` |  |
+| `from` |  |
+| `htmlBody` |  |
+| `id` |  |
+| `inboxUrl` |  |
+| `isRead` |  |
+| `messages` |  |
 | `prefix` |  |
-| `success` |  |
-| `validity_period` |  |
+| `receivedAt` |  |
+| `subject` |  |
+| `to` |  |
+| `token` |  |
+| `total` |  |
+| `validityPeriod` |  |
 
 Operations: create, load, remove.
 
@@ -339,11 +355,26 @@ Create an instance: `const temporary_email = client.TemporaryEmail()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `custom_domain` | `string` |  |
-| `data` | `Record<string, any>` |  |
+| `attachments` | `any[]` |  |
+| `body` | `string` |  |
+| `customDomain` | `string` |  |
+| `customDomainAvailable` | `boolean` |  |
+| `domains` | `any[]` |  |
+| `email` | `string` |  |
+| `expiresAt` | `string` |  |
+| `from` | `string` |  |
+| `htmlBody` | `string` |  |
+| `id` | `string` |  |
+| `inboxUrl` | `string` |  |
+| `isRead` | `boolean` |  |
+| `messages` | `any[]` |  |
 | `prefix` | `string` |  |
-| `success` | `boolean` |  |
-| `validity_period` | `number` |  |
+| `receivedAt` | `string` |  |
+| `subject` | `string` |  |
+| `to` | `string` |  |
+| `token` | `string` |  |
+| `total` | `number` |  |
+| `validityPeriod` | `number` |  |
 
 #### Example: Load
 

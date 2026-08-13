@@ -47,7 +47,7 @@ print(temporaryemail)
 
 ```lua
 -- Create
-local created, err = client:TemporaryEmail():create({ custom_domain = "example_custom_domain", data = {} })
+local created, err = client:TemporaryEmail():create({ attachments = {}, body = "example_body" })
 if err then error(err) end
 
 -- Remove
@@ -242,11 +242,26 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `custom_domain` |  |
-| `data` |  |
+| `attachments` |  |
+| `body` |  |
+| `customDomain` |  |
+| `customDomainAvailable` |  |
+| `domains` |  |
+| `email` |  |
+| `expiresAt` |  |
+| `from` |  |
+| `htmlBody` |  |
+| `id` |  |
+| `inboxUrl` |  |
+| `isRead` |  |
+| `messages` |  |
 | `prefix` |  |
-| `success` |  |
-| `validity_period` |  |
+| `receivedAt` |  |
+| `subject` |  |
+| `to` |  |
+| `token` |  |
+| `total` |  |
+| `validityPeriod` |  |
 
 Operations: Create, Load, Remove.
 
@@ -273,11 +288,26 @@ Create an instance: `local temporary_email = client:TemporaryEmail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `custom_domain` | `string` |  |
-| `data` | `table` |  |
+| `attachments` | `table` |  |
+| `body` | `string` |  |
+| `customDomain` | `string` |  |
+| `customDomainAvailable` | `boolean` |  |
+| `domains` | `table` |  |
+| `email` | `string` |  |
+| `expiresAt` | `string` |  |
+| `from` | `string` |  |
+| `htmlBody` | `string` |  |
+| `id` | `string` |  |
+| `inboxUrl` | `string` |  |
+| `isRead` | `boolean` |  |
+| `messages` | `table` |  |
 | `prefix` | `string` |  |
-| `success` | `boolean` |  |
-| `validity_period` | `number` |  |
+| `receivedAt` | `string` |  |
+| `subject` | `string` |  |
+| `to` | `string` |  |
+| `token` | `string` |  |
+| `total` | `number` |  |
+| `validityPeriod` | `number` |  |
 
 #### Example: Load
 

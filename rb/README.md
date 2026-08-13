@@ -36,7 +36,7 @@ client = TempMailApi2SDK.new({
 
 ```ruby
 begin
-  # load returns the bare TemporaryEmail record (raises on error).
+  # load returns the ENTITY — call data_get for the TemporaryEmail record (raises on error).
   temporaryemail = client.TemporaryEmail.load()
   puts temporaryemail
 rescue => err
@@ -47,8 +47,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created TemporaryEmail record.
-created = client.TemporaryEmail.create({ "custom_domain" => "example_custom_domain", "data" => {} })
+# create returns the ENTITY — call data_get for the created TemporaryEmail record.
+created = client.TemporaryEmail.create({ "attachments" => [], "body" => "example_body" })
 
 # Remove
 client.TemporaryEmail.remove({ "email" => "example_email" })
@@ -129,7 +129,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = TempMailApi2SDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 temporaryemail = client.TemporaryEmail.load()
 puts temporaryemail
 ```
@@ -250,11 +251,26 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `custom_domain` |  |
-| `data` |  |
+| `attachments` |  |
+| `body` |  |
+| `customDomain` |  |
+| `customDomainAvailable` |  |
+| `domains` |  |
+| `email` |  |
+| `expiresAt` |  |
+| `from` |  |
+| `htmlBody` |  |
+| `id` |  |
+| `inboxUrl` |  |
+| `isRead` |  |
+| `messages` |  |
 | `prefix` |  |
-| `success` |  |
-| `validity_period` |  |
+| `receivedAt` |  |
+| `subject` |  |
+| `to` |  |
+| `token` |  |
+| `total` |  |
+| `validityPeriod` |  |
 
 Operations: Create, Load, Remove.
 
@@ -281,16 +297,31 @@ Create an instance: `temporary_email = client.TemporaryEmail`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `custom_domain` | `String` |  |
-| `data` | `Hash` |  |
+| `attachments` | `Array` |  |
+| `body` | `String` |  |
+| `customDomain` | `String` |  |
+| `customDomainAvailable` | `Boolean` |  |
+| `domains` | `Array` |  |
+| `email` | `String` |  |
+| `expiresAt` | `String` |  |
+| `from` | `String` |  |
+| `htmlBody` | `String` |  |
+| `id` | `String` |  |
+| `inboxUrl` | `String` |  |
+| `isRead` | `Boolean` |  |
+| `messages` | `Array` |  |
 | `prefix` | `String` |  |
-| `success` | `Boolean` |  |
-| `validity_period` | `Integer` |  |
+| `receivedAt` | `String` |  |
+| `subject` | `String` |  |
+| `to` | `String` |  |
+| `token` | `String` |  |
+| `total` | `Integer` |  |
+| `validityPeriod` | `Integer` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare TemporaryEmail record (raises on error).
+# load returns the ENTITY — call data_get for the TemporaryEmail record (raises on error).
 temporary_email = client.TemporaryEmail.load()
 ```
 

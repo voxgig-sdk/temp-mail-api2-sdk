@@ -8,19 +8,23 @@ guide: {
   entity: temporary_email: {
     path: "/temp-mail/domains": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.data`")|top
     }
     path: "/temp-mail/generate": {
       op: create: method: *POST
+      op: create: transform: res: *("`body.data`")|top
     }
     path: "/temp-mail/{email}/delete": {
       op: remove: method: *DELETE
     }
     path: "/temp-mail/{email}/inbox": {
       op: load: method: *GET
+      op: load: transform: res: *("`body.data`")|top
     }
     path: "/temp-mail/{email}/messages/{messageId}": {
       rename: param: "messageId": *"message_id"
       op: load: method: *GET
+      op: load: transform: res: *("`body.data`")|top
     }
   }
 

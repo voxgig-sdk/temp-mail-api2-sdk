@@ -61,7 +61,7 @@ func main() {
     fmt.Println(temporaryEmail)
 
     // Create a temporaryEmail.
-    created, err := client.TemporaryEmail(nil).Create(map[string]any{"custom_domain": "example_custom_domain", "data": map[string]any{}}, nil)
+    created, err := client.TemporaryEmail(nil).Create(map[string]any{"attachments": []any{}, "body": "example_body"}, nil)
     if err != nil {
         panic(err)
     }
@@ -279,11 +279,26 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"custom_domain"` |  |
-| `"data"` |  |
+| `"attachments"` |  |
+| `"body"` |  |
+| `"customDomain"` |  |
+| `"customDomainAvailable"` |  |
+| `"domains"` |  |
+| `"email"` |  |
+| `"expiresAt"` |  |
+| `"from"` |  |
+| `"htmlBody"` |  |
+| `"id"` |  |
+| `"inboxUrl"` |  |
+| `"isRead"` |  |
+| `"messages"` |  |
 | `"prefix"` |  |
-| `"success"` |  |
-| `"validity_period"` |  |
+| `"receivedAt"` |  |
+| `"subject"` |  |
+| `"to"` |  |
+| `"token"` |  |
+| `"total"` |  |
+| `"validityPeriod"` |  |
 
 Operations: Create, Load, Remove.
 
@@ -310,11 +325,26 @@ Create an instance: `temporaryEmail := client.TemporaryEmail(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `custom_domain` | `string` |  |
-| `data` | `map[string]any` |  |
+| `attachments` | `[]any` |  |
+| `body` | `string` |  |
+| `customDomain` | `string` |  |
+| `customDomainAvailable` | `bool` |  |
+| `domains` | `[]any` |  |
+| `email` | `string` |  |
+| `expiresAt` | `string` |  |
+| `from` | `string` |  |
+| `htmlBody` | `string` |  |
+| `id` | `string` |  |
+| `inboxUrl` | `string` |  |
+| `isRead` | `bool` |  |
+| `messages` | `[]any` |  |
 | `prefix` | `string` |  |
-| `success` | `bool` |  |
-| `validity_period` | `int` |  |
+| `receivedAt` | `string` |  |
+| `subject` | `string` |  |
+| `to` | `string` |  |
+| `token` | `string` |  |
+| `total` | `int` |  |
+| `validityPeriod` | `int` |  |
 
 #### Example: Load
 

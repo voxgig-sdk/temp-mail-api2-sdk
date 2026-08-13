@@ -44,7 +44,7 @@ func TestTemporaryEmailEntity(t *testing.T) {
 		// The basic flow consumes synthetic IDs from the fixture. In live mode
 		// without an *_ENTID env override, those IDs hit the live API and 4xx.
 		if setup.syntheticOnly {
-			t.Skip("live entity test uses synthetic IDs from fixture — set TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID JSON to run live")
+			t.Skip("live entity test uses synthetic IDs from fixture — set TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID JSON to run live")
 			return
 		}
 		client := setup.client
@@ -59,19 +59,28 @@ func TestTemporaryEmailEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		temporaryEmailRef01Data = core.ToMapAny(temporaryEmailRef01DataResult)
+		temporaryEmailRef01Data = core.ToMapAny(entityData(temporaryEmailRef01DataResult))
 		if temporaryEmailRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
+		if temporaryEmailRef01Data["id"] == nil {
+			t.Fatal("expected created entity to have an id")
+		}
 
 		// LOAD
-		temporaryEmailRef01MatchDt0 := map[string]any{}
+		temporaryEmailRef01MatchDt0 := map[string]any{
+			"id": temporaryEmailRef01Data["id"],
+		}
 		temporaryEmailRef01DataDt0Loaded, err := temporaryEmailRef01Ent.Load(temporaryEmailRef01MatchDt0, nil)
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		if temporaryEmailRef01DataDt0Loaded == nil {
-			t.Fatal("expected load result to be non-nil")
+		temporaryEmailRef01DataDt0LoadResult := core.ToMapAny(entityData(temporaryEmailRef01DataDt0Loaded))
+		if temporaryEmailRef01DataDt0LoadResult == nil {
+			t.Fatal("expected load result to be a map")
+		}
+		if temporaryEmailRef01DataDt0LoadResult["id"] != temporaryEmailRef01Data["id"] {
+			t.Fatal("expected load result id to match")
 		}
 
 		// REMOVE
@@ -123,38 +132,38 @@ func temporary_emailBasicSetup(extra map[string]any) *entityTestSetup {
 	// Detect ENTID env override before envOverride consumes it. When live
 	// mode is on without a real override, the basic test runs against synthetic
 	// IDs from the fixture and 4xx's. Surface this so the test can skip.
-	entidEnvRaw := os.Getenv("TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID")
+	entidEnvRaw := os.Getenv("TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID")
 	idmapOverridden := entidEnvRaw != "" && strings.HasPrefix(strings.TrimSpace(entidEnvRaw), "{")
 
 	env := envOverride(map[string]any{
-		"TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID": idmap,
-		"TEMPMAILAPI__TEST_LIVE":      "FALSE",
-		"TEMPMAILAPI__TEST_EXPLAIN":   "FALSE",
-		"TEMPMAILAPI__APIKEY":         "NONE",
+		"TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID": idmap,
+		"TEMP_MAIL_API2_TEST_LIVE":      "FALSE",
+		"TEMP_MAIL_API2_TEST_EXPLAIN":   "FALSE",
+		"TEMP_MAIL_API2_APIKEY":         "NONE",
 	})
 
-	idmapResolved := core.ToMapAny(env["TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID"])
+	idmapResolved := core.ToMapAny(env["TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID"])
 	if idmapResolved == nil {
 		idmapResolved = core.ToMapAny(idmap)
 	}
 
-	if env["TEMPMAILAPI__TEST_LIVE"] == "TRUE" {
+	if env["TEMP_MAIL_API2_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["TEMPMAILAPI__APIKEY"],
+				"apikey": env["TEMP_MAIL_API2_APIKEY"],
 			},
 			extra,
 		})
 		client = sdk.NewTempMailApi2SDK(core.ToMapAny(mergedOpts))
 	}
 
-	live := env["TEMPMAILAPI__TEST_LIVE"] == "TRUE"
+	live := env["TEMP_MAIL_API2_TEST_LIVE"] == "TRUE"
 	return &entityTestSetup{
 		client:        client,
 		data:          entityData,
 		idmap:         idmapResolved,
 		env:           env,
-		explain:       env["TEMPMAILAPI__TEST_EXPLAIN"] == "TRUE",
+		explain:       env["TEMP_MAIL_API2_TEST_EXPLAIN"] == "TRUE",
 		live:          live,
 		syntheticOnly: live && !idmapOverridden,
 		now:           time.Now().UnixMilli(),

@@ -37,7 +37,7 @@ $client = new TempMailApi2SDK([
 
 ```php
 try {
-    // load() returns the bare TemporaryEmail record (throws on error).
+    // load() returns the ENTITY — call data_get() for the TemporaryEmail record (throws on error).
     $temporaryemail = $client->TemporaryEmail()->load();
     print_r($temporaryemail);
 } catch (\Throwable $err) {
@@ -48,8 +48,8 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created TemporaryEmail record.
-$created = $client->TemporaryEmail()->create(["custom_domain" => "example_custom_domain", "data" => []]);
+// create() returns the ENTITY — call data_get() for the created TemporaryEmail record.
+$created = $client->TemporaryEmail()->create(["attachments" => [], "body" => "example_body"]);
 
 // Remove
 $client->TemporaryEmail()->remove(["email" => "example_email"]);
@@ -135,7 +135,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = TempMailApi2SDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $temporaryemail = $client->TemporaryEmail()->load();
 print_r($temporaryemail);
 ```
@@ -238,7 +239,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -260,11 +261,26 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `custom_domain` |  |
-| `data` |  |
+| `attachments` |  |
+| `body` |  |
+| `customDomain` |  |
+| `customDomainAvailable` |  |
+| `domains` |  |
+| `email` |  |
+| `expiresAt` |  |
+| `from` |  |
+| `htmlBody` |  |
+| `id` |  |
+| `inboxUrl` |  |
+| `isRead` |  |
+| `messages` |  |
 | `prefix` |  |
-| `success` |  |
-| `validity_period` |  |
+| `receivedAt` |  |
+| `subject` |  |
+| `to` |  |
+| `token` |  |
+| `total` |  |
+| `validityPeriod` |  |
 
 Operations: Create, Load, Remove.
 
@@ -291,16 +307,31 @@ Create an instance: `$temporary_email = $client->TemporaryEmail();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `custom_domain` | `string` |  |
-| `data` | `array` |  |
+| `attachments` | `array` |  |
+| `body` | `string` |  |
+| `customDomain` | `string` |  |
+| `customDomainAvailable` | `bool` |  |
+| `domains` | `array` |  |
+| `email` | `string` |  |
+| `expiresAt` | `string` |  |
+| `from` | `string` |  |
+| `htmlBody` | `string` |  |
+| `id` | `string` |  |
+| `inboxUrl` | `string` |  |
+| `isRead` | `bool` |  |
+| `messages` | `array` |  |
 | `prefix` | `string` |  |
-| `success` | `bool` |  |
-| `validity_period` | `int` |  |
+| `receivedAt` | `string` |  |
+| `subject` | `string` |  |
+| `to` | `string` |  |
+| `token` | `string` |  |
+| `total` | `int` |  |
+| `validityPeriod` | `int` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare TemporaryEmail record (throws on error).
+// load() returns the ENTITY — call data_get() for the TemporaryEmail record (throws on error).
 $temporary_email = $client->TemporaryEmail()->load();
 ```
 

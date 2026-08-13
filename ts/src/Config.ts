@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'TempMailApi2',
   }
 
 
@@ -60,38 +60,143 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "custom_domain",
+          "name": "attachments",
           "req": false,
-          "type": "`$STRING`",
+          "type": "`$ARRAY`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "data",
+          "name": "body",
           "req": false,
-          "type": "`$OBJECT`",
+          "type": "`$STRING`",
           "index$": 1
         },
         {
           "active": true,
-          "name": "prefix",
+          "name": "customDomain",
           "req": false,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "success",
+          "name": "customDomainAvailable",
           "req": false,
           "type": "`$BOOLEAN`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "validity_period",
+          "name": "domains",
+          "req": false,
+          "type": "`$ARRAY`",
+          "index$": 4
+        },
+        {
+          "active": true,
+          "name": "email",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 5
+        },
+        {
+          "active": true,
+          "name": "expiresAt",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 6
+        },
+        {
+          "active": true,
+          "name": "from",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 7
+        },
+        {
+          "active": true,
+          "name": "htmlBody",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 8
+        },
+        {
+          "active": true,
+          "name": "id",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 9
+        },
+        {
+          "active": true,
+          "name": "inboxUrl",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 10
+        },
+        {
+          "active": true,
+          "name": "isRead",
+          "req": false,
+          "type": "`$BOOLEAN`",
+          "index$": 11
+        },
+        {
+          "active": true,
+          "name": "messages",
+          "req": false,
+          "type": "`$ARRAY`",
+          "index$": 12
+        },
+        {
+          "active": true,
+          "name": "prefix",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 13
+        },
+        {
+          "active": true,
+          "name": "receivedAt",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 14
+        },
+        {
+          "active": true,
+          "name": "subject",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 15
+        },
+        {
+          "active": true,
+          "name": "to",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 16
+        },
+        {
+          "active": true,
+          "name": "token",
+          "req": false,
+          "type": "`$STRING`",
+          "index$": 17
+        },
+        {
+          "active": true,
+          "name": "total",
           "req": false,
           "type": "`$INTEGER`",
-          "index$": 4
+          "index$": 18
+        },
+        {
+          "active": true,
+          "name": "validityPeriod",
+          "req": false,
+          "type": "`$INTEGER`",
+          "index$": 19
         }
       ],
       "name": "temporary_email",
@@ -103,6 +208,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/temp-mail/generate",
               "parts": [
@@ -112,7 +218,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             }
@@ -159,6 +265,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/{email}/inbox",
               "parts": [
@@ -175,7 +282,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 0
             },
@@ -203,6 +310,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/{email}/messages/{messageId}",
               "parts": [
@@ -224,13 +332,14 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 1
             },
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/domains",
               "parts": [
@@ -240,7 +349,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.data`"
               },
               "index$": 2
             }
@@ -266,6 +375,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/temp-mail/{email}/delete",
               "parts": [

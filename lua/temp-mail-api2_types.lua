@@ -7,22 +7,52 @@
 -- edit by hand.
 
 ---@class TemporaryEmail
----@field custom_domain? string
----@field data? table
+---@field attachments? table
+---@field body? string
+---@field customDomain? string
+---@field customDomainAvailable? boolean
+---@field domains? table
+---@field email? string
+---@field expiresAt? string
+---@field from? string
+---@field htmlBody? string
+---@field id? string
+---@field inboxUrl? string
+---@field isRead? boolean
+---@field messages? table
 ---@field prefix? string
----@field success? boolean
----@field validity_period? number
+---@field receivedAt? string
+---@field subject? string
+---@field to? string
+---@field token? string
+---@field total? number
+---@field validityPeriod? number
 
 ---@class TemporaryEmailLoadMatch
 ---@field email? string
 ---@field message_id? string
 
 ---@class TemporaryEmailCreateData
----@field custom_domain? string
----@field data? table
+---@field attachments? table
+---@field body? string
+---@field customDomain? string
+---@field customDomainAvailable? boolean
+---@field domains? table
+---@field email? string
+---@field expiresAt? string
+---@field from? string
+---@field htmlBody? string
+---@field id? string
+---@field inboxUrl? string
+---@field isRead? boolean
+---@field messages? table
 ---@field prefix? string
----@field success? boolean
----@field validity_period? number
+---@field receivedAt? string
+---@field subject? string
+---@field to? string
+---@field token? string
+---@field total? number
+---@field validityPeriod? number
 
 ---@class TemporaryEmailRemoveMatch
 ---@field email string

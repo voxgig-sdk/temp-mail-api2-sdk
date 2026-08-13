@@ -16,11 +16,11 @@
 import pytest
 
 from tempmailapi2_sdk import TempMailApi2SDK
-from core.error import TempMailApi2Error
-from core.result import TempMailApi2Result
-from core.response import TempMailApi2Response
-from core.spec import TempMailApi2Spec
-from feature.base_feature import TempMailApi2BaseFeature
+from tempmailapi2_sdk.core.error import TempMailApi2Error
+from tempmailapi2_sdk.core.result import TempMailApi2Result
+from tempmailapi2_sdk.core.response import TempMailApi2Response
+from tempmailapi2_sdk.core.spec import TempMailApi2Spec
+from tempmailapi2_sdk.feature.base_feature import TempMailApi2BaseFeature
 
 
 def _client():

@@ -26,7 +26,7 @@ class TemporaryEmailEntityTest < Minitest::Test
     # The basic flow consumes synthetic IDs from the fixture. In live mode
     # without an *_ENTID env override, those IDs hit the live API and 4xx.
     if setup[:synthetic_only]
-      skip "live entity test uses synthetic IDs from fixture — set TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID JSON to run live"
+      skip "live entity test uses synthetic IDs from fixture — set TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID JSON to run live"
       return
     end
     client = setup[:client]
@@ -38,13 +38,18 @@ class TemporaryEmailEntityTest < Minitest::Test
     temporary_email_ref01_data["email"] = setup[:idmap]["email01"]
 
     temporary_email_ref01_data_result = temporary_email_ref01_ent.create(temporary_email_ref01_data, nil)
-    temporary_email_ref01_data = Helpers.to_map(temporary_email_ref01_data_result)
+    temporary_email_ref01_data = Helpers.to_map(temporary_email_ref01_data_result.respond_to?(:data_get) ? temporary_email_ref01_data_result.data_get : temporary_email_ref01_data_result)
     assert !temporary_email_ref01_data.nil?
+    assert !temporary_email_ref01_data["id"].nil?
 
     # LOAD
-    temporary_email_ref01_match_dt0 = {}
+    temporary_email_ref01_match_dt0 = {
+      "id" => temporary_email_ref01_data["id"],
+    }
     temporary_email_ref01_data_dt0_loaded = temporary_email_ref01_ent.load(temporary_email_ref01_match_dt0, nil)
-    assert !temporary_email_ref01_data_dt0_loaded.nil?
+    temporary_email_ref01_data_dt0_load_result = Helpers.to_map(temporary_email_ref01_data_dt0_loaded.respond_to?(:data_get) ? temporary_email_ref01_data_dt0_loaded.data_get : temporary_email_ref01_data_dt0_loaded)
+    assert !temporary_email_ref01_data_dt0_load_result.nil?
+    assert_equal temporary_email_ref01_data_dt0_load_result["id"], temporary_email_ref01_data["id"]
 
     # REMOVE
     temporary_email_ref01_match_rm0 = {
@@ -81,39 +86,39 @@ def temporary_email_basic_setup(extra)
   # Detect ENTID env override before envOverride consumes it. When live
   # mode is on without a real override, the basic test runs against synthetic
   # IDs from the fixture and 4xx's. Surface this so the test can skip.
-  entid_env_raw = ENV["TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID"]
+  entid_env_raw = ENV["TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID"]
   idmap_overridden = !entid_env_raw.nil? && entid_env_raw.strip.start_with?("{")
 
   env = Runner.env_override({
-    "TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID" => idmap,
-    "TEMPMAILAPI__TEST_LIVE" => "FALSE",
-    "TEMPMAILAPI__TEST_EXPLAIN" => "FALSE",
-    "TEMPMAILAPI__APIKEY" => "NONE",
+    "TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID" => idmap,
+    "TEMP_MAIL_API2_TEST_LIVE" => "FALSE",
+    "TEMP_MAIL_API2_TEST_EXPLAIN" => "FALSE",
+    "TEMP_MAIL_API2_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
-    env["TEMPMAILAPI__TEST_TEMPORARY_EMAIL_ENTID"])
+    env["TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID"])
   if idmap_resolved.nil?
     idmap_resolved = Helpers.to_map(idmap)
   end
 
-  if env["TEMPMAILAPI__TEST_LIVE"] == "TRUE"
+  if env["TEMP_MAIL_API2_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["TEMPMAILAPI__APIKEY"],
+        "apikey" => env["TEMP_MAIL_API2_APIKEY"],
       },
       extra || {},
     ])
     client = TempMailApi2SDK.new(Helpers.to_map(merged_opts))
   end
 
-  live = env["TEMPMAILAPI__TEST_LIVE"] == "TRUE"
+  live = env["TEMP_MAIL_API2_TEST_LIVE"] == "TRUE"
   {
     client: client,
     data: entity_data,
     idmap: idmap_resolved,
     env: env,
-    explain: env["TEMPMAILAPI__TEST_EXPLAIN"] == "TRUE",
+    explain: env["TEMP_MAIL_API2_TEST_EXPLAIN"] == "TRUE",
     live: live,
     synthetic_only: live && !idmap_overridden,
     now: (Time.now.to_f * 1000).to_i,

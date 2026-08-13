@@ -6,14 +6,69 @@ main: kit: entity: temporary_email: {
 
   fields: [
     {
-      name: "custom_domain"
+      name: "attachments"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "body"
       req: false
       type: "`$STRING`"
     }
     {
-      name: "data"
+      name: "customDomain"
       req: false
-      type: "`$OBJECT`"
+      type: "`$STRING`"
+    }
+    {
+      name: "customDomainAvailable"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "domains"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "email"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "expiresAt"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "from"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "htmlBody"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "inboxUrl"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "isRead"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "messages"
+      req: false
+      type: "`$ARRAY`"
     }
     {
       name: "prefix"
@@ -21,16 +76,41 @@ main: kit: entity: temporary_email: {
       type: "`$STRING`"
     }
     {
-      name: "success"
+      name: "receivedAt"
       req: false
-      type: "`$BOOLEAN`"
+      type: "`$STRING`"
     }
     {
-      name: "validity_period"
+      name: "subject"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "to"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "token"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "total"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "validityPeriod"
       req: false
       type: "`$INTEGER`"
     }
   ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
 
   name: "temporary_email"
   op: {
@@ -46,7 +126,7 @@ main: kit: entity: temporary_email: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]
@@ -101,7 +181,7 @@ main: kit: entity: temporary_email: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
         {
@@ -144,7 +224,7 @@ main: kit: entity: temporary_email: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
         {
@@ -156,7 +236,7 @@ main: kit: entity: temporary_email: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.data`"
           }
         }
       ]

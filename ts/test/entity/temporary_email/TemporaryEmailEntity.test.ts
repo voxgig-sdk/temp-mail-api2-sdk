@@ -26,8 +26,8 @@ import {
 describe('TemporaryEmailEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when TEMPMAILAPI2_TEST_LIVE=TRUE.
-  afterEach(liveDelay('TEMPMAILAPI2_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when TEMP_MAIL_API2_TEST_LIVE=TRUE.
+  afterEach(liveDelay('TEMP_MAIL_API2_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = TempMailApi2SDK.test()
@@ -38,7 +38,7 @@ describe('TemporaryEmailEntity', async () => {
 
   test('basic', async (t) => {
 
-    const live = 'TRUE' === process.env.TEMP_MAIL_API__TEST_LIVE
+    const live = 'TRUE' === process.env.TEMP_MAIL_API2_TEST_LIVE
     for (const op of ['create', 'load', 'remove']) {
       if (maybeSkipControl(t, 'entityOp', 'temporary_email.' + op, live)) return
     }
@@ -48,7 +48,7 @@ describe('TemporaryEmailEntity', async () => {
     // fixture (entity TestData.json). Those don't exist on the live API.
     // Skip live runs unless the user provided a real ENTID env override.
     if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set TEMP_MAIL_API__TEST_TEMPORARY_EMAIL_ENTID JSON to run live')
+      t.skip('live entity test uses synthetic IDs from fixture — set TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID JSON to run live')
       return
     }
     const client = setup.client
@@ -63,9 +63,15 @@ describe('TemporaryEmailEntity', async () => {
     let temporary_email_ref01_data = setup.data.new.temporary_email['temporary_email_ref01']
     temporary_email_ref01_data['email'] = setup.idmap['email01']
 
-    temporary_email_ref01_data = await temporary_email_ref01_ent.create(temporary_email_ref01_data)
-    assert(null != temporary_email_ref01_data)
+    temporary_email_ref01_data = (await temporary_email_ref01_ent.create(temporary_email_ref01_data)).data()
+    assert(null != temporary_email_ref01_data.id)
 
+
+    // LOAD
+    const temporary_email_ref01_match_dt0: any = {}
+    temporary_email_ref01_match_dt0.id = temporary_email_ref01_data.id
+    const temporary_email_ref01_data_dt0 = (await temporary_email_ref01_ent.load(temporary_email_ref01_match_dt0)).data()
+    assert(temporary_email_ref01_data_dt0.id === temporary_email_ref01_data.id)
 
 
     // REMOVE
@@ -113,24 +119,24 @@ function basicSetup(extra?: any) {
   // basic flow consumes synthetic IDs from the fixture file; without an
   // override those synthetic IDs reach the live API and 4xx. Surface this
   // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['TEMP_MAIL_API__TEST_TEMPORARY_EMAIL_ENTID']
+  const idmapEnvVal = process.env['TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID']
   const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
 
   const env = envOverride({
-    'TEMP_MAIL_API__TEST_TEMPORARY_EMAIL_ENTID': idmap,
-    'TEMP_MAIL_API__TEST_LIVE': 'FALSE',
-    'TEMP_MAIL_API__TEST_EXPLAIN': 'FALSE',
-    'TEMP_MAIL_API__APIKEY': 'NONE',
+    'TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID': idmap,
+    'TEMP_MAIL_API2_TEST_LIVE': 'FALSE',
+    'TEMP_MAIL_API2_TEST_EXPLAIN': 'FALSE',
+    'TEMP_MAIL_API2_APIKEY': 'NONE',
   })
 
-  idmap = env['TEMP_MAIL_API__TEST_TEMPORARY_EMAIL_ENTID']
+  idmap = env['TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID']
 
-  const live = 'TRUE' === env.TEMP_MAIL_API__TEST_LIVE
+  const live = 'TRUE' === env.TEMP_MAIL_API2_TEST_LIVE
 
   if (live) {
     client = new TempMailApi2SDK(merge([
       {
-        apikey: env.TEMP_MAIL_API__APIKEY,
+        apikey: env.TEMP_MAIL_API2_APIKEY,
       },
       extra
     ]))
@@ -143,7 +149,7 @@ function basicSetup(extra?: any) {
     client,
     struct,
     data: entityData,
-    explain: 'TRUE' === env.TEMP_MAIL_API__TEST_EXPLAIN,
+    explain: 'TRUE' === env.TEMP_MAIL_API2_TEST_EXPLAIN,
     live,
     syntheticOnly: live && !idmapOverridden,
     now: Date.now(),
