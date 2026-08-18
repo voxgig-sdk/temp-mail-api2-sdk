@@ -130,7 +130,7 @@ $result = $client->TemporaryEmail()->create([
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->TemporaryEmail()->load();
+$result = $client->TemporaryEmail()->load(["email" => "email", "message_id" => "message_id"]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`

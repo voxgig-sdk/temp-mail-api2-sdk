@@ -127,7 +127,7 @@ fmt.Println(temporaryEmail.GetName()) // "temporary_email"
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.TemporaryEmail(nil).Load(nil, nil)
+result, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "email", "message_id": "message_id"}, nil)
 if err != nil {
     panic(err)
 }

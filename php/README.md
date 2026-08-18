@@ -35,10 +35,12 @@ $client = new TempMailApi2SDK([
 
 ### 3. Load a temporaryemail
 
+TemporaryEmail is nested under email, so provide the `email`.
+
 ```php
 try {
     // load() returns the ENTITY — call data_get() for the TemporaryEmail record (throws on error).
-    $temporaryemail = $client->TemporaryEmail()->load();
+    $temporaryemail = $client->TemporaryEmail()->load(["email" => "example_email", "message_id" => "example_message_id"]);
     print_r($temporaryemail);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -63,7 +65,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $temporaryemail = $client->TemporaryEmail()->load();
+    $temporaryemail = $client->TemporaryEmail()->load(["email" => "example", "message_id" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -137,7 +139,7 @@ $client = TempMailApi2SDK::test();
 
 // Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$temporaryemail = $client->TemporaryEmail()->load();
+$temporaryemail = $client->TemporaryEmail()->load(["email" => "example", "message_id" => "example"]);
 print_r($temporaryemail);
 ```
 
@@ -332,7 +334,7 @@ Create an instance: `$temporary_email = $client->TemporaryEmail();`
 
 ```php
 // load() returns the ENTITY — call data_get() for the TemporaryEmail record (throws on error).
-$temporary_email = $client->TemporaryEmail()->load();
+$temporary_email = $client->TemporaryEmail()->load(["email" => "email", "message_id" => "message_id"]);
 ```
 
 #### Example: Create
@@ -420,7 +422,7 @@ stores the returned data and match criteria internally.
 
 ```php
 $temporaryemail = $client->TemporaryEmail();
-$temporaryemail->load();
+$temporaryemail->load(["email" => "example", "message_id" => "example"]);
 
 // $temporaryemail->data_get() now returns the temporaryemail data from the last load
 // $temporaryemail->match_get() returns the last match criteria

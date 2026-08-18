@@ -37,11 +37,15 @@ const client = new TempMailApi2SDK({
 
 ### 3. Load a temporaryemail
 
+TemporaryEmail is nested under email, so provide the `email`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const temporaryemail = await client.TemporaryEmail().load()
+  const temporaryemail = await client.TemporaryEmail().load({
+    email: 'example_email',
+    message_id: 'example_message_id',
+  })
   console.log(temporaryemail)
 } catch (err) {
   console.error('load failed:', err)
@@ -70,7 +74,7 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const temporaryemail = await client.TemporaryEmail().load()
+  const temporaryemail = await client.TemporaryEmail().load({ email: "example", message_id: "example" })
   console.log(temporaryemail)
 } catch (err) {
   console.error('load failed:', err)
@@ -137,7 +141,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = TempMailApi2SDK.test()
 
-const temporaryemail = await client.TemporaryEmail().load()
+const temporaryemail = await client.TemporaryEmail().load({ email: 'example_email', message_id: 'example_message_id' })
 // temporaryemail is the entity, populated with mock response data
 // — call temporaryemail.data() for the record itself
 console.log(temporaryemail)
@@ -158,7 +162,7 @@ Entity instances remember their last match and data:
 const entity = client.TemporaryEmail()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.load({ email: 'example_email', message_id: 'example_message_id' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -379,7 +383,7 @@ Create an instance: `const temporary_email = client.TemporaryEmail()`
 #### Example: Load
 
 ```ts
-const temporary_email = await client.TemporaryEmail().load()
+const temporary_email = await client.TemporaryEmail().load({ email: 'email', message_id: 'message_id' })
 ```
 
 #### Example: Create
@@ -460,7 +464,7 @@ calls on the same instance can rely on this state.
 
 ```ts
 const temporaryemail = client.TemporaryEmail()
-await temporaryemail.load()
+await temporaryemail.load({ email: "example", message_id: "example" })
 
 // temporaryemail.data() now returns the temporaryemail data from the last `load`
 // temporaryemail.match() returns the last match criteria

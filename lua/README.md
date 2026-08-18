@@ -37,8 +37,10 @@ local client = sdk.new({
 
 ### 3. Load a temporaryemail
 
+TemporaryEmail is nested under email, so provide the `email`.
+
 ```lua
-local temporaryemail, err = client:TemporaryEmail():load()
+local temporaryemail, err = client:TemporaryEmail():load({ email = "example_email", message_id = "example_message_id" })
 if err then error(err) end
 print(temporaryemail)
 ```
@@ -61,7 +63,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local temporaryemail, err = client:TemporaryEmail():load()
+local temporaryemail, err = client:TemporaryEmail():load({ email = "example", message_id = "example" })
 if err then error(err) end
 ```
 
@@ -119,7 +121,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:TemporaryEmail():load()
+local result, err = client:TemporaryEmail():load({ email = "example", message_id = "example" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -312,7 +314,7 @@ Create an instance: `local temporary_email = client:TemporaryEmail(nil)`
 #### Example: Load
 
 ```lua
-local temporary_email, err = client:TemporaryEmail():load()
+local temporary_email, err = client:TemporaryEmail():load({ email = "email", message_id = "message_id" })
 ```
 
 #### Example: Create
@@ -400,7 +402,7 @@ stores the returned data and match criteria internally.
 
 ```lua
 local temporaryemail = client:TemporaryEmail()
-temporaryemail:load()
+temporaryemail:load({ email = "example", message_id = "example" })
 
 -- temporaryemail:data_get() now returns the temporaryemail data from the last load
 -- temporaryemail:match_get() returns the last match criteria

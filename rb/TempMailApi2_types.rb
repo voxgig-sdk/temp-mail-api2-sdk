@@ -96,10 +96,10 @@ TemporaryEmail = Struct.new(
 # Request payload for TemporaryEmail#load.
 #
 # @!attribute [rw] email
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] message_id
-#   @return [String, nil]
+#   @return [String]
 TemporaryEmailLoadMatch = Struct.new(
   :email,
   :message_id,

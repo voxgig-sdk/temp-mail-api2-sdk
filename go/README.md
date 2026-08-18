@@ -54,7 +54,7 @@ func main() {
     })
 
     // Load a single temporaryEmail — the value is the loaded record.
-    temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
+    temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "example_email", "message_id": "example_message_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -83,7 +83,7 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-temporaryemail, err := client.TemporaryEmail(nil).Load(nil, nil)
+temporaryemail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "example", "message_id": "example"}, nil)
 if err != nil {
     // handle err
     return
@@ -153,7 +153,7 @@ Create a mock client for unit testing — no server required:
 client := sdk.Test()
 
 temporaryEmail, err := client.TemporaryEmail(nil).Load(
-    nil, nil,
+    map[string]any{"email": "example", "message_id": "example"}, nil,
 )
 if err != nil {
     panic(err)
@@ -349,7 +349,7 @@ Create an instance: `temporaryEmail := client.TemporaryEmail(nil)`
 #### Example: Load
 
 ```go
-temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
+temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "email", "message_id": "message_id"}, nil)
 if err != nil {
     panic(err)
 }
@@ -442,7 +442,7 @@ stores the returned data and match criteria internally.
 
 ```go
 temporaryemail := client.TemporaryEmail(nil)
-temporaryemail.Load(nil, nil)
+temporaryemail.Load(map[string]any{"email": "example", "message_id": "example"}, nil)
 
 // temporaryemail.Data() now returns the temporaryemail data from the last load
 // temporaryemail.Match() returns the last match criteria

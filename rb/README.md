@@ -34,10 +34,12 @@ client = TempMailApi2SDK.new({
 
 ### 3. Load a temporaryemail
 
+TemporaryEmail is nested under email, so provide the `email`.
+
 ```ruby
 begin
   # load returns the ENTITY — call data_get for the TemporaryEmail record (raises on error).
-  temporaryemail = client.TemporaryEmail.load()
+  temporaryemail = client.TemporaryEmail.load({ "email" => "example_email", "message_id" => "example_message_id" })
   puts temporaryemail
 rescue => err
   warn "load failed: #{err}"
@@ -61,7 +63,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  temporaryemail = client.TemporaryEmail.load()
+  temporaryemail = client.TemporaryEmail.load({ "email" => "example", "message_id" => "example" })
 rescue => err
   warn "load failed: #{err}"
 end
@@ -131,7 +133,7 @@ client = TempMailApi2SDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-temporaryemail = client.TemporaryEmail.load()
+temporaryemail = client.TemporaryEmail.load({ "email" => "example", "message_id" => "example" })
 puts temporaryemail
 ```
 
@@ -322,7 +324,7 @@ Create an instance: `temporary_email = client.TemporaryEmail`
 
 ```ruby
 # load returns the ENTITY — call data_get for the TemporaryEmail record (raises on error).
-temporary_email = client.TemporaryEmail.load()
+temporary_email = client.TemporaryEmail.load({ "email" => "email", "message_id" => "message_id" })
 ```
 
 #### Example: Create
@@ -410,7 +412,7 @@ stores the returned data and match criteria internally.
 
 ```ruby
 temporaryemail = client.TemporaryEmail
-temporaryemail.load()
+temporaryemail.load({ "email" => "example", "message_id" => "example" })
 
 # temporaryemail.data_get now returns the temporaryemail data from the last load
 # temporaryemail.match_get returns the last match criteria

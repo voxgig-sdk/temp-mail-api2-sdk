@@ -23,7 +23,7 @@ support (`load`, `create`, `remove`):
 
 ```ts
 const client = new TempMailApi2SDK()
-const temporaryemail = await client.TemporaryEmail().load()
+const temporaryemail = await client.TemporaryEmail().load({ email: "example", message_id: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -47,7 +47,7 @@ const client = TempMailApi2SDK.test({
     },
   },
 })
-const temporaryemail = await client.TemporaryEmail().load()
+const temporaryemail = await client.TemporaryEmail().load({ email: 'example_email', message_id: 'example_message_id' })
 // temporaryemail is the TemporaryEmail entity, populated with mock data
 // — call temporaryemail.data() for the record itself
 console.log(temporaryemail)
@@ -57,7 +57,7 @@ console.log(temporaryemail)
 
 ```python
 client = TempMailApi2SDK.test()
-temporaryemail = client.TemporaryEmail().load()
+temporaryemail = client.TemporaryEmail().load({"email": "example", "message_id": "example"})
 print(temporaryemail)
 ```
 
@@ -68,7 +68,7 @@ print(temporaryemail)
 $client = TempMailApi2SDK::test([
     "entity" => ["temporaryemail" => ["test01" => []]],
 ]);
-$temporaryemail = $client->TemporaryEmail()->load();
+$temporaryemail = $client->TemporaryEmail()->load(["email" => "example", "message_id" => "example"]);
 ```
 
 ### Golang
@@ -87,14 +87,14 @@ result, err := client.TemporaryEmail(nil).Load(
 client = TempMailApi2SDK.test({
   "entity" => { "temporaryemail" => { "test01" => {} } },
 })
-temporaryemail = client.TemporaryEmail.load()
+temporaryemail = client.TemporaryEmail.load({ "email" => "example", "message_id" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:TemporaryEmail():load()
+local result, err = client:TemporaryEmail():load({ email = "example", message_id = "example" })
 ```
 
 ## Packages
@@ -121,8 +121,12 @@ const client = new TempMailApi2SDK({
   apikey: process.env.TEMP_MAIL_API2_APIKEY,
 })
 
-// Load temporaryemail data (returns a TemporaryEmail)
-const temporaryemail = await client.TemporaryEmail().load()
+
+// Load a specific temporaryemail (returns a TemporaryEmail)
+const temporaryemail = await client.TemporaryEmail().load({
+  email: 'example_email',
+  message_id: 'example_message_id',
+})
 console.log(temporaryemail)
 ```
 
@@ -183,7 +187,7 @@ client = TempMailApi2SDK({
 
 
 # Load a specific temporaryemail (returns the record, raises on error)
-temporaryemail = client.TemporaryEmail().load()
+temporaryemail = client.TemporaryEmail().load({"email": "example_email", "message_id": "example_message_id"})
 print(temporaryemail)
 ```
 
@@ -199,7 +203,7 @@ $client = new TempMailApi2SDK([
 
 
 // Load a specific temporaryemail (returns the ENTITY; call data_get() for the record; throws on error)
-$temporaryemail = $client->TemporaryEmail()->load();
+$temporaryemail = $client->TemporaryEmail()->load(["email" => "example_email", "message_id" => "example_message_id"]);
 print_r($temporaryemail);
 ```
 
@@ -212,8 +216,11 @@ client := sdk.NewTempMailApi2SDK(map[string]any{
     "apikey": os.Getenv("TEMP_MAIL_API2_APIKEY"),
 })
 
-// Load temporaryemail data
-temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
+
+// Load a specific temporaryemail
+temporaryEmail, err := client.TemporaryEmail(nil).Load(
+    map[string]any{"email": "example_email", "message_id": "example_message_id"}, nil,
+)
 if err != nil {
     panic(err)
 }
@@ -231,7 +238,7 @@ client = TempMailApi2SDK.new({
 
 
 # Load a specific temporaryemail (returns the ENTITY; call data_get for the record)
-temporaryemail = client.TemporaryEmail.load()
+temporaryemail = client.TemporaryEmail.load({ "email" => "example_email", "message_id" => "example_message_id" })
 puts temporaryemail
 ```
 
@@ -246,7 +253,7 @@ local client = sdk.new({
 
 
 -- Load a specific temporaryemail
-local temporaryemail, err = client:TemporaryEmail():load()
+local temporaryemail, err = client:TemporaryEmail():load({ email = "example_email", message_id = "example_message_id" })
 print(temporaryemail)
 ```
 

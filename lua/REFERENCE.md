@@ -128,7 +128,7 @@ local result, err = client:TemporaryEmail():create({
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:TemporaryEmail():load()
+local result, err = client:TemporaryEmail():load({ email = "email", message_id = "message_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`

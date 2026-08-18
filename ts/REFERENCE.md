@@ -154,7 +154,7 @@ const result = await client.TemporaryEmail().create({
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.TemporaryEmail().load()
+const result = await client.TemporaryEmail().load({ email: 'email', message_id: 'message_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`

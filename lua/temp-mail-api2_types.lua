@@ -29,8 +29,8 @@
 ---@field validityPeriod? number
 
 ---@class TemporaryEmailLoadMatch
----@field email? string
----@field message_id? string
+---@field email string
+---@field message_id string
 
 ---@class TemporaryEmailCreateData
 ---@field attachments? table

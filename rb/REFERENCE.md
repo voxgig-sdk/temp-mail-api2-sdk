@@ -131,7 +131,7 @@ result = client.TemporaryEmail.create({
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.TemporaryEmail.load()
+result = client.TemporaryEmail.load({ "email" => "email", "message_id" => "message_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
