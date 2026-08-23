@@ -260,25 +260,25 @@ On error, `ok` is `False` and `err` contains the error value.
 | Field | Description |
 | --- | --- |
 | `attachments` |  |
-| `body` |  |
-| `customDomain` |  |
-| `customDomainAvailable` |  |
+| `body` | Email body content |
+| `customDomain` | Custom domain for professional temporary email |
+| `customDomainAvailable` | Whether custom domains are supported |
 | `domains` |  |
-| `email` |  |
-| `expiresAt` |  |
-| `from` |  |
-| `htmlBody` |  |
-| `id` |  |
-| `inboxUrl` |  |
-| `isRead` |  |
+| `email` | Generated temporary email address |
+| `expiresAt` | Expiration date of the temporary email |
+| `from` | Sender email address |
+| `htmlBody` | HTML version of email body |
+| `id` | Unique message identifier |
+| `inboxUrl` | URL to access the inbox |
+| `isRead` | Whether the message has been read |
 | `messages` |  |
-| `prefix` |  |
-| `receivedAt` |  |
-| `subject` |  |
-| `to` |  |
-| `token` |  |
-| `total` |  |
-| `validityPeriod` |  |
+| `prefix` | Desired prefix for the email address |
+| `receivedAt` | When the email was received |
+| `subject` | Email subject |
+| `to` | Recipient email address |
+| `token` | Access token for managing this email address |
+| `total` | Total number of messages |
+| `validityPeriod` | Validity period in days (default: 60+ days) |
 
 Operations: Create, Load, Remove.
 
@@ -306,25 +306,25 @@ Create an instance: `temporary_email = client.TemporaryEmail()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `attachments` | `list` |  |
-| `body` | `str` |  |
-| `customDomain` | `str` |  |
-| `customDomainAvailable` | `bool` |  |
+| `body` | `str` | Email body content |
+| `customDomain` | `str` | Custom domain for professional temporary email |
+| `customDomainAvailable` | `bool` | Whether custom domains are supported |
 | `domains` | `list` |  |
-| `email` | `str` |  |
-| `expiresAt` | `str` |  |
-| `from` | `str` |  |
-| `htmlBody` | `str` |  |
-| `id` | `str` |  |
-| `inboxUrl` | `str` |  |
-| `isRead` | `bool` |  |
+| `email` | `str` | Generated temporary email address |
+| `expiresAt` | `str` | Expiration date of the temporary email |
+| `from` | `str` | Sender email address |
+| `htmlBody` | `str` | HTML version of email body |
+| `id` | `str` | Unique message identifier |
+| `inboxUrl` | `str` | URL to access the inbox |
+| `isRead` | `bool` | Whether the message has been read |
 | `messages` | `list` |  |
-| `prefix` | `str` |  |
-| `receivedAt` | `str` |  |
-| `subject` | `str` |  |
-| `to` | `str` |  |
-| `token` | `str` |  |
-| `total` | `int` |  |
-| `validityPeriod` | `int` |  |
+| `prefix` | `str` | Desired prefix for the email address |
+| `receivedAt` | `str` | When the email was received |
+| `subject` | `str` | Email subject |
+| `to` | `str` | Recipient email address |
+| `token` | `str` | Access token for managing this email address |
+| `total` | `int` | Total number of messages |
+| `validityPeriod` | `int` | Validity period in days (default: 60+ days) |
 
 #### Example: Load
 

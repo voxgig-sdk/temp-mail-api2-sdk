@@ -94,25 +94,25 @@ $temporary_email = $client->TemporaryEmail();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `attachments` | `array` | No |  |
-| `body` | `string` | No |  |
-| `customDomain` | `string` | No |  |
-| `customDomainAvailable` | `bool` | No |  |
+| `body` | `string` | No | Email body content |
+| `customDomain` | `string` | No | Custom domain for professional temporary email |
+| `customDomainAvailable` | `bool` | No | Whether custom domains are supported |
 | `domains` | `array` | No |  |
-| `email` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
-| `from` | `string` | No |  |
-| `htmlBody` | `string` | No |  |
-| `id` | `string` | No |  |
-| `inboxUrl` | `string` | No |  |
-| `isRead` | `bool` | No |  |
+| `email` | `string` | No | Generated temporary email address |
+| `expiresAt` | `string` | No | Expiration date of the temporary email |
+| `from` | `string` | No | Sender email address |
+| `htmlBody` | `string` | No | HTML version of email body |
+| `id` | `string` | No | Unique message identifier |
+| `inboxUrl` | `string` | No | URL to access the inbox |
+| `isRead` | `bool` | No | Whether the message has been read |
 | `messages` | `array` | No |  |
-| `prefix` | `string` | No |  |
-| `receivedAt` | `string` | No |  |
-| `subject` | `string` | No |  |
-| `to` | `string` | No |  |
-| `token` | `string` | No |  |
-| `total` | `int` | No |  |
-| `validityPeriod` | `int` | No |  |
+| `prefix` | `string` | No | Desired prefix for the email address |
+| `receivedAt` | `string` | No | When the email was received |
+| `subject` | `string` | No | Email subject |
+| `to` | `string` | No | Recipient email address |
+| `token` | `string` | No | Access token for managing this email address |
+| `total` | `int` | No | Total number of messages |
+| `validityPeriod` | `int` | No | Validity period in days (default: 60+ days) |
 
 ### Operations
 

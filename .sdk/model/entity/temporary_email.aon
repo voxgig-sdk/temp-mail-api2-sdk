@@ -13,16 +13,19 @@ main: kit: entity: temporary_email: {
     {
       name: "body"
       req: false
+      short: "Email body content"
       type: "`$STRING`"
     }
     {
       name: "customDomain"
       req: false
+      short: "Custom domain for professional temporary email"
       type: "`$STRING`"
     }
     {
       name: "customDomainAvailable"
       req: false
+      short: "Whether custom domains are supported"
       type: "`$BOOLEAN`"
     }
     {
@@ -33,36 +36,43 @@ main: kit: entity: temporary_email: {
     {
       name: "email"
       req: false
+      short: "Generated temporary email address"
       type: "`$STRING`"
     }
     {
       name: "expiresAt"
       req: false
+      short: "Expiration date of the temporary email"
       type: "`$STRING`"
     }
     {
       name: "from"
       req: false
+      short: "Sender email address"
       type: "`$STRING`"
     }
     {
       name: "htmlBody"
       req: false
+      short: "HTML version of email body"
       type: "`$STRING`"
     }
     {
       name: "id"
       req: false
+      short: "Unique message identifier"
       type: "`$STRING`"
     }
     {
       name: "inboxUrl"
       req: false
+      short: "URL to access the inbox"
       type: "`$STRING`"
     }
     {
       name: "isRead"
       req: false
+      short: "Whether the message has been read"
       type: "`$BOOLEAN`"
     }
     {
@@ -73,36 +83,43 @@ main: kit: entity: temporary_email: {
     {
       name: "prefix"
       req: false
+      short: "Desired prefix for the email address"
       type: "`$STRING`"
     }
     {
       name: "receivedAt"
       req: false
+      short: "When the email was received"
       type: "`$STRING`"
     }
     {
       name: "subject"
       req: false
+      short: "Email subject"
       type: "`$STRING`"
     }
     {
       name: "to"
       req: false
+      short: "Recipient email address"
       type: "`$STRING`"
     }
     {
       name: "token"
       req: false
+      short: "Access token for managing this email address"
       type: "`$STRING`"
     }
     {
       name: "total"
       req: false
+      short: "Total number of messages"
       type: "`$INTEGER`"
     }
     {
       name: "validityPeriod"
       req: false
+      short: "Validity period in days (default: 60+ days)"
       type: "`$INTEGER`"
     }
   ]

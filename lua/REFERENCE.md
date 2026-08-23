@@ -92,25 +92,25 @@ local temporary_email = client:TemporaryEmail(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `attachments` | `table` | No |  |
-| `body` | `string` | No |  |
-| `customDomain` | `string` | No |  |
-| `customDomainAvailable` | `boolean` | No |  |
+| `body` | `string` | No | Email body content |
+| `customDomain` | `string` | No | Custom domain for professional temporary email |
+| `customDomainAvailable` | `boolean` | No | Whether custom domains are supported |
 | `domains` | `table` | No |  |
-| `email` | `string` | No |  |
-| `expiresAt` | `string` | No |  |
-| `from` | `string` | No |  |
-| `htmlBody` | `string` | No |  |
-| `id` | `string` | No |  |
-| `inboxUrl` | `string` | No |  |
-| `isRead` | `boolean` | No |  |
+| `email` | `string` | No | Generated temporary email address |
+| `expiresAt` | `string` | No | Expiration date of the temporary email |
+| `from` | `string` | No | Sender email address |
+| `htmlBody` | `string` | No | HTML version of email body |
+| `id` | `string` | No | Unique message identifier |
+| `inboxUrl` | `string` | No | URL to access the inbox |
+| `isRead` | `boolean` | No | Whether the message has been read |
 | `messages` | `table` | No |  |
-| `prefix` | `string` | No |  |
-| `receivedAt` | `string` | No |  |
-| `subject` | `string` | No |  |
-| `to` | `string` | No |  |
-| `token` | `string` | No |  |
-| `total` | `number` | No |  |
-| `validityPeriod` | `number` | No |  |
+| `prefix` | `string` | No | Desired prefix for the email address |
+| `receivedAt` | `string` | No | When the email was received |
+| `subject` | `string` | No | Email subject |
+| `to` | `string` | No | Recipient email address |
+| `token` | `string` | No | Access token for managing this email address |
+| `total` | `number` | No | Total number of messages |
+| `validityPeriod` | `number` | No | Validity period in days (default: 60+ days) |
 
 ### Operations
 

@@ -89,25 +89,25 @@ temporary_email = client.TemporaryEmail()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `attachments` | `list` | No |  |
-| `body` | `str` | No |  |
-| `customDomain` | `str` | No |  |
-| `customDomainAvailable` | `bool` | No |  |
+| `body` | `str` | No | Email body content |
+| `customDomain` | `str` | No | Custom domain for professional temporary email |
+| `customDomainAvailable` | `bool` | No | Whether custom domains are supported |
 | `domains` | `list` | No |  |
-| `email` | `str` | No |  |
-| `expiresAt` | `str` | No |  |
-| `from` | `str` | No |  |
-| `htmlBody` | `str` | No |  |
-| `id` | `str` | No |  |
-| `inboxUrl` | `str` | No |  |
-| `isRead` | `bool` | No |  |
+| `email` | `str` | No | Generated temporary email address |
+| `expiresAt` | `str` | No | Expiration date of the temporary email |
+| `from` | `str` | No | Sender email address |
+| `htmlBody` | `str` | No | HTML version of email body |
+| `id` | `str` | No | Unique message identifier |
+| `inboxUrl` | `str` | No | URL to access the inbox |
+| `isRead` | `bool` | No | Whether the message has been read |
 | `messages` | `list` | No |  |
-| `prefix` | `str` | No |  |
-| `receivedAt` | `str` | No |  |
-| `subject` | `str` | No |  |
-| `to` | `str` | No |  |
-| `token` | `str` | No |  |
-| `total` | `int` | No |  |
-| `validityPeriod` | `int` | No |  |
+| `prefix` | `str` | No | Desired prefix for the email address |
+| `receivedAt` | `str` | No | When the email was received |
+| `subject` | `str` | No | Email subject |
+| `to` | `str` | No | Recipient email address |
+| `token` | `str` | No | Access token for managing this email address |
+| `total` | `int` | No | Total number of messages |
+| `validityPeriod` | `int` | No | Validity period in days (default: 60+ days) |
 
 ### Operations
 

@@ -19,9 +19,20 @@ class Config {
     return fi
   }
 
+  // False for a feature added at runtime via options.extend (station's
+  // adopt path) - the constructor uses this to skip makeFeature for names
+  // no generated class backs.
+  hasFeature(this: any, fn: string) {
+    return null != FEATURE_CLASS[fn]
+  }
+
 
   main = {
     name: 'TempMailApi2',
+        slug: "temp-mail-api2",
+    version: "0.0.1",
+    target: "ts",
+
   }
 
 
@@ -64,14 +75,17 @@ class Config {
         },
         {
           "name": "body",
+          "short": "Email body content",
           "type": "`$STRING`"
         },
         {
           "name": "customDomain",
+          "short": "Custom domain for professional temporary email",
           "type": "`$STRING`"
         },
         {
           "name": "customDomainAvailable",
+          "short": "Whether custom domains are supported",
           "type": "`$BOOLEAN`"
         },
         {
@@ -80,30 +94,37 @@ class Config {
         },
         {
           "name": "email",
+          "short": "Generated temporary email address",
           "type": "`$STRING`"
         },
         {
           "name": "expiresAt",
+          "short": "Expiration date of the temporary email",
           "type": "`$STRING`"
         },
         {
           "name": "from",
+          "short": "Sender email address",
           "type": "`$STRING`"
         },
         {
           "name": "htmlBody",
+          "short": "HTML version of email body",
           "type": "`$STRING`"
         },
         {
           "name": "id",
+          "short": "Unique message identifier",
           "type": "`$STRING`"
         },
         {
           "name": "inboxUrl",
+          "short": "URL to access the inbox",
           "type": "`$STRING`"
         },
         {
           "name": "isRead",
+          "short": "Whether the message has been read",
           "type": "`$BOOLEAN`"
         },
         {
@@ -112,30 +133,37 @@ class Config {
         },
         {
           "name": "prefix",
+          "short": "Desired prefix for the email address",
           "type": "`$STRING`"
         },
         {
           "name": "receivedAt",
+          "short": "When the email was received",
           "type": "`$STRING`"
         },
         {
           "name": "subject",
+          "short": "Email subject",
           "type": "`$STRING`"
         },
         {
           "name": "to",
+          "short": "Recipient email address",
           "type": "`$STRING`"
         },
         {
           "name": "token",
+          "short": "Access token for managing this email address",
           "type": "`$STRING`"
         },
         {
           "name": "total",
+          "short": "Total number of messages",
           "type": "`$INTEGER`"
         },
         {
           "name": "validityPeriod",
+          "short": "Validity period in days (default: 60+ days)",
           "type": "`$INTEGER`"
         }
       ],

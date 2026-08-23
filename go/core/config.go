@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "TempMailApi2",
+			"slug": "temp-mail-api2",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -40,14 +43,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "body",
+						"short": "Email body content",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "customDomain",
+						"short": "Custom domain for professional temporary email",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "customDomainAvailable",
+						"short": "Whether custom domains are supported",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -56,30 +62,37 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "email",
+						"short": "Generated temporary email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "expiresAt",
+						"short": "Expiration date of the temporary email",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "from",
+						"short": "Sender email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "htmlBody",
+						"short": "HTML version of email body",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique message identifier",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "inboxUrl",
+						"short": "URL to access the inbox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "isRead",
+						"short": "Whether the message has been read",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
@@ -88,30 +101,37 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "prefix",
+						"short": "Desired prefix for the email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "receivedAt",
+						"short": "When the email was received",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "subject",
+						"short": "Email subject",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "to",
+						"short": "Recipient email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "token",
+						"short": "Access token for managing this email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "total",
+						"short": "Total number of messages",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "validityPeriod",
+						"short": "Validity period in days (default: 60+ days)",
 						"type": "`$INTEGER`",
 					},
 				},

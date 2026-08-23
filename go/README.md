@@ -6,7 +6,7 @@ The Golang SDK for the TempMailApi2 API — an entity-oriented client using stan
 
 It exposes the API as capitalised, semantic **Entities** — e.g. `client.TemporaryEmail(nil)` — each with the same small set of operations (`Load`, `Create`, `Remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb`, `ts` — see
 > the [top-level README](../README.md).
 
 
@@ -280,25 +280,25 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | Field | Description |
 | --- | --- |
 | `"attachments"` |  |
-| `"body"` |  |
-| `"customDomain"` |  |
-| `"customDomainAvailable"` |  |
+| `"body"` | Email body content |
+| `"customDomain"` | Custom domain for professional temporary email |
+| `"customDomainAvailable"` | Whether custom domains are supported |
 | `"domains"` |  |
-| `"email"` |  |
-| `"expiresAt"` |  |
-| `"from"` |  |
-| `"htmlBody"` |  |
-| `"id"` |  |
-| `"inboxUrl"` |  |
-| `"isRead"` |  |
+| `"email"` | Generated temporary email address |
+| `"expiresAt"` | Expiration date of the temporary email |
+| `"from"` | Sender email address |
+| `"htmlBody"` | HTML version of email body |
+| `"id"` | Unique message identifier |
+| `"inboxUrl"` | URL to access the inbox |
+| `"isRead"` | Whether the message has been read |
 | `"messages"` |  |
-| `"prefix"` |  |
-| `"receivedAt"` |  |
-| `"subject"` |  |
-| `"to"` |  |
-| `"token"` |  |
-| `"total"` |  |
-| `"validityPeriod"` |  |
+| `"prefix"` | Desired prefix for the email address |
+| `"receivedAt"` | When the email was received |
+| `"subject"` | Email subject |
+| `"to"` | Recipient email address |
+| `"token"` | Access token for managing this email address |
+| `"total"` | Total number of messages |
+| `"validityPeriod"` | Validity period in days (default: 60+ days) |
 
 Operations: Create, Load, Remove.
 
@@ -326,25 +326,25 @@ Create an instance: `temporaryEmail := client.TemporaryEmail(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `attachments` | `[]any` |  |
-| `body` | `string` |  |
-| `customDomain` | `string` |  |
-| `customDomainAvailable` | `bool` |  |
+| `body` | `string` | Email body content |
+| `customDomain` | `string` | Custom domain for professional temporary email |
+| `customDomainAvailable` | `bool` | Whether custom domains are supported |
 | `domains` | `[]any` |  |
-| `email` | `string` |  |
-| `expiresAt` | `string` |  |
-| `from` | `string` |  |
-| `htmlBody` | `string` |  |
-| `id` | `string` |  |
-| `inboxUrl` | `string` |  |
-| `isRead` | `bool` |  |
+| `email` | `string` | Generated temporary email address |
+| `expiresAt` | `string` | Expiration date of the temporary email |
+| `from` | `string` | Sender email address |
+| `htmlBody` | `string` | HTML version of email body |
+| `id` | `string` | Unique message identifier |
+| `inboxUrl` | `string` | URL to access the inbox |
+| `isRead` | `bool` | Whether the message has been read |
 | `messages` | `[]any` |  |
-| `prefix` | `string` |  |
-| `receivedAt` | `string` |  |
-| `subject` | `string` |  |
-| `to` | `string` |  |
-| `token` | `string` |  |
-| `total` | `int` |  |
-| `validityPeriod` | `int` |  |
+| `prefix` | `string` | Desired prefix for the email address |
+| `receivedAt` | `string` | When the email was received |
+| `subject` | `string` | Email subject |
+| `to` | `string` | Recipient email address |
+| `token` | `string` | Access token for managing this email address |
+| `total` | `int` | Total number of messages |
+| `validityPeriod` | `int` | Validity period in days (default: 60+ days) |
 
 #### Example: Load
 

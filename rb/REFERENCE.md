@@ -95,25 +95,25 @@ temporary_email = client.TemporaryEmail
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `attachments` | `Array` | No |  |
-| `body` | `String` | No |  |
-| `customDomain` | `String` | No |  |
-| `customDomainAvailable` | `Boolean` | No |  |
+| `body` | `String` | No | Email body content |
+| `customDomain` | `String` | No | Custom domain for professional temporary email |
+| `customDomainAvailable` | `Boolean` | No | Whether custom domains are supported |
 | `domains` | `Array` | No |  |
-| `email` | `String` | No |  |
-| `expiresAt` | `String` | No |  |
-| `from` | `String` | No |  |
-| `htmlBody` | `String` | No |  |
-| `id` | `String` | No |  |
-| `inboxUrl` | `String` | No |  |
-| `isRead` | `Boolean` | No |  |
+| `email` | `String` | No | Generated temporary email address |
+| `expiresAt` | `String` | No | Expiration date of the temporary email |
+| `from` | `String` | No | Sender email address |
+| `htmlBody` | `String` | No | HTML version of email body |
+| `id` | `String` | No | Unique message identifier |
+| `inboxUrl` | `String` | No | URL to access the inbox |
+| `isRead` | `Boolean` | No | Whether the message has been read |
 | `messages` | `Array` | No |  |
-| `prefix` | `String` | No |  |
-| `receivedAt` | `String` | No |  |
-| `subject` | `String` | No |  |
-| `to` | `String` | No |  |
-| `token` | `String` | No |  |
-| `total` | `Integer` | No |  |
-| `validityPeriod` | `Integer` | No |  |
+| `prefix` | `String` | No | Desired prefix for the email address |
+| `receivedAt` | `String` | No | When the email was received |
+| `subject` | `String` | No | Email subject |
+| `to` | `String` | No | Recipient email address |
+| `token` | `String` | No | Access token for managing this email address |
+| `total` | `Integer` | No | Total number of messages |
+| `validityPeriod` | `Integer` | No | Validity period in days (default: 60+ days) |
 
 ### Operations
 
