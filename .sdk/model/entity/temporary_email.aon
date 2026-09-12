@@ -34,18 +34,21 @@ main: kit: entity: temporary_email: {
       type: "`$ARRAY`"
     }
     {
+      format: "email"
       name: "email"
       req: false
       short: "Generated temporary email address"
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "expiresAt"
       req: false
       short: "Expiration date of the temporary email"
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "from"
       req: false
       short: "Sender email address"
@@ -64,6 +67,7 @@ main: kit: entity: temporary_email: {
       type: "`$STRING`"
     }
     {
+      format: "uri"
       name: "inboxUrl"
       req: false
       short: "URL to access the inbox"
@@ -87,6 +91,7 @@ main: kit: entity: temporary_email: {
       type: "`$STRING`"
     }
     {
+      format: "date-time"
       name: "receivedAt"
       req: false
       short: "When the email was received"
@@ -99,6 +104,7 @@ main: kit: entity: temporary_email: {
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "to"
       req: false
       short: "Recipient email address"
@@ -137,9 +143,13 @@ main: kit: entity: temporary_email: {
         {
           method: "POST"
           orig: "/temp-mail/generate"
-          parts: [
-            "temp-mail"
-            "generate"
+          segments: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              lit: "generate"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -184,10 +194,16 @@ main: kit: entity: temporary_email: {
           }
           method: "GET"
           orig: "/temp-mail/{email}/inbox"
-          parts: [
-            "temp-mail"
-            "{email}"
-            "inbox"
+          segments: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "inbox"
+            }
           ]
           select: {
             exist: [
@@ -222,17 +238,25 @@ main: kit: entity: temporary_email: {
           }
           method: "GET"
           orig: "/temp-mail/{email}/messages/{messageId}"
-          parts: [
-            "temp-mail"
-            "{email}"
-            "messages"
-            "{message_id}"
-          ]
           rename: {
             param: {
               messageId: "message_id"
             }
           }
+          segments: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "messages"
+            }
+            {
+              var: "message_id"
+            }
+          ]
           select: {
             exist: [
               "email"
@@ -247,9 +271,13 @@ main: kit: entity: temporary_email: {
         {
           method: "GET"
           orig: "/temp-mail/domains"
-          parts: [
-            "temp-mail"
-            "domains"
+          segments: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              lit: "domains"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -275,10 +303,16 @@ main: kit: entity: temporary_email: {
           }
           method: "DELETE"
           orig: "/temp-mail/{email}/delete"
-          parts: [
-            "temp-mail"
-            "{email}"
-            "delete"
+          segments: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "delete"
+            }
           ]
           select: {
             exist: [

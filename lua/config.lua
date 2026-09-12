@@ -58,16 +58,19 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["short"] = "Generated temporary email address",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "expiresAt",
             ["short"] = "Expiration date of the temporary email",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "from",
             ["short"] = "Sender email address",
             ["type"] = "`$STRING`",
@@ -83,6 +86,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "uri",
             ["name"] = "inboxUrl",
             ["short"] = "URL to access the inbox",
             ["type"] = "`$STRING`",
@@ -102,6 +106,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "receivedAt",
             ["short"] = "When the email was received",
             ["type"] = "`$STRING`",
@@ -112,6 +117,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "to",
             ["short"] = "Recipient email address",
             ["type"] = "`$STRING`",
@@ -132,6 +138,10 @@ local function make_config()
             ["type"] = "`$INTEGER`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "temporary_email",
         ["op"] = {
           ["create"] = {
@@ -143,14 +153,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/temp-mail/generate",
-                ["parts"] = {
-                  "temp-mail",
-                  "generate",
+                ["segments"] = {
+                  {
+                    ["lit"] = "temp-mail",
+                  },
+                  {
+                    ["lit"] = "generate",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "temp-mail",
+                  "generate",
                 },
               },
             },
@@ -191,10 +209,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/temp-mail/{email}/inbox",
-                ["parts"] = {
-                  "temp-mail",
-                  "{email}",
-                  "inbox",
+                ["segments"] = {
+                  {
+                    ["lit"] = "temp-mail",
+                  },
+                  {
+                    ["var"] = "email",
+                  },
+                  {
+                    ["lit"] = "inbox",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -206,6 +230,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "temp-mail",
+                  "{email}",
+                  "inbox",
                 },
               },
               {
@@ -230,15 +259,23 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/temp-mail/{email}/messages/{messageId}",
-                ["parts"] = {
-                  "temp-mail",
-                  "{email}",
-                  "messages",
-                  "{message_id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["messageId"] = "message_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "temp-mail",
+                  },
+                  {
+                    ["var"] = "email",
+                  },
+                  {
+                    ["lit"] = "messages",
+                  },
+                  {
+                    ["var"] = "message_id",
                   },
                 },
                 ["select"] = {
@@ -251,20 +288,34 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
                 },
+                ["parts"] = {
+                  "temp-mail",
+                  "{email}",
+                  "messages",
+                  "{message_id}",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/temp-mail/domains",
-                ["parts"] = {
-                  "temp-mail",
-                  "domains",
+                ["segments"] = {
+                  {
+                    ["lit"] = "temp-mail",
+                  },
+                  {
+                    ["lit"] = "domains",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "temp-mail",
+                  "domains",
                 },
               },
             },
@@ -288,10 +339,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/temp-mail/{email}/delete",
-                ["parts"] = {
-                  "temp-mail",
-                  "{email}",
-                  "delete",
+                ["segments"] = {
+                  {
+                    ["lit"] = "temp-mail",
+                  },
+                  {
+                    ["var"] = "email",
+                  },
+                  {
+                    ["lit"] = "delete",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -301,6 +358,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "temp-mail",
+                  "{email}",
+                  "delete",
                 },
               },
             },

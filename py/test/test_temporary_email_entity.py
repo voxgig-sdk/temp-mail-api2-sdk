@@ -102,7 +102,7 @@ def _temporary_email_basic_setup(extra):
         "TEMP_MAIL_API2_TEST_TEMPORARY_EMAIL_ENTID": idmap,
         "TEMP_MAIL_API2_TEST_LIVE": "FALSE",
         "TEMP_MAIL_API2_TEST_EXPLAIN": "FALSE",
-        "TEMP_MAIL_API2_APIKEY": "NONE",
+        "TEMP_MAIL_API2_APIKEY": "",
     })
 
     idmap_resolved = helpers.to_map(
@@ -112,6 +112,10 @@ def _temporary_email_basic_setup(extra):
 
     if env.get("TEMP_MAIL_API2_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
                 "apikey": env.get("TEMP_MAIL_API2_APIKEY"),
             },
