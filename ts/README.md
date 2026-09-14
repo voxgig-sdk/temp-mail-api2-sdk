@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2'
+import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2-sdk'
 
 const client = new TempMailApi2SDK({
   apikey: process.env.TEMP_MAIL_API2_APIKEY,
@@ -476,7 +476,7 @@ temp-mail-api2/
 Import the SDK from the package root:
 
 ```ts
-import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2'
+import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2-sdk'
 ```
 
 ### Entity state

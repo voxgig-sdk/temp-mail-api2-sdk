@@ -105,7 +105,7 @@ local result, err = client:TemporaryEmail():load({ email = "example", message_id
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/temp-mail-api2` | publish pending — [install from git tag](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) |
+| TypeScript | `@voxgig-sdk/temp-mail-api2-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) |
 | Python | `voxgig-sdk-temp-mail-api2` | publish pending — [install from git tag](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) |
 | PHP | `voxgig-sdk/temp-mail-api2` | publish pending — [install from git tag](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/temp-mail-api2-sdk/go` | `go get github.com/voxgig-sdk/temp-mail-api2-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:TemporaryEmail():load({ email = "example", message_id
 ### TypeScript
 
 ```ts
-import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2'
+import { TempMailApi2SDK } from '@voxgig-sdk/temp-mail-api2-sdk'
 
 const client = new TempMailApi2SDK({
   apikey: process.env.TEMP_MAIL_API2_APIKEY,
