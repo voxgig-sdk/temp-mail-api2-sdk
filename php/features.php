@@ -4,7 +4,10 @@ declare(strict_types=1);
 // TempMailApi2 SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class TempMailApi2Features
@@ -14,8 +17,14 @@ class TempMailApi2Features
         switch ($name) {
             case "base":
                 return new TempMailApi2BaseFeature();
+            case "ratelimit":
+                return new TempMailApi2RatelimitFeature();
+            case "retry":
+                return new TempMailApi2RetryFeature();
             case "test":
                 return new TempMailApi2TestFeature();
+            case "timeout":
+                return new TempMailApi2TimeoutFeature();
             default:
                 return new TempMailApi2BaseFeature();
         }
@@ -31,7 +40,10 @@ class TempMailApi2Features
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

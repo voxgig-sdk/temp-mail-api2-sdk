@@ -20,8 +20,8 @@
         "subject": "sd7",
         "to": "sd8",
         "token": "sd9",
-        "total": "sda",
-        "validityPeriod": "sdb",
+        "total": 218,
+        "validityPeriod": 219,
         "message_id": "MESSAGE01"
       },
       "TEMPORARY_EMAIL01": {
@@ -43,8 +43,8 @@
         "subject": "s19f",
         "to": "s1a0",
         "token": "s1a1",
-        "total": "s1a2",
-        "validityPeriod": "s1a3",
+        "total": 418,
+        "validityPeriod": 419,
         "message_id": "MESSAGE01"
       },
       "TEMPORARY_EMAIL02": {
@@ -66,8 +66,8 @@
         "subject": "s267",
         "to": "s268",
         "token": "s269",
-        "total": "s26a",
-        "validityPeriod": "s26b",
+        "total": 618,
+        "validityPeriod": 619,
         "message_id": "MESSAGE01"
       }
     }
@@ -92,8 +92,740 @@
         "subject": "s32f",
         "to": "s330",
         "token": "s331",
-        "total": "s332",
-        "validityPeriod": "s333"
+        "total": 818,
+        "validityPeriod": 819
+      }
+    }
+  },
+  "requests": {
+    "POST /temp-mail/generate": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "generateTempEmail",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "customDomain": {
+                    "description": "Custom domain for professional temporary email",
+                    "example": "yourbusiness.com",
+                    "type": "string"
+                  },
+                  "prefix": {
+                    "description": "Desired prefix for the email address",
+                    "example": "user123",
+                    "type": "string"
+                  },
+                  "validityPeriod": {
+                    "description": "Validity period in days (default: 60+ days)",
+                    "example": 60,
+                    "maximum": 90,
+                    "minimum": 1,
+                    "type": "integer"
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "description": "Optional parameters for generating a temporary email",
+          "required": false
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "email": {
+                          "description": "Generated temporary email address",
+                          "example": "user123@tempmail.boomlify.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "expiresAt": {
+                          "description": "Expiration date of the temporary email",
+                          "example": "2024-03-15T12:00:00Z",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "inboxUrl": {
+                          "description": "URL to access the inbox",
+                          "example": "https://boomlify.com/inbox/user123",
+                          "format": "uri",
+                          "type": "string"
+                        },
+                        "token": {
+                          "description": "Access token for managing this email address",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Temporary email address generated successfully"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Bad request - Invalid parameters"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Too many requests - Rate limit exceeded"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {}
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for authentication",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT token obtained when generating a temporary email",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /temp-mail/{email}/inbox": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getInboxMessages",
+        "parameters": [
+          {
+            "description": "The temporary email address",
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "example": "user123@tempmail.boomlify.com",
+              "format": "email",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Maximum number of messages to return",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Number of messages to skip",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "minimum": 0,
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "email": {
+                          "example": "user123@tempmail.boomlify.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "messages": {
+                          "items": {
+                            "properties": {
+                              "attachments": {
+                                "items": {
+                                  "properties": {
+                                    "contentType": {
+                                      "example": "application/pdf",
+                                      "type": "string"
+                                    },
+                                    "downloadUrl": {
+                                      "example": "https://api.boomlify.com/v1/attachments/abc123",
+                                      "format": "uri",
+                                      "type": "string"
+                                    },
+                                    "filename": {
+                                      "example": "document.pdf",
+                                      "type": "string"
+                                    },
+                                    "size": {
+                                      "description": "Size in bytes",
+                                      "example": 102400,
+                                      "type": "integer"
+                                    }
+                                  },
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "body": {
+                                "description": "Email body content",
+                                "example": "Thank you for signing up...",
+                                "type": "string"
+                              },
+                              "from": {
+                                "description": "Sender email address",
+                                "example": "sender@example.com",
+                                "format": "email",
+                                "type": "string"
+                              },
+                              "htmlBody": {
+                                "description": "HTML version of email body",
+                                "example": "<html><body>Thank you for signing up...</body></html>",
+                                "type": "string"
+                              },
+                              "id": {
+                                "description": "Unique message identifier",
+                                "example": "msg_123456789",
+                                "type": "string"
+                              },
+                              "isRead": {
+                                "description": "Whether the message has been read",
+                                "example": false,
+                                "type": "boolean"
+                              },
+                              "receivedAt": {
+                                "description": "When the email was received",
+                                "example": "2024-01-15T10:30:00Z",
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "subject": {
+                                "description": "Email subject",
+                                "example": "Welcome to our service",
+                                "type": "string"
+                              },
+                              "to": {
+                                "description": "Recipient email address",
+                                "example": "user123@tempmail.boomlify.com",
+                                "format": "email",
+                                "type": "string"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "total": {
+                          "description": "Total number of messages",
+                          "example": 5,
+                          "type": "integer"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Inbox messages retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Email address not found"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for authentication",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT token obtained when generating a temporary email",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /temp-mail/{email}/messages/{messageId}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getMessage",
+        "parameters": [
+          {
+            "description": "The temporary email address",
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "format": "email",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The message ID",
+            "in": "path",
+            "name": "messageId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "attachments": {
+                          "items": {
+                            "properties": {
+                              "contentType": {
+                                "example": "application/pdf",
+                                "type": "string"
+                              },
+                              "downloadUrl": {
+                                "example": "https://api.boomlify.com/v1/attachments/abc123",
+                                "format": "uri",
+                                "type": "string"
+                              },
+                              "filename": {
+                                "example": "document.pdf",
+                                "type": "string"
+                              },
+                              "size": {
+                                "description": "Size in bytes",
+                                "example": 102400,
+                                "type": "integer"
+                              }
+                            },
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "body": {
+                          "description": "Email body content",
+                          "example": "Thank you for signing up...",
+                          "type": "string"
+                        },
+                        "from": {
+                          "description": "Sender email address",
+                          "example": "sender@example.com",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "htmlBody": {
+                          "description": "HTML version of email body",
+                          "example": "<html><body>Thank you for signing up...</body></html>",
+                          "type": "string"
+                        },
+                        "id": {
+                          "description": "Unique message identifier",
+                          "example": "msg_123456789",
+                          "type": "string"
+                        },
+                        "isRead": {
+                          "description": "Whether the message has been read",
+                          "example": false,
+                          "type": "boolean"
+                        },
+                        "receivedAt": {
+                          "description": "When the email was received",
+                          "example": "2024-01-15T10:30:00Z",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "subject": {
+                          "description": "Email subject",
+                          "example": "Welcome to our service",
+                          "type": "string"
+                        },
+                        "to": {
+                          "description": "Recipient email address",
+                          "example": "user123@tempmail.boomlify.com",
+                          "format": "email",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Message retrieved successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Message not found"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for authentication",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT token obtained when generating a temporary email",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "GET /temp-mail/domains": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getAvailableDomains",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "customDomainAvailable": {
+                          "description": "Whether custom domains are supported",
+                          "example": true,
+                          "type": "boolean"
+                        },
+                        "domains": {
+                          "example": [
+                            "tempmail.boomlify.com",
+                            "disposable.boomlify.com",
+                            "temp.boomlify.com"
+                          ],
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Available domains retrieved successfully"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {}
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for authentication",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT token obtained when generating a temporary email",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    },
+    "DELETE /temp-mail/{email}/delete": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "deleteTempEmail",
+        "parameters": [
+          {
+            "description": "The temporary email address to delete",
+            "in": "path",
+            "name": "email",
+            "required": true,
+            "schema": {
+              "format": "email",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "message": {
+                      "example": "Temporary email address deleted successfully",
+                      "type": "string"
+                    },
+                    "success": {
+                      "example": true,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Email deleted successfully"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "properties": {
+                        "code": {
+                          "example": "INVALID_REQUEST",
+                          "type": "string"
+                        },
+                        "message": {
+                          "example": "The request parameters are invalid",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    },
+                    "success": {
+                      "example": false,
+                      "type": "boolean"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Email address not found"
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          },
+          {
+            "BearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "ApiKeyAuth": {
+            "description": "API key for authentication",
+            "in": "header",
+            "name": "X-API-Key",
+            "type": "apiKey"
+          },
+          "BearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT token obtained when generating a temporary email",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
       }
     }
   }
