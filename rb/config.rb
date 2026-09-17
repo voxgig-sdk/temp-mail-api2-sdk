@@ -89,6 +89,7 @@ module TempMailApi2Config
         "base" => "https://api.boomlify.com/v1",
         "auth" => {
           "prefix" => "",
+          "name" => "X-API-Key",
         },
         "headers" => {
           "content-type" => "application/json",
