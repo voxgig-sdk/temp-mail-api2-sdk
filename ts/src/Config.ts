@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -144,106 +137,126 @@ class Config {
       "fields": [
         {
           "name": "attachments",
+          "title": "Attachments",
           "type": "`$ARRAY`"
         },
         {
           "name": "body",
-          "short": "Email body content",
-          "type": "`$STRING`"
+          "title": "Body",
+          "type": "`$STRING`",
+          "short": "Email body content"
         },
         {
           "name": "customDomain",
-          "short": "Custom domain for professional temporary email",
-          "type": "`$STRING`"
+          "title": "Custom Domain",
+          "type": "`$STRING`",
+          "short": "Custom domain for professional temporary email"
         },
         {
           "name": "customDomainAvailable",
-          "short": "Whether custom domains are supported",
-          "type": "`$BOOLEAN`"
+          "title": "Custom Domain Available",
+          "type": "`$BOOLEAN`",
+          "short": "Whether custom domains are supported"
         },
         {
           "name": "domains",
+          "title": "Domains",
           "type": "`$ARRAY`"
         },
         {
-          "format": "email",
           "name": "email",
+          "title": "Email",
+          "type": "`$STRING`",
           "short": "Generated temporary email address",
-          "type": "`$STRING`"
+          "format": "email"
         },
         {
-          "format": "date-time",
           "name": "expiresAt",
+          "title": "Expires At",
+          "type": "`$STRING`",
           "short": "Expiration date of the temporary email",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
-          "format": "email",
           "name": "from",
+          "title": "From",
+          "type": "`$STRING`",
           "short": "Sender email address",
-          "type": "`$STRING`"
+          "format": "email"
         },
         {
           "name": "htmlBody",
-          "short": "HTML version of email body",
-          "type": "`$STRING`"
+          "title": "Html Body",
+          "type": "`$STRING`",
+          "short": "HTML version of email body"
         },
         {
           "name": "id",
-          "short": "Unique message identifier",
-          "type": "`$STRING`"
+          "title": "Id",
+          "type": "`$STRING`",
+          "short": "Unique message identifier"
         },
         {
-          "format": "uri",
           "name": "inboxUrl",
+          "title": "Inbox Url",
+          "type": "`$STRING`",
           "short": "URL to access the inbox",
-          "type": "`$STRING`"
+          "format": "uri"
         },
         {
           "name": "isRead",
-          "short": "Whether the message has been read",
-          "type": "`$BOOLEAN`"
+          "title": "Is Read",
+          "type": "`$BOOLEAN`",
+          "short": "Whether the message has been read"
         },
         {
           "name": "messages",
+          "title": "Messages",
           "type": "`$ARRAY`"
         },
         {
           "name": "prefix",
-          "short": "Desired prefix for the email address",
-          "type": "`$STRING`"
+          "title": "Prefix",
+          "type": "`$STRING`",
+          "short": "Desired prefix for the email address"
         },
         {
-          "format": "date-time",
           "name": "receivedAt",
+          "title": "Received At",
+          "type": "`$STRING`",
           "short": "When the email was received",
-          "type": "`$STRING`"
+          "format": "date-time"
         },
         {
           "name": "subject",
-          "short": "Email subject",
-          "type": "`$STRING`"
+          "title": "Subject",
+          "type": "`$STRING`",
+          "short": "Email subject"
         },
         {
-          "format": "email",
           "name": "to",
+          "title": "To",
+          "type": "`$STRING`",
           "short": "Recipient email address",
-          "type": "`$STRING`"
+          "format": "email"
         },
         {
           "name": "token",
-          "short": "Access token for managing this email address",
-          "type": "`$STRING`"
+          "title": "Token",
+          "type": "`$STRING`",
+          "short": "Access token for managing this email address"
         },
         {
           "name": "total",
-          "short": "Total number of messages",
-          "type": "`$INTEGER`"
+          "title": "Total",
+          "type": "`$INTEGER`",
+          "short": "Total number of messages"
         },
         {
           "name": "validityPeriod",
-          "short": "Validity period in days (default: 60+ days)",
-          "type": "`$INTEGER`"
+          "title": "Validity Period",
+          "type": "`$INTEGER`",
+          "short": "Validity period in days (default: 60+ days)"
         }
       ],
       "id": {
@@ -257,7 +270,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/temp-mail/generate",
@@ -269,15 +281,17 @@ class Config {
                   "lit": "generate"
                 }
               ],
-              "select": {},
+              "parts": [
+                "temp-mail",
+                "generate"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
               },
-              "parts": [
-                "temp-mail",
-                "generate"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -286,34 +300,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "user123@tempmail.boomlify.com",
-                    "kind": "param",
-                    "name": "email",
-                    "orig": "email",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ],
-                "query": [
-                  {
-                    "example": 20,
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "example": 0,
-                    "kind": "query",
-                    "name": "offset",
-                    "orig": "offset",
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/{email}/inbox",
@@ -328,50 +314,56 @@ class Config {
                   "lit": "inbox"
                 }
               ],
+              "parts": [
+                "temp-mail",
+                "{email}",
+                "inbox"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email",
+                    "orig": "email",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "user123@tempmail.boomlify.com"
+                  }
+                ],
+                "query": [
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 20
+                  },
+                  {
+                    "name": "offset",
+                    "orig": "offset",
+                    "type": "`$INTEGER`",
+                    "kind": "query",
+                    "example": 0
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "email",
                   "limit",
                   "offset"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
-              "parts": [
-                "temp-mail",
-                "{email}",
-                "inbox"
-              ]
+              }
             },
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "email",
-                    "orig": "email",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  },
-                  {
-                    "kind": "param",
-                    "name": "message_id",
-                    "orig": "message_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/{email}/messages/{messageId}",
-              "rename": {
-                "param": {
-                  "messageId": "message_id"
-                }
-              },
               "segments": [
                 {
                   "lit": "temp-mail"
@@ -386,25 +378,47 @@ class Config {
                   "var": "message_id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "email",
-                  "message_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.data`"
-              },
               "parts": [
                 "temp-mail",
                 "{email}",
                 "messages",
                 "{message_id}"
-              ]
+              ],
+              "rename": {
+                "param": {
+                  "messageId": "message_id"
+                }
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.data`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email",
+                    "orig": "email",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  },
+                  {
+                    "name": "message_id",
+                    "orig": "message_id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email",
+                  "message_id"
+                ]
+              }
             },
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/temp-mail/domains",
@@ -416,15 +430,17 @@ class Config {
                   "lit": "domains"
                 }
               ],
-              "select": {},
+              "parts": [
+                "temp-mail",
+                "domains"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
               },
-              "parts": [
-                "temp-mail",
-                "domains"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         },
@@ -433,17 +449,6 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "email",
-                    "orig": "email",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/temp-mail/{email}/delete",
@@ -458,34 +463,38 @@ class Config {
                   "lit": "delete"
                 }
               ],
-              "select": {
-                "exist": [
-                  "email"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "temp-mail",
                 "{email}",
                 "delete"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "email",
+                    "orig": "email",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "email"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "temp_mail"
-          ],
-          [
-            "temp_mail",
-            "message"
-          ]
-        ]
+        "ancestors": []
       }
     }
   }

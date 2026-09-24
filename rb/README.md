@@ -34,8 +34,6 @@ client = TempMailApi2SDK.new({
 
 ### 3. Load a temporaryemail
 
-TemporaryEmail is nested under email, so provide the `email`.
-
 ```ruby
 begin
   # load returns the ENTITY — call data_get for the TemporaryEmail record (raises on error).

@@ -1,7 +1,7 @@
 // Typed models for the TempMailApi2 SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,26 +14,6 @@ import (
 
 // TemporaryEmail is the typed data model for the temporary_email entity.
 type TemporaryEmail struct {
-	Attachments *[]any `json:"attachments,omitempty"`
-	Body *string `json:"body,omitempty"`
-	CustomDomain *string `json:"customDomain,omitempty"`
-	CustomDomainAvailable *bool `json:"customDomainAvailable,omitempty"`
-	Domains *[]any `json:"domains,omitempty"`
-	Email *string `json:"email,omitempty"`
-	ExpiresAt *string `json:"expiresAt,omitempty"`
-	From *string `json:"from,omitempty"`
-	HtmlBody *string `json:"htmlBody,omitempty"`
-	Id *string `json:"id,omitempty"`
-	InboxUrl *string `json:"inboxUrl,omitempty"`
-	IsRead *bool `json:"isRead,omitempty"`
-	Messages *[]any `json:"messages,omitempty"`
-	Prefix *string `json:"prefix,omitempty"`
-	ReceivedAt *string `json:"receivedAt,omitempty"`
-	Subject *string `json:"subject,omitempty"`
-	To *string `json:"to,omitempty"`
-	Token *string `json:"token,omitempty"`
-	Total *int `json:"total,omitempty"`
-	ValidityPeriod *int `json:"validityPeriod,omitempty"`
 }
 
 // TemporaryEmailLoadMatch is the typed request payload for TemporaryEmail.LoadTyped.

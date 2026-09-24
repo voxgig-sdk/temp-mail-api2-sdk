@@ -41,7 +41,6 @@ client = TempMailApi2SDK({
 
 ### 3. Load a temporaryemail
 
-TemporaryEmail is nested under email, so provide the `email`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python

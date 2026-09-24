@@ -82,7 +82,7 @@ function temporary_email_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["temporary_email01", "temporary_email02", "temporary_email03", "temp_mail01", "temp_mail02", "temp_mail03", "message01", "message02", "message03", "email01"] as $k) {
+    foreach (["temporary_email01", "temporary_email02", "temporary_email03", "email01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

@@ -37,8 +37,6 @@ local client = sdk.new({
 
 ### 3. Load a temporaryemail
 
-TemporaryEmail is nested under email, so provide the `email`.
-
 ```lua
 local temporaryemail, err = client:TemporaryEmail():load({ email = "example_email", message_id = "example_message_id" })
 if err then error(err) end

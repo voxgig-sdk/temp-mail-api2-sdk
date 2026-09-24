@@ -37,15 +37,11 @@ const client = new TempMailApi2SDK({
 
 ### 3. Load a temporaryemail
 
-TemporaryEmail is nested under email, so provide the `email`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const temporaryemail = await client.TemporaryEmail().load({
-    email: 'example_email',
-    message_id: 'example_message_id',
-  })
+  const temporaryemail = await client.TemporaryEmail().load({ email: 'example_email', message_id: 'example_message_id' })
   console.log(temporaryemail)
 } catch (err) {
   console.error('load failed:', err)

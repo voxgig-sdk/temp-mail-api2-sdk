@@ -1,0 +1,378 @@
+# Entity: temporary_email
+
+main: kit: entity: temporary_email: {
+
+  alias: field: {}
+
+  fields: {
+    attachments: {
+      h: "Attachments"
+      n: "attachments"
+      r: false
+      t: "`$ARRAY`"
+    }
+    body: {
+      h: "Body"
+      n: "body"
+      r: false
+      sh: "Email body content"
+      t: "`$STRING`"
+    }
+    customDomain: {
+      h: "Custom Domain"
+      n: "customDomain"
+      r: false
+      sh: "Custom domain for professional temporary email"
+      t: "`$STRING`"
+    }
+    customDomainAvailable: {
+      h: "Custom Domain Available"
+      n: "customDomainAvailable"
+      r: false
+      sh: "Whether custom domains are supported"
+      t: "`$BOOLEAN`"
+    }
+    domains: {
+      h: "Domains"
+      n: "domains"
+      r: false
+      t: "`$ARRAY`"
+    }
+    email: {
+      fo: "email"
+      h: "Email"
+      n: "email"
+      r: false
+      sh: "Generated temporary email address"
+      t: "`$STRING`"
+    }
+    expiresAt: {
+      fo: "date-time"
+      h: "Expires At"
+      n: "expiresAt"
+      r: false
+      sh: "Expiration date of the temporary email"
+      t: "`$STRING`"
+    }
+    from: {
+      fo: "email"
+      h: "From"
+      n: "from"
+      r: false
+      sh: "Sender email address"
+      t: "`$STRING`"
+    }
+    htmlBody: {
+      h: "Html Body"
+      n: "htmlBody"
+      r: false
+      sh: "HTML version of email body"
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      sh: "Unique message identifier"
+      t: "`$STRING`"
+    }
+    inboxUrl: {
+      fo: "uri"
+      h: "Inbox Url"
+      n: "inboxUrl"
+      r: false
+      sh: "URL to access the inbox"
+      t: "`$STRING`"
+    }
+    isRead: {
+      h: "Is Read"
+      n: "isRead"
+      r: false
+      sh: "Whether the message has been read"
+      t: "`$BOOLEAN`"
+    }
+    messages: {
+      h: "Messages"
+      n: "messages"
+      r: false
+      t: "`$ARRAY`"
+    }
+    prefix: {
+      h: "Prefix"
+      n: "prefix"
+      r: false
+      sh: "Desired prefix for the email address"
+      t: "`$STRING`"
+    }
+    receivedAt: {
+      fo: "date-time"
+      h: "Received At"
+      n: "receivedAt"
+      r: false
+      sh: "When the email was received"
+      t: "`$STRING`"
+    }
+    subject: {
+      h: "Subject"
+      n: "subject"
+      r: false
+      sh: "Email subject"
+      t: "`$STRING`"
+    }
+    to: {
+      fo: "email"
+      h: "To"
+      n: "to"
+      r: false
+      sh: "Recipient email address"
+      t: "`$STRING`"
+    }
+    token: {
+      h: "Token"
+      n: "token"
+      r: false
+      sh: "Access token for managing this email address"
+      t: "`$STRING`"
+    }
+    total: {
+      h: "Total"
+      n: "total"
+      r: false
+      sh: "Total number of messages"
+      t: "`$INTEGER`"
+    }
+    validityPeriod: {
+      h: "Validity Period"
+      n: "validityPeriod"
+      r: false
+      sh: "Validity period in days (default: 60+ days)"
+      t: "`$INTEGER`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "temporary_email"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /temp-mail/generate"
+            source: "openapi3"
+            version: 2
+          }
+          m: "POST"
+          o: "/temp-mail/generate"
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              lit: "generate"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /temp-mail/{email}/inbox"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "user123@tempmail.boomlify.com"
+                k: "param"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                ex: 20
+                k: "query"
+                n: "limit"
+                or: "limit"
+                r: false
+                t: "`$INTEGER`"
+              }
+              {
+                ex: 0
+                k: "query"
+                n: "offset"
+                or: "offset"
+                r: false
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/temp-mail/{email}/inbox"
+          q: {
+            exist: [
+              "email"
+              "limit"
+              "offset"
+            ]
+          }
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "inbox"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /temp-mail/{email}/messages/{messageId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "message_id"
+                or: "message_id"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/temp-mail/{email}/messages/{messageId}"
+          q: {
+            exist: [
+              "email"
+              "message_id"
+            ]
+          }
+          r: {
+            param: {
+              messageId: "message_id"
+            }
+          }
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "messages"
+            }
+            {
+              var: "message_id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+        {
+          co: {
+            id: "GET /temp-mail/domains"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/temp-mail/domains"
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              lit: "domains"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /temp-mail/{email}/delete"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/temp-mail/{email}/delete"
+          q: {
+            exist: [
+              "email"
+            ]
+          }
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "delete"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -14,7 +14,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
@@ -125,12 +125,8 @@ const client = new TempMailApi2SDK({
   apikey: process.env.TEMP_MAIL_API2_APIKEY,
 })
 
-
-// Load a specific temporaryemail (returns a TemporaryEmail)
-const temporaryemail = await client.TemporaryEmail().load({
-  email: 'example_email',
-  message_id: 'example_message_id',
-})
+// Load temporaryemail data (returns a TemporaryEmail)
+const temporaryemail = await client.TemporaryEmail().load()
 console.log(temporaryemail)
 ```
 
@@ -220,11 +216,8 @@ client := sdk.NewTempMailApi2SDK(map[string]any{
     "apikey": os.Getenv("TEMP_MAIL_API2_APIKEY"),
 })
 
-
-// Load a specific temporaryemail
-temporaryEmail, err := client.TemporaryEmail(nil).Load(
-    map[string]any{"email": "example_email", "message_id": "example_message_id"}, nil,
-)
+// Load temporaryemail data
+temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "example_email", "message_id": "example_message_id"}, nil)
 if err != nil {
     panic(err)
 }
