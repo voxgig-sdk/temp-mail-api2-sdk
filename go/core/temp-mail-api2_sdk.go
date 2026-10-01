@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
@@ -82,6 +83,22 @@ func NewTempMailApi2SDK(options map[string]any) *TempMailApi2SDK {
 	sdk.utility.FeatureHook(sdk.rootctx, "PostConstruct")
 
 	return sdk
+}
+
+// The client holds the credential in its options, so a print or a JSON dump
+// carries the name alone. Value receivers: a dereferenced client prints the
+// same way.
+func (sdk TempMailApi2SDK) String() string {
+	return "TempMailApi2 " + vs.Jsonify(map[string]any{"name": "TempMailApi2"},
+		map[string]any{"indent": 0})
+}
+
+func (sdk TempMailApi2SDK) GoString() string {
+	return sdk.String()
+}
+
+func (sdk TempMailApi2SDK) MarshalJSON() ([]byte, error) {
+	return json.Marshal(map[string]any{"name": "TempMailApi2"})
 }
 
 func (sdk *TempMailApi2SDK) OptionsMap() map[string]any {
@@ -210,7 +227,7 @@ func (sdk *TempMailApi2SDK) rawRequest(fetchargs map[string]any) (map[string]any
 
 	fetchdef, err := sdk.Prepare(fetchargs)
 	if err != nil {
-		return map[string]any{"ok": false, "err": err}, nil
+		return map[string]any{"ok": false, "err": sdk.cleanErr(sdk.rootctx, err)}, nil
 	}
 
 	if fetchargs == nil {
@@ -236,7 +253,7 @@ func (sdk *TempMailApi2SDK) rawRequest(fetchargs map[string]any) (map[string]any
 	fetched, fetchErr := utility.Fetcher(ctx, url, fetchdef)
 
 	if fetchErr != nil {
-		return map[string]any{"ok": false, "err": fetchErr}, nil
+		return map[string]any{"ok": false, "err": sdk.cleanErr(ctx, fetchErr)}, nil
 	}
 
 	if fetched == nil {
@@ -278,6 +295,14 @@ func (sdk *TempMailApi2SDK) rawRequest(fetchargs map[string]any) (map[string]any
 	}
 
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
+}
+
+// A raw request returns its error rather than passing it through MakeError.
+func (sdk *TempMailApi2SDK) cleanErr(ctx *Context, err error) error {
+	if cleaned, ok := sdk.utility.Clean(ctx, err).(error); ok {
+		return cleaned
+	}
+	return err
 }
 
 func (sdk *TempMailApi2SDK) Graphql(

@@ -37,6 +37,8 @@ require_once __DIR__ . '/TransformResponse.php';
 
 TempMailApi2Utility::setRegistrar(function (TempMailApi2Utility $u): void {
     $u->clean = [TempMailApi2Clean::class, 'call'];
+    $u->clean_add = [TempMailApi2Clean::class, 'add'];
+    $u->clean_explain = [TempMailApi2Done::class, 'clean_explain'];
     $u->done = [TempMailApi2Done::class, 'call'];
     $u->make_error = [TempMailApi2MakeError::class, 'call'];
     $u->feature_add = [TempMailApi2FeatureAdd::class, 'call'];

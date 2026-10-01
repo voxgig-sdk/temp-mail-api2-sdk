@@ -378,7 +378,7 @@ class Config {
                                     },
                                     {
                                         "name": "message_id",
-                                        "orig": "message_id",
+                                        "orig": "messageId",
                                         "type": "`$STRING`",
                                         "kind": "param",
                                         "reqd": true

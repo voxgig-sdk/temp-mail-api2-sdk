@@ -265,7 +265,7 @@ main: kit: entity: temporary_email: {
               {
                 k: "param"
                 n: "message_id"
-                or: "message_id"
+                or: "messageId"
                 r: true
                 t: "`$STRING`"
               }
