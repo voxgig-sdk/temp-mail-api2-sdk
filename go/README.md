@@ -16,7 +16,7 @@ go get github.com/voxgig-sdk/temp-mail-api2-sdk/go@latest
 ```
 
 The Go module proxy resolves the version from the `go/vX.Y.Z` GitHub
-release tag — see [Releases](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases) for the available versions.
+release tag — see [Tags](https://github.com/voxgig-sdk/temp-mail-api2-sdk/tags) for the available versions.
 
 To vendor from a local checkout instead, clone this repo alongside your
 project and add a `replace` directive pointing at the checked-out
@@ -30,14 +30,15 @@ go mod edit -replace github.com/voxgig-sdk/temp-mail-api2-sdk/go=../temp-mail-ap
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-API-Key` header.
 
 ### Quickstart
 
 A complete program: create a client, then call the entity operations.
-Each operation returns `(value, error)` — the value is the data itself
-(there is no `{ok, data}` wrapper), so check `err` and use the value
-directly.
+Each operation returns `(value, error)` — the value is the entity, and for
+`List` a `[]any` of entities, one per record (there is no `{ok, data}`
+wrapper), so check `err` and read a record through the entity's
+`Data()`.
 
 ```go
 package main
@@ -53,26 +54,26 @@ func main() {
         "apikey": os.Getenv("TEMP_MAIL_API2_APIKEY"),
     })
 
-    // Load a single temporaryEmail — the value is the loaded record.
+    // Load a single temporaryEmail — the value is the entity; Data() reads its record.
     temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "example_email", "message_id": "example_message_id"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(temporaryEmail)
+    fmt.Println(temporaryEmail.(sdk.Entity).Data())
 
     // Create a temporaryEmail.
-    created, err := client.TemporaryEmail(nil).Create(map[string]any{"attachments": []any{}, "body": "example_body"}, nil)
+    created, err := client.TemporaryEmail(nil).Create(map[string]any{"customDomain": "example_customDomain", "prefix": "example_prefix"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(created)
+    fmt.Println(created.(sdk.Entity).Data())
 
     // Remove a temporaryEmail.
     removed, err := client.TemporaryEmail(nil).Remove(map[string]any{"email": "example_email"}, nil)
     if err != nil {
         panic(err)
     }
-    fmt.Println(removed)
+    fmt.Println(removed.(sdk.Entity).Data())
 }
 ```
 
@@ -158,7 +159,7 @@ temporaryEmail, err := client.TemporaryEmail(nil).Load(
 if err != nil {
     panic(err)
 }
-fmt.Println(temporaryEmail) // the returned mock data
+fmt.Println(temporaryEmail.(sdk.Entity).Data()) // the entity's mock record
 ```
 
 ### Use a custom fetch function
@@ -245,9 +246,9 @@ All entities implement the `TempMailApi2Entity` interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria. |
-| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity. |
-| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity. |
+| `Load` | `(reqmatch, ctrl map[string]any) (any, error)` | Load a single entity by match criteria, and return it. |
+| `Create` | `(reqdata, ctrl map[string]any) (any, error)` | Create a new entity, and return it. |
+| `Remove` | `(reqmatch, ctrl map[string]any) (any, error)` | Remove an entity, and return it marked as deleted. |
 | `Data` | `(args ...any) any` | Get or set entity data. |
 | `Match` | `(args ...any) any` | Get or set entity match criteria. |
 | `Make` | `() Entity` | Create a new instance with the same options. |
@@ -255,20 +256,20 @@ All entities implement the `TempMailApi2Entity` interface.
 
 ### Result shape
 
-Entity operations return `(value, error)`. The `value` is the
-operation's data **directly** — there is no wrapper:
+Entity operations return `(value, error)`. The `value` is the entity
+itself — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `Load` / `Create` / `Remove` | the entity record (`map[string]any`) |
+| `Load` / `Create` / `Remove` | the entity, whose `Data()` reads its record (`map[string]any`) |
 
 Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    temporaryEmail, err := client.TemporaryEmail(nil).Load(nil, nil)
+    temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "example", "message_id": "example"}, nil)
     if err != nil { /* handle */ }
-    // temporaryEmail is the returned record
+    // temporaryEmail is the entity; temporaryEmail.(sdk.Entity).Data() reads its record
 
 Only `Direct()` returns a response envelope — a `map[string]any` with
 `"ok"`, `"status"`, `"headers"`, and `"data"` keys.
@@ -353,7 +354,7 @@ temporaryEmail, err := client.TemporaryEmail(nil).Load(map[string]any{"email": "
 if err != nil {
     panic(err)
 }
-fmt.Println(temporaryEmail) // the loaded record
+fmt.Println(temporaryEmail.(sdk.Entity).Data()) // the loaded entity's record
 ```
 
 #### Example: Create
@@ -364,7 +365,7 @@ result, err := client.TemporaryEmail(nil).Create(map[string]any{
 if err != nil {
     panic(err)
 }
-fmt.Println(result)
+fmt.Println(result.(sdk.Entity).Data()) // the created entity's record
 ```
 
 ## Features
@@ -501,7 +502,9 @@ The Go SDK uses `map[string]any` throughout rather than typed structs.
 This mirrors the dynamic nature of the API and keeps the SDK
 flexible — no code generation is needed when the API schema changes.
 
-Use `core.ToMapAny()` to safely cast results and nested data.
+An operation returns the entity, and its `Data()` returns the record. Use
+`core.ToMapAny()` to safely cast that record, or data nested in it, to
+`map[string]any`: it returns `nil` for anything else, an entity included.
 
 ### Package structure
 

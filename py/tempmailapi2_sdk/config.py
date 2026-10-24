@@ -96,6 +96,7 @@ def make_config():
         },
         "optspec": {
           "clearTimer": "`$FUNCTION`",
+          "now": "`$FUNCTION`",
           "setTimer": "`$FUNCTION`",
         },
         "strict": False,
@@ -275,6 +276,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -282,67 +287,6 @@ def make_config():
             "input": "data",
             "name": "load",
             "points": [
-              {
-                "kind": "http",
-                "method": "GET",
-                "orig": "/temp-mail/{email}/inbox",
-                "segments": [
-                  {
-                    "lit": "temp-mail",
-                  },
-                  {
-                    "var": "email",
-                  },
-                  {
-                    "lit": "inbox",
-                  },
-                ],
-                "parts": [
-                  "temp-mail",
-                  "{email}",
-                  "inbox",
-                ],
-                "rename": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.data`",
-                },
-                "args": {
-                  "params": [
-                    {
-                      "name": "email",
-                      "orig": "email",
-                      "type": "`$STRING`",
-                      "kind": "param",
-                      "reqd": True,
-                      "example": "user123@tempmail.boomlify.com",
-                    },
-                  ],
-                  "query": [
-                    {
-                      "name": "limit",
-                      "orig": "limit",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                      "example": 20,
-                    },
-                    {
-                      "name": "offset",
-                      "orig": "offset",
-                      "type": "`$INTEGER`",
-                      "kind": "query",
-                      "example": 0,
-                    },
-                  ],
-                },
-                "select": {
-                  "exist": [
-                    "email",
-                    "limit",
-                    "offset",
-                  ],
-                },
-              },
               {
                 "kind": "http",
                 "method": "GET",
@@ -400,6 +344,73 @@ def make_config():
                     "message_id",
                   ],
                 },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
+              },
+              {
+                "kind": "http",
+                "method": "GET",
+                "orig": "/temp-mail/{email}/inbox",
+                "segments": [
+                  {
+                    "lit": "temp-mail",
+                  },
+                  {
+                    "var": "email",
+                  },
+                  {
+                    "lit": "inbox",
+                  },
+                ],
+                "parts": [
+                  "temp-mail",
+                  "{email}",
+                  "inbox",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.data`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "email",
+                      "orig": "email",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "user123@tempmail.boomlify.com",
+                    },
+                  ],
+                  "query": [
+                    {
+                      "name": "limit",
+                      "orig": "limit",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 20,
+                    },
+                    {
+                      "name": "offset",
+                      "orig": "offset",
+                      "type": "`$INTEGER`",
+                      "kind": "query",
+                      "example": 0,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "email",
+                  ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
               {
                 "kind": "http",
@@ -424,6 +435,10 @@ def make_config():
                 },
                 "args": {},
                 "select": {},
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
+                },
               },
             ],
           },
@@ -471,6 +486,10 @@ def make_config():
                   "exist": [
                     "email",
                   ],
+                },
+                "response": {
+                  "kind": "json",
+                  "media": "application/json",
                 },
               },
             ],

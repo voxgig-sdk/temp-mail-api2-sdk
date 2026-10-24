@@ -161,6 +161,11 @@ main: kit: entity: temporary_email: {
       name: "create"
       points: [
         {
+          bf: [
+            "customDomain"
+            "prefix"
+            "validityPeriod"
+          ]
           co: {
             id: "POST /temp-mail/generate"
             source: "openapi3"
@@ -168,6 +173,10 @@ main: kit: entity: temporary_email: {
           }
           m: "POST"
           o: "/temp-mail/generate"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "temp-mail"
@@ -186,6 +195,66 @@ main: kit: entity: temporary_email: {
     load: {
       name: "load"
       points: [
+        {
+          co: {
+            id: "GET /temp-mail/{email}/messages/{messageId}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "email"
+                or: "email"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "message_id"
+                or: "messageId"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/temp-mail/{email}/messages/{messageId}"
+          q: {
+            exist: [
+              "email"
+              "message_id"
+            ]
+          }
+          r: {
+            param: {
+              messageId: "message_id"
+            }
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
+          s: [
+            {
+              lit: "temp-mail"
+            }
+            {
+              var: "email"
+            }
+            {
+              lit: "messages"
+            }
+            {
+              var: "message_id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.data`"
+          }
+        }
         {
           co: {
             id: "GET /temp-mail/{email}/inbox"
@@ -227,9 +296,11 @@ main: kit: entity: temporary_email: {
           q: {
             exist: [
               "email"
-              "limit"
-              "offset"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {
@@ -249,68 +320,16 @@ main: kit: entity: temporary_email: {
         }
         {
           co: {
-            id: "GET /temp-mail/{email}/messages/{messageId}"
-            source: "openapi3"
-            version: 2
-          }
-          g: {
-            params: [
-              {
-                k: "param"
-                n: "email"
-                or: "email"
-                r: true
-                t: "`$STRING`"
-              }
-              {
-                k: "param"
-                n: "message_id"
-                or: "messageId"
-                r: true
-                t: "`$STRING`"
-              }
-            ]
-          }
-          m: "GET"
-          o: "/temp-mail/{email}/messages/{messageId}"
-          q: {
-            exist: [
-              "email"
-              "message_id"
-            ]
-          }
-          r: {
-            param: {
-              messageId: "message_id"
-            }
-          }
-          s: [
-            {
-              lit: "temp-mail"
-            }
-            {
-              var: "email"
-            }
-            {
-              lit: "messages"
-            }
-            {
-              var: "message_id"
-            }
-          ]
-          t: {
-            req: "`reqdata`"
-            res: "`body.data`"
-          }
-        }
-        {
-          co: {
             id: "GET /temp-mail/domains"
             source: "openapi3"
             version: 2
           }
           m: "GET"
           o: "/temp-mail/domains"
+          rs: {
+            kind: "json"
+            media: "application/json"
+          }
           s: [
             {
               lit: "temp-mail"
@@ -352,6 +371,10 @@ main: kit: entity: temporary_email: {
             exist: [
               "email"
             ]
+          }
+          rs: {
+            kind: "json"
+            media: "application/json"
           }
           s: [
             {

@@ -71,6 +71,7 @@ func MakeConfig() map[string]any {
 				},
 				"optspec": map[string]any{
 					"clearTimer": "`$FUNCTION`",
+					"now": "`$FUNCTION`",
 					"setTimer": "`$FUNCTION`",
 				},
 				"strict": false,
@@ -250,6 +251,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -257,67 +262,6 @@ func MakeConfig() map[string]any {
 						"input": "data",
 						"name": "load",
 						"points": []any{
-							map[string]any{
-								"kind": "http",
-								"method": "GET",
-								"orig": "/temp-mail/{email}/inbox",
-								"segments": []any{
-									map[string]any{
-										"lit": "temp-mail",
-									},
-									map[string]any{
-										"var": "email",
-									},
-									map[string]any{
-										"lit": "inbox",
-									},
-								},
-								"parts": []any{
-									"temp-mail",
-									"{email}",
-									"inbox",
-								},
-								"rename": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.data`",
-								},
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"name": "email",
-											"orig": "email",
-											"type": "`$STRING`",
-											"kind": "param",
-											"reqd": true,
-											"example": "user123@tempmail.boomlify.com",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"name": "limit",
-											"orig": "limit",
-											"type": "`$INTEGER`",
-											"kind": "query",
-											"example": 20,
-										},
-										map[string]any{
-											"name": "offset",
-											"orig": "offset",
-											"type": "`$INTEGER`",
-											"kind": "query",
-											"example": 0,
-										},
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"email",
-										"limit",
-										"offset",
-									},
-								},
-							},
 							map[string]any{
 								"kind": "http",
 								"method": "GET",
@@ -375,6 +319,73 @@ func MakeConfig() map[string]any {
 										"message_id",
 									},
 								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
+							},
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/temp-mail/{email}/inbox",
+								"segments": []any{
+									map[string]any{
+										"lit": "temp-mail",
+									},
+									map[string]any{
+										"var": "email",
+									},
+									map[string]any{
+										"lit": "inbox",
+									},
+								},
+								"parts": []any{
+									"temp-mail",
+									"{email}",
+									"inbox",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.data`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "email",
+											"orig": "email",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "user123@tempmail.boomlify.com",
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "limit",
+											"orig": "limit",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 20,
+										},
+										map[string]any{
+											"name": "offset",
+											"orig": "offset",
+											"type": "`$INTEGER`",
+											"kind": "query",
+											"example": 0,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"email",
+									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 							map[string]any{
 								"kind": "http",
@@ -399,6 +410,10 @@ func MakeConfig() map[string]any {
 								},
 								"args": map[string]any{},
 								"select": map[string]any{},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
+								},
 							},
 						},
 					},
@@ -446,6 +461,10 @@ func MakeConfig() map[string]any {
 									"exist": []any{
 										"email",
 									},
+								},
+								"response": map[string]any{
+									"kind": "json",
+									"media": "application/json",
 								},
 							},
 						},

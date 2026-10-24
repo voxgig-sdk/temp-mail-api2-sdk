@@ -10,6 +10,17 @@ main: {
       }
       description: "Generate millions of temp mail from boomlify. A free temporary email service that allows you to create disposable email addresses instantly with custom domain support, extended validity (2+ months), and professional business email solutions."
       security: {
+        alternatives: [
+          [
+            {
+              in: "header"
+              name: "Authorization"
+              prefix: "Bearer"
+              scheme: "BearerAuth"
+              type: "http"
+            }
+          ]
+        ]
         in: "header"
         name: "X-API-Key"
         prefix: ""

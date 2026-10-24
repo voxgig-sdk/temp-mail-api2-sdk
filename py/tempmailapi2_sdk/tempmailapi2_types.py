@@ -16,26 +16,28 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class TemporaryEmail(TypedDict, total=False):
-    attachments: list
-    body: str
-    customDomain: str
-    customDomainAvailable: bool
-    domains: list
-    email: str
-    expiresAt: str
-    htmlBody: str
-    id: str
-    inboxUrl: str
-    isRead: bool
-    messages: list
-    prefix: str
-    receivedAt: str
-    subject: str
-    to: str
-    token: str
-    total: int
-    validityPeriod: int
+TemporaryEmail = TypedDict('TemporaryEmail', {
+    "attachments": list,
+    "body": str,
+    "customDomain": str,
+    "customDomainAvailable": bool,
+    "domains": list,
+    "email": str,
+    "expiresAt": str,
+    "from": str,
+    "htmlBody": str,
+    "id": str,
+    "inboxUrl": str,
+    "isRead": bool,
+    "messages": list,
+    "prefix": str,
+    "receivedAt": str,
+    "subject": str,
+    "to": str,
+    "token": str,
+    "total": int,
+    "validityPeriod": int,
+}, total=False)
 
 
 class TemporaryEmailLoadMatch(TypedDict):
@@ -44,24 +46,8 @@ class TemporaryEmailLoadMatch(TypedDict):
 
 
 class TemporaryEmailCreateData(TypedDict, total=False):
-    attachments: list
-    body: str
     customDomain: str
-    customDomainAvailable: bool
-    domains: list
-    email: str
-    expiresAt: str
-    htmlBody: str
-    id: str
-    inboxUrl: str
-    isRead: bool
-    messages: list
     prefix: str
-    receivedAt: str
-    subject: str
-    to: str
-    token: str
-    total: int
     validityPeriod: int
 
 

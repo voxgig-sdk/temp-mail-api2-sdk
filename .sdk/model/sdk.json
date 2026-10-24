@@ -273,6 +273,11 @@
               "points": [
                 {
                   "a": true,
+                  "bf": [
+                    "customDomain",
+                    "prefix",
+                    "validityPeriod"
+                  ],
                   "co": {
                     "id": "POST /temp-mail/generate",
                     "source": "openapi3",
@@ -284,6 +289,10 @@
                   "o": "/temp-mail/generate",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "temp-mail"
@@ -303,6 +312,70 @@
               "input": "data",
               "name": "load",
               "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /temp-mail/{email}/messages/{messageId}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
+                    "params": [
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "email",
+                        "or": "email",
+                        "r": true,
+                        "t": "`$STRING`"
+                      },
+                      {
+                        "a": true,
+                        "k": "param",
+                        "n": "message_id",
+                        "or": "messageId",
+                        "r": true,
+                        "t": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/temp-mail/{email}/messages/{messageId}",
+                  "q": {
+                    "exist": [
+                      "email",
+                      "message_id"
+                    ]
+                  },
+                  "r": {
+                    "param": {
+                      "messageId": "message_id"
+                    }
+                  },
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
+                  "s": [
+                    {
+                      "lit": "temp-mail"
+                    },
+                    {
+                      "var": "email"
+                    },
+                    {
+                      "lit": "messages"
+                    },
+                    {
+                      "var": "message_id"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body.data`"
+                  }
+                },
                 {
                   "a": true,
                   "co": {
@@ -348,12 +421,14 @@
                   "o": "/temp-mail/{email}/inbox",
                   "q": {
                     "exist": [
-                      "email",
-                      "limit",
-                      "offset"
+                      "email"
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "temp-mail"
@@ -363,66 +438,6 @@
                     },
                     {
                       "lit": "inbox"
-                    }
-                  ],
-                  "t": {
-                    "req": "`reqdata`",
-                    "res": "`body.data`"
-                  }
-                },
-                {
-                  "a": true,
-                  "co": {
-                    "id": "GET /temp-mail/{email}/messages/{messageId}",
-                    "source": "openapi3",
-                    "version": 2
-                  },
-                  "g": {
-                    "params": [
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "email",
-                        "or": "email",
-                        "r": true,
-                        "t": "`$STRING`"
-                      },
-                      {
-                        "a": true,
-                        "k": "param",
-                        "n": "message_id",
-                        "or": "messageId",
-                        "r": true,
-                        "t": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "k": "http",
-                  "m": "GET",
-                  "o": "/temp-mail/{email}/messages/{messageId}",
-                  "q": {
-                    "exist": [
-                      "email",
-                      "message_id"
-                    ]
-                  },
-                  "r": {
-                    "param": {
-                      "messageId": "message_id"
-                    }
-                  },
-                  "s": [
-                    {
-                      "lit": "temp-mail"
-                    },
-                    {
-                      "var": "email"
-                    },
-                    {
-                      "lit": "messages"
-                    },
-                    {
-                      "var": "message_id"
                     }
                   ],
                   "t": {
@@ -443,6 +458,10 @@
                   "o": "/temp-mail/domains",
                   "q": {},
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "temp-mail"
@@ -490,6 +509,10 @@
                     ]
                   },
                   "r": {},
+                  "rs": {
+                    "kind": "json",
+                    "media": "application/json"
+                  },
                   "s": [
                     {
                       "lit": "temp-mail"
@@ -836,6 +859,7 @@
             },
             "optspec": {
               "clearTimer": "`$FUNCTION`",
+              "now": "`$FUNCTION`",
               "setTimer": "`$FUNCTION`"
             },
             "strict": false
@@ -991,6 +1015,17 @@
         "description": "Generate millions of temp mail from boomlify. A free temporary email service that allows you to create disposable email addresses instantly with custom domain support, extended validity (2+ months), and professional business email solutions.",
         "meta_source": "https://www.freepublicapis.com",
         "security": {
+          "alternatives": [
+            [
+              {
+                "in": "header",
+                "name": "Authorization",
+                "prefix": "Bearer",
+                "scheme": "BearerAuth",
+                "type": "http"
+              }
+            ]
+          ],
           "in": "header",
           "name": "X-API-Key",
           "prefix": "",
@@ -1013,7 +1048,7 @@
       "optspec": {
         "allow": {
           "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
-          "op": "create,update,load,list,remove,command,direct,graphql"
+          "op": "create,update,patch,load,list,remove,command,direct,graphql"
         },
         "apikey": "",
         "auth": {
@@ -1066,6 +1101,11 @@
         "top": {
           "active": true
         }
+      },
+      "publisher": {
+        "name": "",
+        "security": "",
+        "url": ""
       },
       "repo": {
         "host": "github.com",
@@ -1296,7 +1336,10 @@
             "version": "0.0.1"
           },
           "superseded": [],
-          "title": "Go MCP server"
+          "title": "Go MCP server",
+          "tool": {
+            "write": false
+          }
         },
         "lua": {
           "active": true,
@@ -1673,6 +1716,17 @@
           "base": "",
           "strict": true
         }
+      },
+      "text": {
+        "about_md": "",
+        "docs_url": "",
+        "entity_desc": {},
+        "homepage": "",
+        "meta_source": "",
+        "summary": "",
+        "tagline": "",
+        "title": "",
+        "website": ""
       }
     }
   },

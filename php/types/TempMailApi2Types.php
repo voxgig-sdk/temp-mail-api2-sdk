@@ -47,25 +47,8 @@ class TemporaryEmailLoadMatch
 /** Request payload for TemporaryEmail#create. */
 class TemporaryEmailCreateData
 {
-    public ?array $attachments = null;
-    public ?string $body = null;
     public ?string $customDomain = null;
-    public ?bool $customDomainAvailable = null;
-    public ?array $domains = null;
-    public ?string $email = null;
-    public ?string $expiresAt = null;
-    public ?string $from = null;
-    public ?string $htmlBody = null;
-    public ?string $id = null;
-    public ?string $inboxUrl = null;
-    public ?bool $isRead = null;
-    public ?array $messages = null;
     public ?string $prefix = null;
-    public ?string $receivedAt = null;
-    public ?string $subject = null;
-    public ?string $to = null;
-    public ?string $token = null;
-    public ?int $total = null;
     public ?int $validityPeriod = null;
 }
 

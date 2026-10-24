@@ -93,6 +93,7 @@ class TempMailApi2Config
           ],
           'optspec' => [
             'clearTimer' => '`$FUNCTION`',
+            'now' => '`$FUNCTION`',
             'setTimer' => '`$FUNCTION`',
           ],
           'strict' => false,
@@ -272,6 +273,10 @@ class TempMailApi2Config
                   ],
                   'args' => [],
                   'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
                 ],
               ],
             ],
@@ -279,67 +284,6 @@ class TempMailApi2Config
               'input' => 'data',
               'name' => 'load',
               'points' => [
-                [
-                  'kind' => 'http',
-                  'method' => 'GET',
-                  'orig' => '/temp-mail/{email}/inbox',
-                  'segments' => [
-                    [
-                      'lit' => 'temp-mail',
-                    ],
-                    [
-                      'var' => 'email',
-                    ],
-                    [
-                      'lit' => 'inbox',
-                    ],
-                  ],
-                  'parts' => [
-                    'temp-mail',
-                    '{email}',
-                    'inbox',
-                  ],
-                  'rename' => [],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body.data`',
-                  ],
-                  'args' => [
-                    'params' => [
-                      [
-                        'name' => 'email',
-                        'orig' => 'email',
-                        'type' => '`$STRING`',
-                        'kind' => 'param',
-                        'reqd' => true,
-                        'example' => 'user123@tempmail.boomlify.com',
-                      ],
-                    ],
-                    'query' => [
-                      [
-                        'name' => 'limit',
-                        'orig' => 'limit',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'query',
-                        'example' => 20,
-                      ],
-                      [
-                        'name' => 'offset',
-                        'orig' => 'offset',
-                        'type' => '`$INTEGER`',
-                        'kind' => 'query',
-                        'example' => 0,
-                      ],
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'email',
-                      'limit',
-                      'offset',
-                    ],
-                  ],
-                ],
                 [
                   'kind' => 'http',
                   'method' => 'GET',
@@ -397,6 +341,73 @@ class TempMailApi2Config
                       'message_id',
                     ],
                   ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
+                ],
+                [
+                  'kind' => 'http',
+                  'method' => 'GET',
+                  'orig' => '/temp-mail/{email}/inbox',
+                  'segments' => [
+                    [
+                      'lit' => 'temp-mail',
+                    ],
+                    [
+                      'var' => 'email',
+                    ],
+                    [
+                      'lit' => 'inbox',
+                    ],
+                  ],
+                  'parts' => [
+                    'temp-mail',
+                    '{email}',
+                    'inbox',
+                  ],
+                  'rename' => [],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body.data`',
+                  ],
+                  'args' => [
+                    'params' => [
+                      [
+                        'name' => 'email',
+                        'orig' => 'email',
+                        'type' => '`$STRING`',
+                        'kind' => 'param',
+                        'reqd' => true,
+                        'example' => 'user123@tempmail.boomlify.com',
+                      ],
+                    ],
+                    'query' => [
+                      [
+                        'name' => 'limit',
+                        'orig' => 'limit',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                        'example' => 20,
+                      ],
+                      [
+                        'name' => 'offset',
+                        'orig' => 'offset',
+                        'type' => '`$INTEGER`',
+                        'kind' => 'query',
+                        'example' => 0,
+                      ],
+                    ],
+                  ],
+                  'select' => [
+                    'exist' => [
+                      'email',
+                    ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
                 ],
                 [
                   'kind' => 'http',
@@ -421,6 +432,10 @@ class TempMailApi2Config
                   ],
                   'args' => [],
                   'select' => [],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
+                  ],
                 ],
               ],
             ],
@@ -468,6 +483,10 @@ class TempMailApi2Config
                     'exist' => [
                       'email',
                     ],
+                  ],
+                  'response' => [
+                    'kind' => 'json',
+                    'media' => 'application/json',
                   ],
                 ],
               ],

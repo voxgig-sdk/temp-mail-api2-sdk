@@ -116,7 +116,7 @@ local temporary_email = client:TemporaryEmail(nil)
 
 #### `create(reqdata, ctrl) -> any, err`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:TemporaryEmail():create({
@@ -125,7 +125,7 @@ local result, err = client:TemporaryEmail():create({
 
 #### `load(reqmatch, ctrl) -> any, err`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity, whose record `data_get()` reads, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:TemporaryEmail():load({ email = "email", message_id = "message_id" })
@@ -133,7 +133,7 @@ local result, err = client:TemporaryEmail():load({ email = "email", message_id =
 
 #### `remove(reqmatch, ctrl) -> any, err`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Returns the entity, marked as deleted, or `nil` and an error on failure.
 
 ```lua
 local result, err = client:TemporaryEmail():remove({ email = "email" })
@@ -326,6 +326,7 @@ Timeout.
 | Option | Type |
 |---|---|
 | `clearTimer` | function |
+| `now` | function |
 | `setTimer` | function |
 
 These take no default: the feature behaves one way when you supply them and

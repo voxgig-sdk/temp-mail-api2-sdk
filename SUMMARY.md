@@ -14,7 +14,7 @@ An entity groups related API operations. An operation can have several routes wi
 
 ### TemporaryEmail
 
-Results: Temporary email address generated successfully; Inbox messages retrieved successfully; Message retrieved successfully; Available domains retrieved successfully; Email deleted successfully.
+Results: Temporary email address generated successfully; Message retrieved successfully; Inbox messages retrieved successfully; Available domains retrieved successfully; Email deleted successfully.
 
 SDK operations: `create`, `load`, `remove`.
 
@@ -33,8 +33,8 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 | Entity | SDK operation | HTTP route | Authentication |
 | --- | --- | --- | --- |
 | TemporaryEmail | `create` | `POST /temp-mail/generate` | Not required |
-| TemporaryEmail | `load` | `GET /temp-mail/{email}/inbox` | Required |
 | TemporaryEmail | `load` | `GET /temp-mail/{email}/messages/{messageId}` | Required |
+| TemporaryEmail | `load` | `GET /temp-mail/{email}/inbox` | Required |
 | TemporaryEmail | `load` | `GET /temp-mail/domains` | Not required |
 | TemporaryEmail | `remove` | `DELETE /temp-mail/{email}/delete` | Required |
 

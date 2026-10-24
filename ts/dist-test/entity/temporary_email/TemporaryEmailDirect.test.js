@@ -29,33 +29,32 @@ const utility_1 = require("../../utility");
         const setup = directSetup({ id: 'direct01' });
         if ((0, utility_1.maybeSkipControl)(t, 'direct', 'direct-load-temporary_email', setup.live))
             return;
+        if ((0, utility_1.skipIfMissingIds)(t, setup, ["email01", "message01"], LIVE_STRICT))
+            return;
         const { client, calls } = setup;
         const params = {};
         const query = {};
         if (setup.live) {
-            params.email = "user123@tempmail.boomlify.com";
+            params.email = setup.idmap['email01'];
+            params.message_id = setup.idmap['message01'];
         }
         else {
             params.email = 'direct01';
+            params.message_id = 'direct02';
         }
         const result = await client.direct({
-            path: 'temp-mail/{email}/inbox',
+            path: 'temp-mail/{email}/messages/{message_id}',
             method: 'GET',
             params,
             query,
         });
         if (setup.live) {
-            // STRICT live mode: a non-2xx is a real failure - this project owns
-            // the server it points at, so there is nothing to be lenient about.
-            //
-            // What is NOT asserted here is the MOCK's own fixtures. `direct01`
-            // is a scripted id and `calls` records the mock transport; neither
-            // exists on a live run, so asserting them made strict mode mean
-            // "compare the live server against the mock's script" - a suite that
-            // could not pass against any real API, including this project's own.
-            (0, node_assert_1.default)(result.ok === true, 'Live request failed: HTTP ' + result.status);
-            (0, node_assert_1.default)(result.status >= 200 && result.status < 300);
-            (0, node_assert_1.default)(null != result.data);
+            if (!result.ok || result.status < 200 || result.status >= 300) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load failed: ' + (0, utility_1.describeLive)(result));
+            }
+            if (!(null != result.data)) {
+                return void (0, utility_1.liveMiss)(t, LIVE_STRICT, 'Live load returned no data: ' + (0, utility_1.describeLive)(result));
+            }
         }
         else {
             (0, node_assert_1.default)(result.ok === true);
@@ -65,9 +64,15 @@ const utility_1 = require("../../utility");
             (0, node_assert_1.default)(calls.length === 1);
             (0, node_assert_1.default)(calls[0].init.method === 'GET');
             (0, node_assert_1.default)(calls[0].url.includes('direct01'));
+            (0, node_assert_1.default)(calls[0].url.includes('direct02'));
         }
     });
 });
+// main.kit.test.live.strict is true (the default is true): a live
+// request that fails, or a live test missing an input it needs,
+// fails the test.
+// An account with no record for a test to read skips it either way.
+const LIVE_STRICT = true;
 function liveScenariosActive() { return false && process.env.TEMP_MAIL_API2_TEST_LIVE === 'TRUE'; }
 function directSetup(mockres) {
     const calls = [];

@@ -103,12 +103,12 @@
       "version": 2,
       "source": "openapi3"
     },
-    "GET /temp-mail/{email}/inbox": {
+    "GET /temp-mail/{email}/messages/{messageId}": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"
     },
-    "GET /temp-mail/{email}/messages/{messageId}": {
+    "GET /temp-mail/{email}/inbox": {
       "provenance": "operation-contract",
       "version": 2,
       "source": "openapi3"

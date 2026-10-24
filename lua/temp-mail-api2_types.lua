@@ -33,25 +33,8 @@
 ---@field message_id string
 
 ---@class TemporaryEmailCreateData
----@field attachments? table
----@field body? string
 ---@field customDomain? string
----@field customDomainAvailable? boolean
----@field domains? table
----@field email? string
----@field expiresAt? string
----@field from? string
----@field htmlBody? string
----@field id? string
----@field inboxUrl? string
----@field isRead? boolean
----@field messages? table
 ---@field prefix? string
----@field receivedAt? string
----@field subject? string
----@field to? string
----@field token? string
----@field total? number
 ---@field validityPeriod? number
 
 ---@class TemporaryEmailRemoveMatch

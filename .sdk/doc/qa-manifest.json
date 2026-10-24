@@ -3,5 +3,23 @@
     "SUMMARY.md"
   ],
   "config": ".sdk/doc/qa/vale.ini",
-  "routes": {}
+  "routes": {},
+  "quoted": {
+    "SUMMARY.md": [
+      "API key for authentication",
+      "Available domains retrieved successfully",
+      "Custom domain for professional temporary email",
+      "Email body content",
+      "Email deleted successfully",
+      "Expiration date of the temporary email",
+      "Generate millions of temp mail from boomlify. A free temporary email service that allows you to create disposable email addresses instantly with custom domain support, extended validity (2+ months), and professional business email solutions.",
+      "Generated temporary email address",
+      "Inbox messages retrieved successfully",
+      "JWT token obtained when generating a temporary email",
+      "Message retrieved successfully",
+      "Production server",
+      "Temporary email address generated successfully",
+      "Whether custom domains are supported"
+    ]
+  }
 }

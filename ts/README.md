@@ -15,7 +15,7 @@ predictable and low-friction for both humans and AI agents.
 
 ## Install
 This package is not yet published to npm. Install it from the GitHub
-release tag (`ts/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/temp-mail-api2-sdk/releases)), or from a
+release tag (`ts/vX.Y.Z`, see [Tags](https://github.com/voxgig-sdk/temp-mail-api2-sdk/tags)), or from a
 clone, which carries the compiled `dist/`:
 
 ```bash
@@ -27,7 +27,7 @@ npm install ./temp-mail-api2-sdk/ts
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
-loading a specific record.
+loading a specific record. The client sends the API key in the `X-API-Key` header.
 
 ### 1. Create a client
 
@@ -41,12 +41,12 @@ const client = new TempMailApi2SDK({
 
 ### 3. Load a temporaryemail
 
-`load()` returns the entity directly and throws on failure:
+`load()` returns the entity and throws on failure; `.data()` reads its record:
 
 ```ts
 try {
   const temporaryemail = await client.TemporaryEmail().load({ email: 'example_email', message_id: 'example_message_id' })
-  console.log(temporaryemail)
+  console.log(temporaryemail.data())
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -57,8 +57,8 @@ try {
 ```ts
 // Create — returns the created TemporaryEmail ENTITY (.data() for the record)
 const created = await client.TemporaryEmail().create({
-  attachments: [],
-  body: 'example_body',
+  customDomain: 'example_customDomain',
+  prefix: 'example_prefix',
 })
 
 // Remove
@@ -75,14 +75,15 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 ```ts
 try {
   const temporaryemail = await client.TemporaryEmail().load({ email: "example", message_id: "example" })
-  console.log(temporaryemail)
+  console.log(temporaryemail.data())
 } catch (err) {
   console.error('load failed:', err)
 }
 ```
 
 The low-level `direct()` method does **not** throw — it returns the
-value or an `Error`, so check the result before using it:
+result envelope. Branch on `ok`; on failure `status` holds the HTTP status
+(for error responses) and `err` holds the error:
 
 ```ts
 const result = await client.direct({
@@ -91,8 +92,8 @@ const result = await client.direct({
   params: { id: 'example_id' },
 })
 
-if (result instanceof Error) {
-  throw result
+if (!result.ok) {
+  console.error('request failed:', result.status, result.err)
 }
 ```
 
@@ -110,9 +111,6 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
-if (result instanceof Error) {
-  throw result
-}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -142,9 +140,8 @@ Create a mock client for unit testing — no server required:
 const client = TempMailApi2SDK.test()
 
 const temporaryemail = await client.TemporaryEmail().load({ email: 'example_email', message_id: 'example_message_id' })
-// temporaryemail is the entity, populated with mock response data
-// — call temporaryemail.data() for the record itself
-console.log(temporaryemail)
+// temporaryemail is the TemporaryEmail entity; .data() reads its mock record
+console.log(temporaryemail.data())
 ```
 
 You can also use the instance method:
@@ -263,9 +260,9 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria, and return it. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity, and return it. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<Entity>` | Remove an entity, and return it marked as deleted. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -274,11 +271,11 @@ All entities share the same interface.
 
 #### Return values
 
-Entity operations resolve to the entity data directly — there is no
-result envelope:
+Entity operations resolve to the entity itself — there is no result
+envelope, and an entity's `data()` reads its record:
 
 - `load` and `create` resolve to a single entity object.
-- `remove` resolves to `void`.
+- `remove` resolves to the entity, marked as deleted.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
